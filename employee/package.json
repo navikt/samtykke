@@ -1,5 +1,5 @@
 {
-  "name": "ds-nav-react-ts",
+  "name": "employee",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,10 +7,11 @@
     "dev": "concurrently \"npm run dev:css\" \"vite\"",
     "build": "npm run build:css && tsc && vite build",
     "preview": "vite preview",
-    "build:css": "tailwindcss -m -i ./src/main.css -o ./src/styles/app.css",
-    "dev:css": "tailwindcss -w -i ./src/main.css -o ./src/styles/app.css"
+    "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
+    "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.13",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "path": "^0.12.7",
