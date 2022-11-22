@@ -9,7 +9,7 @@ import { worker } from './mocks/browser'
 
 let appReady
 
-if (import.meta.env.VITE_IS_LABS == 'ja') {
+if (import.meta.env.VITE_MOCK_DATA == 'ja') {
     appReady = worker.start({
         serviceWorker: {
             url: '/mockServiceWorker.js'
