@@ -1,8 +1,9 @@
 import { People } from '@navikt/ds-icons'
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react'
-import React, { ReactElement, useState } from 'react'
+import axios from 'axios'
+import React, { ReactElement, useEffect, useState } from 'react'
 import ContentPanel from '../common/ContentPanel'
-import { IConsentPreview } from '../types'
+import { IConsentPreview, IEmployee } from '../types'
 import ConsentPreviews from './components/ConsentPreviews'
 
 const consentPreviews: IConsentPreview[] = [
@@ -15,6 +16,15 @@ export default function Landing(): ReactElement {
 
     const [employeeName, setEmployeeName] = useState<string>('Sabel Kaptein')
     const [activeConsents, setActiveConsent] = useState<IConsentPreview[]>(consentPreviews)
+    
+    const getCurrentEmployee = async () => {
+        const { data }: { data: IEmployee } = await axios.get('/ansatt/api/currentEmployee')
+        setEmployeeName(`${data.firstname} ${data.lastname}`)
+    }
+
+    useEffect(() => {
+        getCurrentEmployee()
+    }, [])
 
     return (
         <div>

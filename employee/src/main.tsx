@@ -5,6 +5,18 @@ import Header from './common/Header'
 import './index.css'
 import '@navikt/ds-css'
 import Landing from './landing/Landing'
+import { worker } from './mocks/browser'
+
+const isLabs = true
+let appReady
+
+if (isLabs) {
+    appReady = worker.start({
+        serviceWorker: {
+            url: '/mockServiceWorker.js'
+        }
+    })
+}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
