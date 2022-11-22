@@ -7,10 +7,9 @@ import '@navikt/ds-css'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
 
-const isLabs = true
 let appReady
 
-if (isLabs) {
+if (import.meta.env.VITE_IS_LABS == 'ja') {
     appReady = worker.start({
         serviceWorker: {
             url: '/mockServiceWorker.js'
