@@ -1,6 +1,6 @@
 import { People } from '@navikt/ds-icons'
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import ContentPanel from '../common/ContentPanel'
 import { IConsent, IEmployee } from '../types'
@@ -9,16 +9,29 @@ import ConsentPreviews from './components/ConsentPreviews'
 export default function Landing(): ReactElement {
 
     const [employeeName, setEmployeeName] = useState<string>()
-    const [activeConsents, setActiveConsent] = useState<IConsent[]>()
     
+    const [activeConsents, setActiveConsent] = useState<IConsent[]>()
+    const [activeConsentsError, setActiveConsentsError] = useState<string>()
+
     const getCurrentEmployee = async () => {
-        const { data }: { data: IEmployee } = await axios.get('/ansatt/api/currentEmployee')
-        setEmployeeName(`${data.firstname} ${data.lastname}`)
+        try {
+            const { data }: { data: IEmployee } = await axios.get('/ansatt/api/currentEmployee')
+            setEmployeeName(`${data.firstname} ${data.lastname}`)
+        } catch (error) {
+            if (error instanceof AxiosError) setEmployeeName('Navn Navnesen')
+        }
     }
 
     const getActiveConsents = async () => {
-        const { data }: { data: IConsent[] } = await axios.get('/ansatt/api/consent/active')
-        setActiveConsent(data)
+        try {
+            const { data }: { data: IConsent[] } = await axios.get('/ansatt/api/consent/active')
+            setActiveConsent(data)
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (error.response?.status === 404) setActiveConsentsError('Du har ingen aktive samtykker...')
+                else setActiveConsentsError('Noe gikk galt i hentingen av aktive samtykker')
+            } 
+        }
     }
 
     useEffect(() => {
@@ -34,10 +47,10 @@ export default function Landing(): ReactElement {
             </div>
             <ContentPanel>
                 <Heading level="2" size="large">Aktive samtykker</Heading>
-                {!activeConsents || activeConsents?.length > 0 ? (
-                    <ConsentPreviews consents={activeConsents}/>
+                {activeConsents && activeConsents!.length > 0 ? (
+                    <ConsentPreviews consents={activeConsents} />
                 ) : (
-                    <BodyShort>Du har ingen aktive samtykker...</BodyShort>
+                    <BodyShort>{activeConsentsError}</BodyShort>
                 )}
                 <div className='flex flex-row justify-end'>
                     <Button variant='primary'>Nytt samtykke</Button>
