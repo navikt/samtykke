@@ -2,10 +2,19 @@ import { People } from '@navikt/ds-icons'
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import ContentPanel from '../common/ContentPanel'
+import { IConsentPreview } from '../types'
+import ConsentPreviews from './components/ConsentPreviews'
+
+const consentPreviews: IConsentPreview[] = [
+    { title: 'Brukertest av NAV.no', code: '1B3-98K'},
+    { title: 'Blikksporingstest av ny AAP løsning', code: '4N9-C29'},
+    { title: 'Videoopptak av Dagpengeløsning', code: '7B4-M32'}
+]
 
 export default function Landing(): ReactElement {
 
     const [employeeName, setEmployeeName] = useState<string>('Sabel Kaptein')
+    const [activeConsents, setActiveConsent] = useState<IConsentPreview[]>(consentPreviews)
 
     return (
         <div>
@@ -15,35 +24,7 @@ export default function Landing(): ReactElement {
             </div>
             <ContentPanel>
                 <Heading level="2" size="large">Aktive samtykker</Heading>
-                <Accordion>
-                    <Accordion.Item>
-                        <Accordion.Header>
-                            Brukertest hos nav
-                        </Accordion.Header>
-                        <Accordion.Content>
-                            <div className='flex flex-row items-center justify-between px-4'>
-                                <BodyShort>Kode: <b>1B3-98K</b></BodyShort>
-                                <Button variant='secondary' size="small">Til samtykke</Button>
-                            </div>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                    <Accordion.Item>
-                        <Accordion.Header>
-                            Brukertest hos nav
-                        </Accordion.Header>
-                        <Accordion.Content>
-                            Masse fint å lese here ja
-                        </Accordion.Content>
-                    </Accordion.Item>
-                    <Accordion.Item>
-                        <Accordion.Header>
-                            Brukertest hos nav
-                        </Accordion.Header>
-                        <Accordion.Content>
-                            Masse fint å lese here ja
-                        </Accordion.Content>
-                    </Accordion.Item>
-                </Accordion>
+                <ConsentPreviews consentPreviews={activeConsents}/>
                 <div className='flex flex-row justify-end'>
                     <Button variant='primary'>Nytt samtykke</Button>
                 </div>
