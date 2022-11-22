@@ -1,11 +1,11 @@
 import { Accordion, BodyShort, Button } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
-import { IConsentPreview } from '../../types'
+import { IConsent } from '../../types'
 
-export default function ConsentPreviews({ consentPreviews }: { consentPreviews: IConsentPreview[]}): ReactElement {
+export default function ConsentPreviews({ consents }: { consents: IConsent[] | undefined}): ReactElement {
     return (
         <Accordion>
-            {consentPreviews.map((item: IConsentPreview, index: number) => {
+            {consents?.map((item: IConsent, index: number) => {
                 return (
                     <Accordion.Item key={index}>
                         <Accordion.Header>{item.title}</Accordion.Header>
