@@ -7,15 +7,11 @@ import '@navikt/ds-css'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
 
-let appReady
-
-if (import.meta.env.VITE_MOCK_DATA == 'ja') {
-    appReady = worker.start({
-        serviceWorker: {
-            url: '/mockServiceWorker.js'
-        }
-    })
-}
+worker.start({
+    serviceWorker: {
+        url: '/ansatt/mockServiceWorker.js'
+    }
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

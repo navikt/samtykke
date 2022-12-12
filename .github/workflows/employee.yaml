@@ -20,6 +20,7 @@ jobs:
         with:
           install: false
           browser: chrome
-          start: yarn dev
-          wait-on: 'http://localhost:5173/ansatt/'
+          build: yarn build
+          start: node server.js
+          wait-on: 'http://localhost:3000/ansatt/'
           working-directory: ./employee
