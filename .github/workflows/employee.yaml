@@ -23,4 +23,4 @@ jobs:
           start: yarn dev
           browser: chrome
           wait-on: 'http://localhost:5173/ansatt/'
-        working-directory: employee
+          working-directory: ./employee
