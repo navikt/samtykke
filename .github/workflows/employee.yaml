@@ -30,7 +30,7 @@ jobs:
           wait-on: 'http://localhost:3000/ansatt/'
           working-directory: ./employee
           env: HOST=http://localhost:3000/ansatt/
-      # Publish build to docker
+      # Publish build to ghcr
       - name: Login to docker
         uses: docker/login-action@v2
         with:
@@ -44,3 +44,11 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
+      # Deploy to NAIS
+      - name: Deploy to labs-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: labs-gcp
+          RESOURCE: .nais/employee/labs.yaml
+          VAR: image=${{ env.DOCKER_IMAGE }}
