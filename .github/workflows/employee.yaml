@@ -24,3 +24,5 @@ jobs:
           start: node server.js
           wait-on: 'http://localhost:3000/ansatt/'
           working-directory: ./employee
+        env:
+          CYPRESS_HOST: 'http://localhost:3000/ansatt/'
