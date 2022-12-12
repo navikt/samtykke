@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
     "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css",
-    "e2e": "cypress open"
+    "e2e": "cypress run"
   },
   "dependencies": {
     "@navikt/ds-tailwind": "^1.5.10",

@@ -30,4 +30,6 @@ src/styles/app.css
 
 .DS_Store
 
-downloads
+/cypress/downloads
+/cypress/videos
+/cypress/screenshots
