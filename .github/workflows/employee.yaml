@@ -17,10 +17,10 @@ jobs:
         working-directory: employee
         run: yarn install
       - uses: cypress-io/github-action@v4
-        working-directory: employee
         with:
           install: false
           command: yarn e2e:run
           start: yarn dev
           browser: chrome
           wait-on: 'http://localhost:5173/ansatt/'
+        working-directory: employee
