@@ -1,12 +1,12 @@
 describe('Landing page is loaded propperly', () => {
     it('Employee name loaded', () => {
-        cy.visit(`${Cypress.env('CYPRESS_HOST')}`)
+        cy.visit(`${Cypress.env('HOST')}`)
 
         cy.contains('Dan Børge')
     })
 
     it('Loads active consents', () => {
-        cy.visit(`${Cypress.env('CYPRESS_HOST')}`)
+        cy.visit(`${Cypress.env('HOST')}`)
 
         cy.get('*[class^="navds-accordion"]')
             .find('*[class^="navds-accordion__item"]')
@@ -14,7 +14,7 @@ describe('Landing page is loaded propperly', () => {
     })
 
     it('Active consent contain consent-code', () => {
-        cy.visit(`${Cypress.env('CYPRESS_HOST')}`)
+        cy.visit(`${Cypress.env('HOST')}`)
 
         cy.get('*[class^="navds-accordion"]')
             .children()

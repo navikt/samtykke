@@ -7,4 +7,7 @@ export default defineConfig({
         },
     },
     video: false,
+    env: {
+        HOST: 'http://localhost:5173/ansatt/',
+    },
 })

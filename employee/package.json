@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
     "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css",
-    "e2e:run": "cypress run --env CYPRESS_HOST=http://localhost:5173/ansatt/",
+    "e2e:run": "cypress run",
     "e2e:open": "cypress open"
   },
   "dependencies": {
