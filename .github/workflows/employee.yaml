@@ -6,7 +6,7 @@ on:
     #paths: [employee/**]
 
 jobs:
-  e2e-tests:
+  test-n-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,11 +16,13 @@ jobs:
       - name: Yarn install
         working-directory: employee
         run: yarn install
+      - name: Yarn build
+        working-directory: employee
+        run: yarn build
       - uses: cypress-io/github-action@v4
         with:
           install: false
           browser: chrome
-          build: yarn build
           start: node server.js
           wait-on: 'http://localhost:3000/ansatt/'
           working-directory: ./employee
