@@ -16,12 +16,10 @@ jobs:
       - name: Yarn install
         working-directory: employee
         run: yarn install
-      - name: Start dev server
-        working-directory: employee
-        run: yarn dev
       - uses: cypress-io/github-action@v4
         with:
           install: false
           browser: chrome
+          start: yarn dev
           wait-on: 'http://localhost:5173/ansatt/'
           working-directory: ./employee
