@@ -8,12 +8,16 @@
     "build": "npm run build:css && tsc && vite build",
     "preview": "vite preview",
     "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
-    "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css"
+    "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css",
+    "e2e": "cypress open"
   },
   "dependencies": {
     "@navikt/ds-tailwind": "^1.5.10",
+    "@types/cypress": "^1.1.3",
+    "@types/jest": "^29.2.4",
     "autoprefixer": "^10.4.13",
     "axios": "^1.1.3",
+    "cypress": "^12.0.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "msw": "^0.49.0",
