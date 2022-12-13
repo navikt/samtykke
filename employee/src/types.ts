@@ -9,7 +9,7 @@ export interface IConsent {
     title: string
     description: string
     code: string
-    expiration: Date
+    expiration: Date | undefined
     candidates: ICandidate[]
 }
 

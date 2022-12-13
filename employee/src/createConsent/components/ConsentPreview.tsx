@@ -10,10 +10,10 @@ export default function ConsentPreview({ consent }: { consent: IConsent}): React
             </div>
             <Panel className='space-y-4'>
                 <Heading size="medium">
-                    Samtykke for: {consent.title}
+                    Samtykke for: {consent.title ? consent.title : '<tittel kommer her>'}
                 </Heading>
                 <Heading size="small">Hva er formålet med dette samtykket?</Heading>
-                <BodyLong>{consent.description}</BodyLong>
+                <BodyLong>{consent.description ? consent.description : '<formål kommer her>'}</BodyLong>
                 <Heading size="small">Hvordan behandler vi dine personopplysninger?</Heading>
                 <BodyLong>Ved å fylle ut og (sende inn) dette skjema samtykker du til at vi lagrer dine kontaktopplysninger og de opplysningene som fremkommer under intervjuet. Disse personopplysningene vil for en begrenset periode lagres i NAVs systemer med tilgangsstyring: Personopplysningene vil kun brukes til denne undersøkelsen.</BodyLong>
                 <BodyLong>I denne undersøkelsen er det kun (antall) person som har tilgang til dine personopplysninger. Disse personene har taushetsplikt. dvs. plikt til å hemmeligholde opplysningene og hindre at uvedkomne får tilgang.</BodyLong>
