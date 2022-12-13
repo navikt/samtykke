@@ -7,6 +7,7 @@ export interface IEmployee {
 
 export interface IConsent {
     title: string
+    description: string
     code: string
     expiration: Date
     candidates: ICandidate[]
