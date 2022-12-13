@@ -6,9 +6,27 @@ const employeeMock: IEmployee = {
     lastname: 'Børge',
     email: 'dan.børge@nav.no',
     consents: [
-        { title: 'Brukertest av NAV.no', code: 'X76-2B3', expiration: new Date(), candidates: [] },
-        { title: 'Test av ny AAP kalkulator', code: 'L90-12N', expiration: new Date(), candidates: [] },
-        { title: 'Dagpengeløsning 2.0', code: '12J-0ZA', expiration: new Date(), candidates: [] },
+        {
+            title: 'Brukertest av NAV.no',
+            description: 'sdoigj',
+            code: 'X76-2B3',
+            expiration: new Date(),
+            candidates: [],
+        },
+        {
+            title: 'Test av ny AAP kalkulator',
+            description: 'Veldig ddpobjp',
+            code: 'L90-12N',
+            expiration: new Date(),
+            candidates: [],
+        },
+        {
+            title: 'Dagpengeløsning 2.0',
+            description: 'oihsfg',
+            code: '12J-0ZA',
+            expiration: new Date(),
+            candidates: [],
+        },
     ],
 }
 
