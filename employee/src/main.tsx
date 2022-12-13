@@ -6,6 +6,7 @@ import './index.css'
 import '@navikt/ds-css'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
+import CreateConsent from './createConsent/CreateConsent'
 
 worker.start({
     serviceWorker: {
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Header />
             <Routes>
                 <Route path="/" element={<Landing />}/>
+                <Route path="/samtykke/ny" element={<CreateConsent />}/>
             </Routes>
         </HashRouter>
     </React.StrictMode>

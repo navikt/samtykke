@@ -2,6 +2,7 @@ import { People } from '@navikt/ds-icons'
 import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ContentPanel from '../common/ContentPanel'
 import { IConsent, IEmployee } from '../types'
 import ConsentPreviews from './components/ConsentPreviews'
@@ -12,6 +13,8 @@ export default function Landing(): ReactElement {
     
     const [activeConsents, setActiveConsent] = useState<IConsent[]>()
     const [activeConsentsError, setActiveConsentsError] = useState<string>()
+
+    const navigate = useNavigate()
 
     const getCurrentEmployee = async () => {
         try {
@@ -53,7 +56,7 @@ export default function Landing(): ReactElement {
                     <BodyShort>{activeConsentsError}</BodyShort>
                 )}
                 <div className='flex flex-row justify-end'>
-                    <Button variant='primary'>Nytt samtykke</Button>
+                    <Button variant='primary' onClick={() => navigate('/samtykke/ny')}>Nytt samtykke</Button>
                 </div>
             </ContentPanel>
         </div>
