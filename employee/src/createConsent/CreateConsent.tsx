@@ -24,6 +24,18 @@ export default function CreateConsent(): ReactElement {
         fromDate: new Date('Aug 23 2019'),
     })
 
+    const getYesterdayDate = (): Date => {
+        const yesterday: Date = new Date()
+        yesterday.setDate(yesterday.getDate() - 1)
+        return yesterday
+    }
+
+    const getExpirationLimitDate = (): Date => {
+        const expirationLimitDate: Date = new Date()
+        expirationLimitDate.setDate(expirationLimitDate.getDate() + 60)
+        return expirationLimitDate
+    }
+
     const handleConsentChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setConsent({
             ...consent,
@@ -66,7 +78,8 @@ export default function CreateConsent(): ReactElement {
                     />
                     <UNSAFE_DatePicker {...datepickerProps} 
                         disabled={[
-                            { from: new Date('Jan 1 1964'), to: new Date()},
+                            { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
+                            { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
                         ]}
                     >
                         <UNSAFE_DatePicker.Input 
