@@ -5,6 +5,13 @@ import PageHeader from '../common/PageHeader'
 import ConsentPreview from './components/ConsentPreview'
 import { useNavigate } from 'react-router-dom'
 import { IConsent } from '../types'
+import { getYesterdayDate, getExpirationLimitDate } from './utils/date'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+interface IConsentInputs {
+    title: string
+    description: string
+}
 
 export default function CreateConsent(): ReactElement {
 
@@ -18,23 +25,13 @@ export default function CreateConsent(): ReactElement {
         candidates: []
     })
 
+    const { register, formState: { errors }, handleSubmit } = useForm<IConsentInputs>()
+
     const [expirationErrorMessage, setExpiraitonErrorMessage] = useState<string>('')
 
     const { datepickerProps, inputProps, selectedDay } = UNSAFE_useDatepicker({
         fromDate: new Date('Aug 23 2019'),
     })
-
-    const getYesterdayDate = (): Date => {
-        const yesterday: Date = new Date()
-        yesterday.setDate(yesterday.getDate() - 1)
-        return yesterday
-    }
-
-    const getExpirationLimitDate = (): Date => {
-        const expirationLimitDate: Date = new Date()
-        expirationLimitDate.setDate(expirationLimitDate.getDate() + 60)
-        return expirationLimitDate
-    }
 
     const handleConsentChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setConsent({
@@ -43,18 +40,10 @@ export default function CreateConsent(): ReactElement {
         })
     }
 
-    const onCreateConsent = () => {
-        // Check if date is before today
-        // Check if date is after 3 months
-        if (consent.expiration) {
-            setConsent({
-                ...consent,
-                expiration: selectedDay
-            })
-        } else {
-            setExpiraitonErrorMessage('Du må velge en utløpsdato')
-        }
+    const onCreateConsent: SubmitHandler<IConsentInputs> = (data) => {
+        // TODO: Set consent code
     }
+
 
     return (
         <div className='mx-32 my-12 flex space-x-6'>
@@ -64,17 +53,34 @@ export default function CreateConsent(): ReactElement {
                     icon={<Edit className='align-middle text-[2rem] absolute -top-[1rem]'/>}
                 />
                 <Panel className='mt-8 space-y-4'>
-                    <TextField 
+                    <TextField
+                        {...register('title', { 
+                            minLength: { 
+                                value: 5, message: 'Tittelen må være lengre enn 5 bokstaver'
+                            },
+                            maxLength: {
+                                value: 30, message: 'Tittelen må være under 30 bokstaver'
+                            }})}
                         label="Tittel"
-                        name='title'
                         value={consent.title || ''}
-                        onChange={handleConsentChange}                     
+                        onChange={handleConsentChange}
+                        error={errors?.title?.message}                  
                     />
-                    <Textarea 
+                    <Textarea
+                        {...register('description', {
+                            minLength: {
+                                value: 20,
+                                message: 'Formålet må være lengre enn 20 bokstaver'
+                            },
+                            maxLength: {
+                                value: 300,
+                                message: 'Formålet må være under 300 bokstaver'
+                            }
+                        })}
                         label="Formålet med samtykket"
-                        name='description'
                         value={consent.description || ''}
                         onChange={handleConsentChange}
+                        error={errors?.description?.message}
                     />
                     <UNSAFE_DatePicker {...datepickerProps} 
                         disabled={[
@@ -91,7 +97,7 @@ export default function CreateConsent(): ReactElement {
                 </Panel>
                 <div className='flex justify-between mt-4 px-2'>
                     <Button variant='secondary' onClick={() => navigate('/')}>Avbryt</Button>
-                    <Button onClick={onCreateConsent}>Opprett samtykkeskjema</Button>
+                    <Button onClick={handleSubmit(onCreateConsent)}>Opprett samtykkeskjema</Button>
                 </div>
             </div>
             <div className='w-1/2'>
