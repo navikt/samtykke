@@ -62,8 +62,8 @@ export default function CreateConsent(): ReactElement {
                                 value: 30, message: 'Tittelen må være under 30 bokstaver'
                             }})}
                         label="Tittel"
-                        value={consent.title || ''}
-                        onChange={handleConsentChange}
+                        // value={consent.title || ''}
+                        // onChange={handleConsentChange}
                         error={errors?.title?.message}                  
                     />
                     <Textarea
@@ -78,8 +78,8 @@ export default function CreateConsent(): ReactElement {
                             }
                         })}
                         label="Formålet med samtykket"
-                        value={consent.description || ''}
-                        onChange={handleConsentChange}
+                        // value={consent.description || ''}
+                        // onChange={handleConsentChange}
                         error={errors?.description?.message}
                     />
                     <UNSAFE_DatePicker {...datepickerProps} 
