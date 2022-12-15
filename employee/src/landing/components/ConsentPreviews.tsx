@@ -1,8 +1,12 @@
 import { Accordion, BodyShort, Button } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IConsent } from '../../types'
 
 export default function ConsentPreviews({ consents }: { consents: IConsent[] | undefined}): ReactElement {
+    
+    const navigate = useNavigate()
+    
     return (
         <Accordion>
             {consents?.map((item: IConsent, index: number) => {
@@ -12,7 +16,13 @@ export default function ConsentPreviews({ consents }: { consents: IConsent[] | u
                         <Accordion.Content>
                             <div className='flex flex-row items-center justify-between px-4'>
                                 <BodyShort>Kode: <b>{item.code}</b></BodyShort>
-                                <Button variant='secondary' size="small">Til samtykke</Button>
+                                <Button 
+                                    variant='secondary' 
+                                    size="small" 
+                                    onClick={() => navigate('/samtykke/123-456')}
+                                >
+                                    Til samtykke
+                                </Button>
                             </div>
                         </Accordion.Content>
                     </Accordion.Item>

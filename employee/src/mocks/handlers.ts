@@ -12,7 +12,26 @@ const employeeMock: IEmployee = {
             description: 'sdoigj',
             code: 'X76-2B3',
             expiration: new Date(),
-            candidates: [],
+            candidates: [
+                {
+                    id: '21097oifdsh',
+                    name: 'Lars Pølse',
+                    consented: new Date(),
+                    audioRecording: true,
+                },
+                {
+                    id: 'oigh3022584',
+                    name: 'Pelle Politi',
+                    consented: new Date(),
+                    audioRecording: true,
+                },
+                {
+                    id: 'bsoi329854',
+                    name: 'Nasse Nøff',
+                    consented: new Date(),
+                    audioRecording: false,
+                },
+            ],
         },
         {
             title: 'Test av ny AAP kalkulator',
@@ -49,5 +68,17 @@ export const handlers = [
         consent = { ...consent, code: createConsentCode() }
 
         return res(ctx.status(200))
+    }),
+
+    rest.get('/ansatt/api/consent/:code', (req, res, ctx) => {
+        const { code } = req.params
+
+        return res(
+            ctx.status(200),
+            ctx.json({
+                ...employeeMock.consents[0],
+                code,
+            }),
+        )
     }),
 ]
