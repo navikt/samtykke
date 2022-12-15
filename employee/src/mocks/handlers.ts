@@ -1,5 +1,6 @@
 import { rest } from 'msw'
 import { IEmployee } from '../types'
+import { createConsentCode } from './utils'
 
 const employeeMock: IEmployee = {
     firstname: 'Dan',
@@ -38,5 +39,15 @@ export const handlers = [
     rest.get('/ansatt/api/consent/active', (req, res, ctx) => {
         // Returns the active consents of the current user
         return res(ctx.status(200), ctx.json(employeeMock.consents))
+    }),
+
+    rest.post('/ansatt/api/consent', async (req, res, ctx) => {
+        let consent = JSON.parse(
+            new TextDecoder().decode(await req.arrayBuffer()),
+        )
+
+        consent = { ...consent, code: createConsentCode() }
+
+        return res(ctx.status(200))
     }),
 ]
