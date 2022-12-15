@@ -13,9 +13,16 @@ export interface IConsent {
     candidates: ICandidate[]
 }
 
+export enum EnumCandidateStatus {
+    Accepted = 'SAMTYKKE_GITT',
+    Withdrawn = 'SAMTYKKE_TRUKKET',
+    Deleted = 'DATA_SLETTET',
+}
+
 export interface ICandidate {
     id: string
     name: string
-    consented: Date
+    status: EnumCandidateStatus
+    consented: Date | undefined
     audioRecording: boolean
 }

@@ -1,5 +1,5 @@
 import { rest } from 'msw'
-import { IEmployee } from '../types'
+import { EnumCandidateStatus, IEmployee } from '../types'
 import { createConsentCode } from './utils'
 
 const employeeMock: IEmployee = {
@@ -16,19 +16,22 @@ const employeeMock: IEmployee = {
                 {
                     id: '21097oifdsh',
                     name: 'Lars Pølse',
+                    status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
                     audioRecording: true,
                 },
                 {
                     id: 'oigh3022584',
                     name: 'Pelle Politi',
-                    consented: new Date(),
+                    status: EnumCandidateStatus.Withdrawn,
+                    consented: undefined,
                     audioRecording: true,
                 },
                 {
                     id: 'bsoi329854',
                     name: 'Nasse Nøff',
-                    consented: new Date(),
+                    status: EnumCandidateStatus.Deleted,
+                    consented: undefined,
                     audioRecording: false,
                 },
             ],
