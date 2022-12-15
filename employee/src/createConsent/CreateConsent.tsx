@@ -8,11 +8,6 @@ import { IConsent } from '../types'
 import { getYesterdayDate, getExpirationLimitDate } from './utils/date'
 import axios, { AxiosError } from 'axios'
 
-interface IConsentInputs {
-    title: string
-    description: string
-}
-
 export default function CreateConsent(): ReactElement {
 
     const navigate = useNavigate()
@@ -45,7 +40,7 @@ export default function CreateConsent(): ReactElement {
     const onCreateConsent = async () => {
         let isError = false
 
-        // TODO: Set consent code
+        // TODO: sjekke om hva som er skrevet manuelt er godkjent
         if (selectedDay) {
             setConsent({
                 ...consent,
