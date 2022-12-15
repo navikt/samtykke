@@ -10,7 +10,9 @@ describe('Data is filled correctly and request is successfull', () => {
         cy.get('textarea[name="description"]').type(
             'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
         )
-        cy.get('input[id=datepicker-input-rh]')
+        cy.get(
+            '*[class^="navds-date__field-input navds-text-field__input navds-body-short navds-body-medium"]',
+        )
             .type(format(parseISO(new Date().toISOString()), 'dd.MM.yyyy'))
             .type('{esc}')
 
@@ -45,7 +47,9 @@ describe('Data is filled correctly and request is successfull', () => {
                 'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
             )
 
-        cy.get('p[id="confirmation-panel-rv"]').should(
+        cy.get(
+            '*[class^="navds-confirmation-panel__content navds-body-long"]',
+        ).should(
             'have.text',
             'Jeg ønsker å delta i: Brukertest for AAP, og har lest og forstått samtykke',
         )
