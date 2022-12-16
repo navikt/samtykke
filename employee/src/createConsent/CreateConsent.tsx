@@ -5,7 +5,7 @@ import PageHeader from '../common/PageHeader'
 import ConsentPreview from './components/ConsentPreview'
 import { useNavigate } from 'react-router-dom'
 import { IConsent } from '../types'
-import { getYesterdayDate, getExpirationLimitDate } from './utils/date'
+import { getYesterdayDate, getExpirationLimitDate } from '../utils/date'
 import axios, { AxiosError } from 'axios'
 
 export default function CreateConsent(): ReactElement {
