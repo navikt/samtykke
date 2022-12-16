@@ -1,6 +1,6 @@
 import { ErrorColored, FileContent, SuccessColored } from '@navikt/ds-icons'
 import { Accordion, Alert, BodyShort, Heading, Panel } from '@navikt/ds-react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { format, parseISO } from 'date-fns'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -15,13 +15,19 @@ export default function ActiveConsent(): ReactElement {
 
     const { code } = useParams()
 
+    const [consentErrorMessage, setConsentErrorMessage] = useState<string>('')
+
     const getConsent = async () => {
         try {
-            // TODO: switch out code, with ":code" to get it dynamicly
             const { data }: { data: IConsent } = await axios.get(`/ansatt/api/consent/${code}`)
             setConsent(data)
         } catch (error) {
             // TODO: do error handling
+            if (error instanceof AxiosError) {
+                if (error.response?.status === 404) {
+                    setConsentErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
+                } else setConsentErrorMessage('Noe gikk galt i hentingen av samtykke...')
+            }
         }
     }
 
@@ -47,7 +53,7 @@ export default function ActiveConsent(): ReactElement {
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
                 </>
-            ) : <p>Fant ikke et samtykke med kode: {code}</p>
+            ) : <p>{consentErrorMessage}</p>
             } 
         </div>
     )
