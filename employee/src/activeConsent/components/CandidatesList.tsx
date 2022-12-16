@@ -3,6 +3,9 @@ import { Accordion, Heading } from '@navikt/ds-react'
 import { format, parseISO } from 'date-fns'
 import React, { ReactElement } from 'react'
 import { EnumCandidateStatus, ICandidate } from '../../types'
+import CandidateStatus from './CandidateStatus'
+import ErrorHeader from './ErrorHeader'
+import SuccessHeader from './SuccessHeader'
 
 export default function CandidatesList({ candidates }: { candidates: ICandidate[] }): ReactElement {
     return (
@@ -15,41 +18,19 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                 <Accordion.Header>{candidate.name}</Accordion.Header>
                                 <Accordion.Content className='flex flex-row justify-between'>
                                     {candidate.audioRecording ? (
-                                        <div className='flex flex-row items-center space-x-4 ml-4 my-4'>
-                                            <Heading size="small" className='text-green-600'>Lydopptak:</Heading>
-                                            <SuccessColored width={'1.5rem'} height={'1.5rem'}/>
-                                        </div>
+                                        <SuccessHeader text='Lydopptak:' />
                                     ) : (
-                                        <div className='flex flex-row items-center space-x-4 ml-4 my-4'>
-                                            <Heading size="small" className='text-red-600'>Lydopptak:</Heading>
-                                            <ErrorColored width={'1.5rem'} height={'1.5rem'}/>
-                                        </div>
+                                        <ErrorHeader text='Lydopptak:' />
                                     )}
-                                    <div>
-                                        <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                                            <Heading size='small'>Status:</Heading>
-                                            <Heading size='small' className='text-green-600'>{candidate.status}</Heading>
-                                        </div>
-                                        <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                                            <Heading size='small'>
-                                                {`Samtykket: ${format(parseISO(candidate.consented!.toString()), 'dd.MM.yyyy')}`}
-                                            </Heading>
-                                        </div>
-                                    </div>
+                                    <CandidateStatus status={candidate.status} consented={candidate.consented}/>
                                 </Accordion.Content>
                             </>
                         ) : (
                             <>
                                 <Accordion.Header className='italic'>Navn trukket</Accordion.Header>
                                 <Accordion.Content className='flex flex-row justify-between'>
-                                    <div className='flex flex-row items-center space-x-4 ml-4 my-4'>
-                                        <Heading size="small" className='text-red-600'>Lydopptak:</Heading>
-                                        <ErrorColored width={'1.5rem'} height={'1.5rem'}/>
-                                    </div>
-                                    <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                                        <Heading size='small'>Status:</Heading>
-                                        <Heading size='small' className='text-red-600'>{candidate.status}</Heading>
-                                    </div>
+                                    <ErrorHeader text='Lydopptak:' />
+                                    <CandidateStatus status={candidate.status} />
                                 </Accordion.Content>
                             </>
                         )}
