@@ -19,7 +19,7 @@ export default function ConsentPreviews({ consents }: { consents: IConsent[] | u
                                 <Button 
                                     variant='secondary' 
                                     size="small" 
-                                    onClick={() => navigate('/samtykke/123-456')}
+                                    onClick={() => navigate(`/samtykke/${item.code}`)}
                                 >
                                     Til samtykke
                                 </Button>

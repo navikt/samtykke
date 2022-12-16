@@ -76,12 +76,14 @@ export const handlers = [
     rest.get('/ansatt/api/consent/:code', (req, res, ctx) => {
         const { code } = req.params
 
-        return res(
-            ctx.status(200),
-            ctx.json({
-                ...employeeMock.consents[0],
-                code,
-            }),
-        )
+        const consent = employeeMock.consents.filter((cons) => {
+            return cons.code === code
+        })
+
+        if (consent.length === 1) {
+            return res(ctx.status(200), ctx.json(consent[0]))
+        } else {
+            return res(ctx.status(404))
+        }
     }),
 ]

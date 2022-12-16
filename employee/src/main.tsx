@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Routes>
                 <Route path="/" element={<Landing />}/>
                 <Route path="/samtykke/ny" element={<CreateConsent />}/>
-                <Route path="/samtykke/123-456" element={<ActiveConsent />}/>
+                <Route path="/samtykke/:code" element={<ActiveConsent />}/>
             </Routes>
         </HashRouter>
     </React.StrictMode>

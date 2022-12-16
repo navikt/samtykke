@@ -9,34 +9,40 @@ import SuccessHeader from './SuccessHeader'
 
 export default function CandidatesList({ candidates }: { candidates: ICandidate[] }): ReactElement {
     return (
-        <Accordion className='px-6 mb-6'>
-            {candidates.map((candidate: ICandidate, index: number) => {
-                return (
-                    <Accordion.Item key={index}>
-                        {candidate.status === EnumCandidateStatus.Accepted ? (
-                            <>
-                                <Accordion.Header>{candidate.name}</Accordion.Header>
-                                <Accordion.Content className='flex flex-row justify-between'>
-                                    {candidate.audioRecording ? (
-                                        <SuccessHeader text='Lydopptak:' />
-                                    ) : (
-                                        <ErrorHeader text='Lydopptak:' />
-                                    )}
-                                    <CandidateStatus status={candidate.status} consented={candidate.consented}/>
-                                </Accordion.Content>
-                            </>
-                        ) : (
-                            <>
-                                <Accordion.Header className='italic'>Navn trukket</Accordion.Header>
-                                <Accordion.Content className='flex flex-row justify-between'>
-                                    <ErrorHeader text='Lydopptak:' />
-                                    <CandidateStatus status={candidate.status} />
-                                </Accordion.Content>
-                            </>
-                        )}
-                    </Accordion.Item>
-                )
-            })}
-        </Accordion>
+        <>
+            {candidates.length !== 0 ? (
+                <Accordion className='px-6 mb-6'>
+                    {candidates.map((candidate: ICandidate, index: number) => {
+                        return (
+                            <Accordion.Item key={index}>
+                                {candidate.status === EnumCandidateStatus.Accepted ? (
+                                    <>
+                                        <Accordion.Header>{candidate.name}</Accordion.Header>
+                                        <Accordion.Content className='flex flex-row justify-between'>
+                                            {candidate.audioRecording ? (
+                                                <SuccessHeader text='Lydopptak:' />
+                                            ) : (
+                                                <ErrorHeader text='Lydopptak:' />
+                                            )}
+                                            <CandidateStatus status={candidate.status} consented={candidate.consented}/>
+                                        </Accordion.Content>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Accordion.Header className='italic'>Navn trukket</Accordion.Header>
+                                        <Accordion.Content className='flex flex-row justify-between'>
+                                            <ErrorHeader text='Lydopptak:' />
+                                            <CandidateStatus status={candidate.status} />
+                                        </Accordion.Content>
+                                    </>
+                                )}
+                            </Accordion.Item>
+                        )
+                    })}
+                </Accordion>
+            ) : (
+                <Heading size="medium" className='px-6 mb-6 italic'>Ingen har gitt samtykke enda...</Heading>
+            )}
+        </>
     )
 }
