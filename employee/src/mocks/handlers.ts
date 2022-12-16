@@ -21,6 +21,13 @@ const employeeMock: IEmployee = {
                     audioRecording: true,
                 },
                 {
+                    id: '23894kshf',
+                    name: 'Ole Bolle Brus',
+                    status: EnumCandidateStatus.Accepted,
+                    consented: new Date(),
+                    audioRecording: false,
+                },
+                {
                     id: 'oigh3022584',
                     name: 'Pelle Politi',
                     status: EnumCandidateStatus.Withdrawn,

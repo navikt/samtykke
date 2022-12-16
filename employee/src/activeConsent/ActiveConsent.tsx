@@ -22,7 +22,6 @@ export default function ActiveConsent(): ReactElement {
             const { data }: { data: IConsent } = await axios.get(`/ansatt/api/consent/${code}`)
             setConsent(data)
         } catch (error) {
-            // TODO: do error handling
             if (error instanceof AxiosError) {
                 if (error.response?.status === 404) {
                     setConsentErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
@@ -53,7 +52,7 @@ export default function ActiveConsent(): ReactElement {
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
                 </>
-            ) : <p>{consentErrorMessage}</p>
+            ) : <Heading size='medium'>{consentErrorMessage}</Heading>
             } 
         </div>
     )
