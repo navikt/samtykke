@@ -5,10 +5,10 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { IMessage } from '../types'
+import MessageContent from './components/MessageContent'
+import MessageHeader from './components/MessageHeader'
 
 export default function Messages(): ReactElement {
-
-    const navigate = useNavigate()
 
     const [messages, setMessages] = useState<IMessage[]>()
 
@@ -41,29 +41,8 @@ export default function Messages(): ReactElement {
                         {messages.map((message: IMessage, index: number) => {
                             return (
                                 <Accordion.Item key={index}>
-                                    <Accordion.Header>
-                                        <div className='flex flex-row place-items-center'>
-                                            <div className='flex flex-row place-items-center'>
-                                                <Email className='mr-4'/>
-                                                {message.title}
-                                                {!message.read ? (
-                                                    <div className='ml-4 w-3 h-3 bg-orange-400 rounded-full' />
-                                                ) : <></> }
-                                            </div>
-                                        </div>
-                                    </Accordion.Header>
-                                    <Accordion.Content className='space-y-2'>
-                                        <BodyLong>{message.description}</BodyLong>
-                                        {message.ref ? (
-                                            <Button
-                                                variant='secondary'
-                                                size='small'
-                                                onClick={() => navigate(`/samtykke${message.ref}`)}
-                                            >
-                                                Til samtykke
-                                            </Button>
-                                        ) : <></> }
-                                    </Accordion.Content>
+                                    <MessageHeader title={message.title} read={message.read}/>
+                                    <MessageContent description={message.description} reference={message.ref}/>
                                 </Accordion.Item>
                             )
                         })}
