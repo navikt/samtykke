@@ -11,11 +11,19 @@ export default function Header(): ReactElement {
         <div className='w-full m-0 flex flex-row justify-between bg-[#fefefe] p-12'>
             <Heading size='xlarge'>Samtykke</Heading>
             <div>
-                <Button variant="tertiary" icon={<Email />}>Meldinger</Button>
-                <Button variant="tertiary" 
+                <Button 
+                    variant="tertiary" 
+                    icon={<Email />}
+                    onClick={() => navigate('/meldinger')}
+                >
+                    Meldinger
+                </Button>
+                <Button 
+                    variant="tertiary" 
                     icon={<People />} 
-                    onClick={() => navigate('/')}>
-                        Min side
+                    onClick={() => navigate('/')}
+                >
+                    Min side
                 </Button>
                 <Button variant='primary' icon={ <Logout />}>Logg ut</Button>
             </div>

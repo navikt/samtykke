@@ -58,6 +58,38 @@ const employeeMock: IEmployee = {
             candidates: [],
         },
     ],
+    messages: [
+        {
+            id: 1,
+            timestamp: new Date(),
+            title: 'Samtykke gitt til: Brukertest av NAV.no',
+            description: `En innbygger har gitt samtykke til: 
+                Brukertest av NAV.no. Klikk deg inn på samtykket
+                for å se hvem som har gitt samtykket`,
+            read: false,
+            ref: '/X76-2B3',
+        },
+        {
+            id: 2,
+            timestamp: new Date(),
+            title: 'Samtykke trukket til: Brukertest av NAV.no',
+            description: `En innbygger har gitt samtykke til: 
+                Brukertest av NAV.no. Klikk deg inn på samtykket
+                for å se hvem som har gitt samtykket`,
+            read: false,
+            ref: '/X76-2B3',
+        },
+        {
+            id: 3,
+            timestamp: new Date(),
+            title: 'Samtykke: Dagpengeløsning 2.0, slettet',
+            description: `Ditt samtykke Dagpengeløsning 2.0
+                har blitt slettet siden utløpsdatoen har utgått.
+                Husk på å slette all ekstern data om de involverte
+                i testen!`,
+            read: true,
+        },
+    ],
 }
 
 export const handlers = [
@@ -87,10 +119,12 @@ export const handlers = [
             return cons.code === code
         })
 
-        if (consent.length === 1) {
-            return res(ctx.status(200), ctx.json(consent[0]))
-        } else {
-            return res(ctx.status(404))
-        }
+        return consent.length === 1
+            ? res(ctx.status(200), ctx.json(consent[0]))
+            : res(ctx.status(404))
+    }),
+
+    rest.get('/ansatt/api/messages', (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json(employeeMock.messages))
     }),
 ]

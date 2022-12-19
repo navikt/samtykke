@@ -3,6 +3,7 @@ export interface IEmployee {
     lastname: string
     email: string
     consents: IConsent[]
+    messages: IMessage[]
 }
 
 export interface IConsent {
@@ -25,4 +26,13 @@ export interface ICandidate {
     status: EnumCandidateStatus
     consented: Date | undefined
     audioRecording: boolean
+}
+
+export interface IMessage {
+    id: number
+    timestamp: Date
+    title: string
+    description: string
+    read: boolean
+    ref?: string
 }
