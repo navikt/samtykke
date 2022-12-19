@@ -52,7 +52,7 @@ export default function ActiveConsent(): ReactElement {
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
                 </>
-            ) : <Heading size='medium'>{consentErrorMessage}</Heading>
+            ) : <Heading size='medium'>{consentErrorMessage}</Heading> 
             } 
         </div>
     )
