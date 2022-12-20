@@ -1,5 +1,3 @@
-import { getISODateString } from '../../src/utils/date'
-
 describe('Active consent is loaded as expected', () => {
     it('loads expected active consent with correct data', () => {
         cy.visit(`${Cypress.env('HOST')}`)

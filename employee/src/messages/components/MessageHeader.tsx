@@ -3,7 +3,6 @@ import { Accordion } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useState } from 'react'
 
-// TODO: pass message ID as prop? Could toggle read that way? maby idk
 export default function MessageHeader({
     title,
     read,
