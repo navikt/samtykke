@@ -1,22 +1,42 @@
 import { Email } from '@navikt/ds-icons'
 import { Accordion } from '@navikt/ds-react'
-import React, { ReactElement } from 'react'
+import axios, { AxiosError } from 'axios'
+import React, { ReactElement, useState } from 'react'
 
 // TODO: pass message ID as prop? Could toggle read that way? maby idk
 export default function MessageHeader({
     title,
-    read
+    read,
+    id
 }: {
     title: string
-    read: boolean
+    read: boolean,
+    id: number
 }): ReactElement {
+
+    const [messageRead, setMessageRead] = useState<boolean>(read)
+
+    const patchMessageRead = async () => {
+        if (!messageRead) {
+            try {
+                const { status } = await axios.patch(`/ansatt/api/messages/${id}`, {
+                    read: true
+                })
+                if (status === 200 || status === 304) setMessageRead(true)
+            } catch (error) {
+                // TODO: add error handling
+            }
+
+        }
+    }
+
     return (
-        <Accordion.Header>
+        <Accordion.Header onClick={() => patchMessageRead()}>
             <div className='flex flex-row place-items-center'>
                 <div className='flex flex-row place-items-center'>
                     <Email className='mr-4'/>
                     {title}
-                    {!read ? (
+                    {!messageRead ? (
                         <div className='ml-4 w-3 h-3 bg-orange-400 rounded-full' />
                     ) : <></> }
                 </div>

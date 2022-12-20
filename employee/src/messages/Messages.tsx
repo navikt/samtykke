@@ -41,7 +41,7 @@ export default function Messages(): ReactElement {
                         {messages.map((message: IMessage, index: number) => {
                             return (
                                 <Accordion.Item key={index}>
-                                    <MessageHeader title={message.title} read={message.read}/>
+                                    <MessageHeader title={message.title} read={message.read} id={message.id}/>
                                     <MessageContent description={message.description} reference={message.ref}/>
                                 </Accordion.Item>
                             )
