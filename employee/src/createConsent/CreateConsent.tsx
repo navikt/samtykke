@@ -14,14 +14,17 @@ export default function CreateConsent(): ReactElement {
 
     const [consent, setConsent] = useState<IConsent>({
         title: '',
-        description: '',
+        responsibleGroup: '',
+        purpose: '',
+        totalInvolved: 1,
         code: '',
         expiration: undefined,
         candidates: []
     })
     
     const [titleErrorMessage, setTitleErrorMessage] = useState<string>('')
-    const [descriptionErrorMessage, setDescriptionErrorMessage] = useState<string>('')
+    const [responsibleGroupErrorMessage, setResponsibleGroupErrorMessage] = useState<string>('')
+    const [purposeErrorMessage, setPurposeErrorMessage] = useState<string>('')
     const [expirationErrorMessage, setExpiraitonErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
@@ -31,7 +34,11 @@ export default function CreateConsent(): ReactElement {
     })
 
     const handleConsentChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setConsent({
+        if (event.target.name === 'totalInvolved') setConsent({
+            ...consent,
+            totalInvolved: Number(event.target.value)
+        })
+        else setConsent({
             ...consent,
             [event.target.name]: event.target.value
         })
@@ -40,7 +47,6 @@ export default function CreateConsent(): ReactElement {
     const onCreateConsent = async () => {
         let isError = false
 
-        // TODO: sjekke om hva som er skrevet manuelt er godkjent
         if (selectedDay) {
             setConsent({
                 ...consent,
@@ -58,24 +64,31 @@ export default function CreateConsent(): ReactElement {
         } else if (consent.title.length < 5) {
             setTitleErrorMessage('Tittelen må være lengre enn 5 bokstaver')
             isError = true
-        } else if (consent.title.length > 30) {
-            setTitleErrorMessage('Tittelen må være under 30 bokstaver')
+        } else if (consent.title.length > 50) {
+            setTitleErrorMessage('Tittelen må være under 50 bokstaver')
             isError = true
         } else {
             setTitleErrorMessage('')
         }
 
-        if (consent.description.length === 0) {
-            setDescriptionErrorMessage('Du må sette et formål')
-            isError = true
-        } else if (consent.description.length < 30) {
-            setDescriptionErrorMessage('Formålet må være lengre en 30 bokstaver')
-            isError = true
-        } else if (consent.description.length > 300) {
-            setDescriptionErrorMessage('Formålet må være under 300 bokstaver')
+        if (consent.responsibleGroup.length === 0) {
+            setResponsibleGroupErrorMessage('Du må sette et team/seksjon')
             isError = true
         } else {
-            setDescriptionErrorMessage('')
+            setResponsibleGroupErrorMessage('')
+        }
+
+        if (consent.purpose.length === 0) {
+            setPurposeErrorMessage('Du må sette et formål')
+            isError = true
+        } else if (consent.purpose.length < 30) {
+            setPurposeErrorMessage('Formålet må være lengre en 30 bokstaver')
+            isError = true
+        } else if (consent.purpose.length > 300) {
+            setPurposeErrorMessage('Formålet må være under 300 bokstaver')
+            isError = true
+        } else {
+            setPurposeErrorMessage('')
         }
 
         if (!isError) {
@@ -107,25 +120,43 @@ export default function CreateConsent(): ReactElement {
                         onChange={handleConsentChange}   
                         error={titleErrorMessage}                  
                     />
+                    <TextField 
+                        label='Team/seksjon'
+                        name='responsibleGroup'
+                        value={consent.responsibleGroup ||''}
+                        onChange={handleConsentChange}
+                        error={responsibleGroupErrorMessage}
+                    />
                     <Textarea 
                         label="Formålet med samtykket"
-                        name='description'
-                        value={consent.description || ''}
+                        name='purpose'
+                        value={consent.purpose || ''}
                         onChange={handleConsentChange}
-                        error={descriptionErrorMessage}
+                        error={purposeErrorMessage}
                     />
-                    <UNSAFE_DatePicker {...datepickerProps} 
-                        disabled={[
-                            { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
-                            { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
-                        ]}
-                    >
-                        <UNSAFE_DatePicker.Input 
-                            {...inputProps} 
-                            label="Utløpsdato"
-                            error={expirationErrorMessage}
-                        />
-                    </UNSAFE_DatePicker>
+                    <div className='flex flex-row space-x-12'>
+                        <div>
+                            <TextField
+                                type='number'
+                                label='Antall involverte'
+                                name='totalInvolved'
+                                value={consent.totalInvolved || 1}
+                                onChange={handleConsentChange}
+                            />
+                        </div>
+                        <UNSAFE_DatePicker {...datepickerProps}
+                            disabled={[
+                                { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
+                                { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
+                            ]}
+                        >
+                            <UNSAFE_DatePicker.Input
+                                {...inputProps} 
+                                label="Utløpsdato"
+                                error={expirationErrorMessage}
+                            />
+                        </UNSAFE_DatePicker>
+                    </div>
                 </Panel>
                 <div className='flex justify-between my-4 px-2'>
                     <Button variant='secondary' onClick={() => navigate('/')}>Avbryt</Button>

@@ -8,9 +8,11 @@ export interface IEmployee {
 
 export interface IConsent {
     title: string
-    description: string
-    code: string
+    responsibleGroup: string
+    purpose: string
+    totalInvolved: number
     expiration: Date | undefined
+    code: string
     candidates: ICandidate[]
 }
 
