@@ -9,7 +9,9 @@ const employeeMock: IEmployee = {
     consents: [
         {
             title: 'Brukertest av NAV.no',
-            description: 'sdoigj',
+            responsibleGroup: 'Team Personbruker',
+            purpose: 'sdoigj',
+            totalInvolved: 4,
             code: 'X76-2B3',
             expiration: new Date(),
             candidates: [
@@ -45,14 +47,18 @@ const employeeMock: IEmployee = {
         },
         {
             title: 'Test av ny AAP kalkulator',
-            description: 'Veldig ddpobjp',
+            responsibleGroup: 'AAP',
+            purpose: 'Veldig ddpobjp',
+            totalInvolved: 5,
             code: 'L90-12N',
             expiration: new Date(),
             candidates: [],
         },
         {
             title: 'Dagpengeløsning 2.0',
-            description: 'oihsfg',
+            responsibleGroup: 'Team Dagpenger',
+            purpose: 'oihsfg',
+            totalInvolved: 3,
             code: '12J-0ZA',
             expiration: new Date(),
             candidates: [],
