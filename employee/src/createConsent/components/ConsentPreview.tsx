@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Checkbox, CheckboxGroup, ConfirmationPanel, Heading, Link, Panel } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Checkbox, CheckboxGroup, ConfirmationPanel, Heading, Link, Panel, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { IConsent, IEmployee } from '../../types'
@@ -155,6 +155,7 @@ export default function ConsentPreview({
                         i tilfelle det er behov for en oppfølgingssamtale
                     </Checkbox>
                 </CheckboxGroup>
+                <TextField label='Ditt navn' disabled className='w-1/2'/>
                 <Heading size='small'>Samtykke</Heading>
                 <ConfirmationPanel
                     label='Ja, jeg samtykker'
