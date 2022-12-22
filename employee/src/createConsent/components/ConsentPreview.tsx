@@ -2,7 +2,7 @@ import { BodyLong, BodyShort, Checkbox, CheckboxGroup, ConfirmationPanel, Headin
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { IConsent, IEmployee } from '../../types'
-import { getISODateString } from '../../utils/date'
+import { getDSISODateString, getISODateString } from '../../utils/date'
 
 export default function ConsentPreview({ 
     consent,
@@ -96,7 +96,7 @@ export default function ConsentPreview({
                 <BodyLong>
                     Når intervjuet er ferdig, vil svarene anonymiseres. Anonymiseringen gjennomføres
                     så fort som mulig. Opplysningene som kan lede tilbake til deg slettes så snart
-                    anonymiseringen er gjennomført og senest innen {expiration ? getISODateString(expiration) : '<utløper>'}.
+                    anonymiseringen er gjennomført og senest innen {expiration ? getDSISODateString(expiration) : '<utløper>'}.
                 </BodyLong>
                 <Heading size="small">Dine rettigheter</Heading>
                 <ul className='list-disc list-outside pl-6 space-y-1'>

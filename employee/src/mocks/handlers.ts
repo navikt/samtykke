@@ -128,6 +128,8 @@ export const handlers = [
         return consent.length === 1
             ? res(ctx.status(200), ctx.json(consent[0]))
             : res(ctx.status(404))
+
+        return res(ctx.status(200), ctx.json(consent[0]))
     }),
 
     rest.get('/ansatt/api/messages', (req, res, ctx) => {

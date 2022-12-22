@@ -44,7 +44,9 @@ export default function ActiveConsent(): ReactElement {
                     >
                         <div className='flex flex-row justify-evenly py-4'>
                             <Heading size="medium">Kode: {consent.code}</Heading>
-                            <Heading size="medium">Utløper: {getISODateString(consent.expiration!)}</Heading> 
+                            <Heading size="medium">
+                                Utløper: {getISODateString(consent.expiration!)}
+                            </Heading> 
                         </div>
                     </PageHeader>
                     <Panel className='mt-8'>
