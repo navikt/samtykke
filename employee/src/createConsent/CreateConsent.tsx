@@ -25,6 +25,7 @@ export default function CreateConsent(): ReactElement {
     const [titleErrorMessage, setTitleErrorMessage] = useState<string>('')
     const [responsibleGroupErrorMessage, setResponsibleGroupErrorMessage] = useState<string>('')
     const [purposeErrorMessage, setPurposeErrorMessage] = useState<string>('')
+    const [totalInvolvedErrorMessage, setTotalInvovledErrorMessage] = useState<string>('')
     const [expirationErrorMessage, setExpiraitonErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
@@ -91,6 +92,13 @@ export default function CreateConsent(): ReactElement {
             setPurposeErrorMessage('')
         }
 
+        if (consent.totalInvolved < 1) {
+            setTotalInvovledErrorMessage('Det må være minst 1 involert')
+            isError = true
+        } else {
+            setTotalInvovledErrorMessage('')
+        }
+
         if (!isError) {
             try {
                 const { status } = await axios.post('/ansatt/api/consent', consent)
@@ -123,7 +131,7 @@ export default function CreateConsent(): ReactElement {
                     <TextField 
                         label='Team/seksjon'
                         name='responsibleGroup'
-                        value={consent.responsibleGroup ||''}
+                        value={consent.responsibleGroup || ''}
                         onChange={handleConsentChange}
                         error={responsibleGroupErrorMessage}
                     />
@@ -140,8 +148,9 @@ export default function CreateConsent(): ReactElement {
                                 type='number'
                                 label='Antall involverte'
                                 name='totalInvolved'
-                                value={consent.totalInvolved || 1}
+                                value={consent.totalInvolved || 0}
                                 onChange={handleConsentChange}
+                                error={totalInvolvedErrorMessage}
                             />
                         </div>
                         <UNSAFE_DatePicker {...datepickerProps}
@@ -169,7 +178,7 @@ export default function CreateConsent(): ReactElement {
                 )}
             </div>
             <div className='w-1/2'>
-                <ConsentPreview consent={consent}/>
+                <ConsentPreview consent={consent} expiration={selectedDay}/>
             </div>
         </div>
     )
