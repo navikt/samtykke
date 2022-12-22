@@ -19,11 +19,18 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                     <>
                                         <Accordion.Header>{candidate.name}</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
-                                            {candidate.audioRecording ? (
-                                                <SuccessHeader text='Lydopptak:' />
-                                            ) : (
-                                                <ErrorHeader text='Lydopptak:' />
-                                            )}
+                                            <div>
+                                                {candidate.audioRecording ? (
+                                                    <SuccessHeader text='Lydopptak:' />
+                                                ) : (
+                                                    <ErrorHeader text='Lydopptak:' />
+                                                )}
+                                                {candidate.storeInfo ? (
+                                                    <SuccessHeader text='Lagre kontaktinfo i 6 mnd' />
+                                                ) : (
+                                                    <ErrorHeader text='Lagre kontaktinfo i 6 mnd' />
+                                                )}
+                                            </div>
                                             <CandidateStatus status={candidate.status} consented={candidate.consented}/>
                                         </Accordion.Content>
                                     </>
@@ -31,7 +38,10 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                     <>
                                         <Accordion.Header className='italic'>Navn trukket</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
-                                            <ErrorHeader text='Lydopptak:' />
+                                            <div>
+                                                <ErrorHeader text='Lydopptak:' />
+                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd' />
+                                            </div>
                                             <CandidateStatus status={candidate.status} />
                                         </Accordion.Content>
                                     </>

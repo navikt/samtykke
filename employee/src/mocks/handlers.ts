@@ -21,6 +21,7 @@ const employeeMock: IEmployee = {
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
                     audioRecording: true,
+                    storeInfo: false,
                 },
                 {
                     id: '23894kshf',
@@ -28,6 +29,7 @@ const employeeMock: IEmployee = {
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
                     audioRecording: false,
+                    storeInfo: true,
                 },
                 {
                     id: 'oigh3022584',
@@ -35,6 +37,7 @@ const employeeMock: IEmployee = {
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
                     audioRecording: true,
+                    storeInfo: false,
                 },
                 {
                     id: 'bsoi329854',
@@ -42,6 +45,7 @@ const employeeMock: IEmployee = {
                     status: EnumCandidateStatus.Deleted,
                     consented: undefined,
                     audioRecording: false,
+                    storeInfo: false,
                 },
             ],
         },

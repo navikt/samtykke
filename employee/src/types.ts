@@ -28,6 +28,7 @@ export interface ICandidate {
     status: EnumCandidateStatus
     consented: Date | undefined
     audioRecording: boolean
+    storeInfo: boolean
 }
 
 export interface IMessage {
