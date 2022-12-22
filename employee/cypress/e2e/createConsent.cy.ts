@@ -28,34 +28,6 @@ describe('Data is filled correctly and request is successfull', () => {
         })
     })
 
-    it('should display input in consent preview', () => {
-        cy.get('input[name="title"]').type('Brukertest for AAP')
-        cy.get('textarea[name="purpose"]').type(
-            'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
-        )
-
-        cy.get('*[class^="w-1/2"]')
-            .eq(1)
-            .get('*[class^="navds-heading navds-heading--medium"]')
-            .should('have.text', 'Samtykke for: Brukertest for AAP')
-
-        cy.get('*[class^="w-1/2"]')
-            .eq(1)
-            .get('p')
-            .eq(0)
-            .should(
-                'have.text',
-                'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
-            )
-
-        cy.get(
-            '*[class^="navds-confirmation-panel__content navds-body-long"]',
-        ).should(
-            'have.text',
-            'Jeg ønsker å delta i: Brukertest for AAP, og har lest og forstått samtykke',
-        )
-    })
-
     it('should display errors on empty input', () => {
         cy.get(
             '*[class^="navds-button navds-button--primary navds-button--medium"]',
