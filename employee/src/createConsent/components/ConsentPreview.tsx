@@ -48,8 +48,8 @@ export default function ConsentPreview({
                 </BodyLong>
                 <Heading size="small">Hvem er vi, og hvem er ansvarlig for undersøkelsen?</Heading>
                 <BodyLong>
-                    Vi er ansatte i: 
-                    {consent.responsibleGroup ? consent.responsibleGroup : '<team/seksjon>'} til 
+                    Vi er ansatte 
+                    i: {consent.responsibleGroup ? consent.responsibleGroup : '<team/seksjon>'} til 
                     Arbeid- og velferdsdirektoratet (NAV). Vi jobber med å forbedre NAVs
                     tjenester gjennom å involvere personer som bruker, eller kan komme til å
                     bruke dem. 
