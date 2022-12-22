@@ -26,9 +26,9 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                                     <ErrorHeader text='Lydopptak:' />
                                                 )}
                                                 {candidate.storeInfo ? (
-                                                    <SuccessHeader text='Lagre kontaktinfo i 6 mnd' />
+                                                    <SuccessHeader text='Lagre kontaktinfo i 6 mnd:' />
                                                 ) : (
-                                                    <ErrorHeader text='Lagre kontaktinfo i 6 mnd' />
+                                                    <ErrorHeader text='Lagre kontaktinfo i 6 mnd:' />
                                                 )}
                                             </div>
                                             <CandidateStatus status={candidate.status} consented={candidate.consented}/>
@@ -40,7 +40,7 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                         <Accordion.Content className='flex flex-row justify-between'>
                                             <div>
                                                 <ErrorHeader text='Lydopptak:' />
-                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd' />
+                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd.' />
                                             </div>
                                             <CandidateStatus status={candidate.status} />
                                         </Accordion.Content>

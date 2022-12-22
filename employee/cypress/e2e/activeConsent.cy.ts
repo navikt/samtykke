@@ -25,7 +25,7 @@ describe('Active consent is loaded as expected', () => {
             .eq(0)
             .should('have.text', 'Lars Pølse')
 
-        // Check if audio consent is given and if candidate has concented
+        // Check if audio consent is given, store information consent is not given, and if candidate has concented
         cy.get('*[class^="navds-accordion__header"]').children().eq(0).click()
 
         cy.get('*[class^="navds-accordion__content"]')
@@ -37,13 +37,18 @@ describe('Active consent is loaded as expected', () => {
             .should('have.text', 'Lydopptak:')
         cy.get('*[class^="navds-accordion__content"]')
             .eq(0)
+            .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
+            .eq(0)
+            .should('have.text', 'Lagre kontaktinfo i 6 mnd:')
+        cy.get('*[class^="navds-accordion__content"]')
+            .eq(0)
             .find(
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
             .eq(1)
             .should('have.text', 'SAMTYKKE_GITT')
 
-        // Check if audio consent is not given, but candidate has concented
+        // Check if audio consent is not given, store information consent is given, but candidate has concented
         cy.get('*[class^="navds-accordion__header"]').children().eq(1).click()
 
         cy.get('*[class^="navds-accordion__content"]')
@@ -56,6 +61,14 @@ describe('Active consent is loaded as expected', () => {
             .find(
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
+            .eq(0)
+            .should('have.text', 'Lagre kontaktinfo i 6 mnd:')
+        cy.get('*[class^="navds-accordion__content"]')
+            .eq(1)
+            .find(
+                '*[class^="text-green-600 navds-heading navds-heading--small"]',
+            )
+            .eq(1)
             .should('have.text', 'SAMTYKKE_GITT')
 
         // Check if candidates which has not consented has their named withdrawn
@@ -72,7 +85,7 @@ describe('Active consent is loaded as expected', () => {
         cy.get('*[class^="navds-accordion__content"]')
             .eq(2)
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(1)
+            .eq(2)
             .should('have.text', 'SAMTYKKE_TRUKKET')
 
         cy.get('*[class^="navds-accordion"]').children().eq(3).click()
@@ -84,7 +97,7 @@ describe('Active consent is loaded as expected', () => {
         cy.get('*[class^="navds-accordion__content"]')
             .eq(3)
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(1)
+            .eq(2)
             .should('have.text', 'DATA_SLETTET')
     })
 
