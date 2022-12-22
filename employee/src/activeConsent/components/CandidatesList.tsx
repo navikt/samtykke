@@ -40,7 +40,7 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                         <Accordion.Content className='flex flex-row justify-between'>
                                             <div>
                                                 <ErrorHeader text='Lydopptak:' />
-                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd.' />
+                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd:' />
                                             </div>
                                             <CandidateStatus status={candidate.status} />
                                         </Accordion.Content>
