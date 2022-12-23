@@ -1,0 +1,43 @@
+name: Deploy landing
+
+on:
+  push:
+    branches: [main]
+    #paths: [landing/**]
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
+
+jobs:
+  build-n-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: Yarn install
+        working-directory: landing
+        run: yarn install
+      - name: Yarn build
+        working-directory: landing
+        run: yarn build
+      - name: Login to docker
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: landing
+          file: Dockerfile
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}
+      - name: Deploy to labs-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: labs-gcp
+          RESOURCE: .nais/landing/labs.yaml
+          VAR: image=${{ env.DOCKER_IMAGE }}
