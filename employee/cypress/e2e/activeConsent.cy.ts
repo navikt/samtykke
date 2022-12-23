@@ -87,18 +87,6 @@ describe('Active consent is loaded as expected', () => {
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
             .eq(2)
             .should('have.text', 'SAMTYKKE_TRUKKET')
-
-        cy.get('*[class^="navds-accordion"]').children().eq(3).click()
-        cy.get('*[class^="navds-accordion__content"]')
-            .eq(3)
-            .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(0)
-            .should('have.text', 'Lydopptak:')
-        cy.get('*[class^="navds-accordion__content"]')
-            .eq(3)
-            .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(2)
-            .should('have.text', 'DATA_SLETTET')
     })
 
     it('does not load a concent which do not exist', () => {
