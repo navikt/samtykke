@@ -1,5 +1,5 @@
 apiVersion: nais.io/v1alpha1
-kind: Applicaiton
+kind: Application
 metadata:
   name: samtykke-citizen
   namespace: team-researchops
