@@ -15,6 +15,6 @@ app.get(`/isAlive|/isReady`, (req, res) => {
     res.send('OK')
 })
 
-app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`/index.html`))
+app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
 
 app.listen(3000, () => { console.log('Listening on port 3000')})
