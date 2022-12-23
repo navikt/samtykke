@@ -28,7 +28,7 @@ jobs:
           browser: chrome
           start: node server.js
           wait-on: 'http://localhost:3000/innbygger/'
-          working-directory: ./innbygger
+          working-directory: ./citizen
           env: HOST=http://localhost:3000/ansatt/
       # Publish build to ghcr
       - name: Login to docker
