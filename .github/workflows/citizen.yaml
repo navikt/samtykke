@@ -22,7 +22,14 @@ jobs:
         working-directory: citizen
         run: yarn build
       # Run tests
-      # TODO: add script for tests
+      - uses: cypress-io/github-action@v4
+        with:
+          install: false
+          browser: chrome
+          start: node server.js
+          wait-on: 'http://localhost:3000/innbygger/'
+          working-directory: ./innbygger
+          env: HOST=http://localhost:3000/ansatt/
       # Publish build to ghcr
       - name: Login to docker
         uses: docker/login-action@v2
