@@ -42,7 +42,7 @@ const employeeMock: IEmployee = {
                 {
                     id: 'bsoi329854',
                     name: 'Nasse Nøff',
-                    status: EnumCandidateStatus.Deleted,
+                    status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
                     audioRecording: false,
                     storeInfo: false,

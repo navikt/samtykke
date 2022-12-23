@@ -19,7 +19,6 @@ export interface IConsent {
 export enum EnumCandidateStatus {
     Accepted = 'SAMTYKKE_GITT',
     Withdrawn = 'SAMTYKKE_TRUKKET',
-    Deleted = 'DATA_SLETTET',
 }
 
 export interface ICandidate {
