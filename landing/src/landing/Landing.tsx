@@ -5,8 +5,8 @@ import reops from '../assets/reops.png'
 
 export default function Landing(): ReactElement {
     return (
-        <div className='bg-[#75c4c5]'>
-            <div className='flex flex-col justify-center items-center py-12 space-y-4'>
+        <div className='bg-[#75c4c5] h-[calc(100vh-148px)]'>
+            <div className='flex flex-col items-center py-12 space-y-4'>
                 <Heading size='xlarge'>Gi ditt samtykke</Heading>
                 <div className='text-center px-64'>
                     <Heading size="small">
@@ -14,7 +14,7 @@ export default function Landing(): ReactElement {
                         brukertester og innsiktsarbied for forbedringen av NAVs tjenester
                     </Heading>
                 </div>
-                <Button icon={<Right />} iconPosition="right">Til samtykke</Button>
+                <Button icon={<Right aria-hidden />} iconPosition="right">Til samtykke</Button>
             </div>
             <img
                 src={reops}
