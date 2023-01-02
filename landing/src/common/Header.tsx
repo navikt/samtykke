@@ -11,7 +11,13 @@ export default function Header(): ReactElement {
         <div className='w-full m-0 flex flex-row justify-between bg-[#fefefe] p-12'>
             <Heading size='xlarge'>Samtykke</Heading>
             <div>
-                <Button variant='primary' icon={<Login />}>Logg inn</Button>
+                <Button 
+                    variant='primary' 
+                    icon={<Login aria-hidden />}
+                    onClick={() => navigate('/innlogging')}
+                >
+                    Logg inn
+                </Button>
             </div>
         </div>
     )
