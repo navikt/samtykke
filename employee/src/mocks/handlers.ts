@@ -18,6 +18,7 @@ const employeeMock: IEmployee = {
                 {
                     id: '21097oifdsh',
                     name: 'Lars Pølse',
+                    email: 'lars.pølse@gmail.com',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
                     audioRecording: true,
@@ -26,6 +27,7 @@ const employeeMock: IEmployee = {
                 {
                     id: '23894kshf',
                     name: 'Ole Bolle Brus',
+                    email: 'ole.bolle.brus@outlook.no',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
                     audioRecording: false,
@@ -34,6 +36,7 @@ const employeeMock: IEmployee = {
                 {
                     id: 'oigh3022584',
                     name: 'Pelle Politi',
+                    email: 'pelle.politi@politiet.no',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
                     audioRecording: true,
@@ -42,6 +45,7 @@ const employeeMock: IEmployee = {
                 {
                     id: 'bsoi329854',
                     name: 'Nasse Nøff',
+                    email: 'nasse.noeff@svenske.se',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
                     audioRecording: false,

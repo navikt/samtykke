@@ -24,6 +24,7 @@ export enum EnumCandidateStatus {
 export interface ICandidate {
     id: string
     name: string
+    email: string
     status: EnumCandidateStatus
     consented: Date | undefined
     audioRecording: boolean
