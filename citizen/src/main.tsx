@@ -5,6 +5,13 @@ import '@navikt/ds-css'
 import Header from './common/Header'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Landing from './landing/Landing'
+import { worker } from './mocks/browser'
+
+worker.start({
+    serviceWorker: {
+        url: '/innbygger/mockServiceWorker.js'
+    }
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

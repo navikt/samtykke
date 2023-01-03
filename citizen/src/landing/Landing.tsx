@@ -19,7 +19,7 @@ export default function Landing(): ReactElement {
         } else {
             try {
                 const { status }: { status: number} = await axios.get(`/citizen/api/consent/${code}`)
-                if (status === 200) return // TODO: replace with navigate to consent
+                if (status === 200 || status === 304) return // TODO: replace with navigate to consent
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 404) setCodeErrorMessage(`Fant ikke samtykke med kode: ${code}`)
