@@ -15,7 +15,7 @@ export default function Landing(): ReactElement {
         const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
 
         if (!codeRegex.test(code)) {
-            setCodeErrorMessage('Samtykke kode er på feil format')
+            setCodeErrorMessage('Samtykke-kode er på feil format')
         } else {
             try {
                 const { status }: { status: number} = await axios.get(`/citizen/api/consent/${code}`)
