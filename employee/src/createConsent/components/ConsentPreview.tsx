@@ -156,6 +156,7 @@ export default function ConsentPreview({
                     </Checkbox>
                 </CheckboxGroup>
                 <TextField label='Ditt navn' disabled className='w-1/2'/>
+                <TextField label='Din e-post' disabled className='w-1/2'/>
                 <Heading size='small'>Samtykke</Heading>
                 <ConfirmationPanel
                     label='Ja, jeg samtykker'
