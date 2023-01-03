@@ -15,7 +15,7 @@ export default function Landing(): ReactElement {
                 <div className='text-center px-64'>
                     <Heading size="small">
                         I samtykke-løsningen kan du gi ditt digitale samtykke til
-                        brukertester og innsiktsarbied for forbedringen av NAVs tjenester
+                        brukertester og innsiktsarbeid for forbedringen av NAVs tjenester
                     </Heading>
                 </div>
                 <Button 
