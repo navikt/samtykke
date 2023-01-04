@@ -6,6 +6,7 @@ import Header from './common/Header'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
+import Consent from './consent/Consent'
 
 worker.start({
     serviceWorker: {
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Header />
             <Routes>
                 <Route path='/' element={<Landing />} />
+                <Route path='/samtykke/:code' element={<Consent />}/>
             </Routes>
         </HashRouter>
     </React.StrictMode>

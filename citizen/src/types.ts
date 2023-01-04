@@ -6,6 +6,11 @@ export interface IEmployee {
     messages: IMessage[]
 }
 
+export interface ICitizen {
+    id: string
+    candidatures: ICandidate[]
+}
+
 export interface IConsent {
     title: string
     responsibleGroup: string

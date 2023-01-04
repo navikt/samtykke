@@ -2,6 +2,7 @@ import { FillForms } from '@navikt/ds-icons'
 import { Button, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { IConsent } from '../types'
 
@@ -11,6 +12,8 @@ export default function Landing(): ReactElement {
 
     const [codeErrorMessage, setCodeErrorMessage] = useState<string>('')
 
+    const navigate = useNavigate()
+
     const onLoadConsent = async () => {
         const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
 
@@ -18,8 +21,8 @@ export default function Landing(): ReactElement {
             setCodeErrorMessage('Samtykke-kode er på feil format')
         } else {
             try {
-                const { status }: { status: number} = await axios.get(`/citizen/api/consent/${code}`)
-                if (status === 200 || status === 304) return // TODO: replace with navigate to consent
+                const { status }: { status: number} = await axios.get(`/innbygger/api/consent/${code}`)
+                if (status === 200 || status === 304) navigate(`/samtykke/${code}`)
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 404) setCodeErrorMessage(`Fant ikke samtykke med kode: ${code}`)

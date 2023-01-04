@@ -1,4 +1,4 @@
-import { IConsent } from '../types'
+import { EnumCandidateStatus, ICitizen, IConsent } from '../types'
 import { rest } from 'msw'
 
 const consentsMock: IConsent[] = [
@@ -9,7 +9,44 @@ const consentsMock: IConsent[] = [
         totalInvolved: 4,
         code: 'X76-2B3',
         expiration: new Date(),
-        candidates: [],
+        candidates: [
+            {
+                id: '21097oifdsh',
+                name: 'Lars Pølse',
+                email: 'lars.pølse@gmail.com',
+                status: EnumCandidateStatus.Accepted,
+                consented: new Date(),
+                audioRecording: true,
+                storeInfo: false,
+            },
+            {
+                id: '23894kshf',
+                name: 'Ole Bolle Brus',
+                email: 'ole.bolle.brus@outlook.no',
+                status: EnumCandidateStatus.Accepted,
+                consented: new Date(),
+                audioRecording: false,
+                storeInfo: true,
+            },
+            {
+                id: 'oigh3022584',
+                name: 'Pelle Politi',
+                email: 'pelle.politi@politiet.no',
+                status: EnumCandidateStatus.Withdrawn,
+                consented: undefined,
+                audioRecording: true,
+                storeInfo: false,
+            },
+            {
+                id: 'bsoi329854',
+                name: 'Nasse Nøff',
+                email: 'nasse.noeff@svenske.se',
+                status: EnumCandidateStatus.Withdrawn,
+                consented: undefined,
+                audioRecording: false,
+                storeInfo: false,
+            },
+        ],
     },
     {
         title: 'Test av ny AAP kalkulator',
@@ -32,7 +69,7 @@ const consentsMock: IConsent[] = [
 ]
 
 export const handlers = [
-    rest.get('/citizen/api/consent/:code', (req, res, ctx) => {
+    rest.get('/innbygger/api/consent/:code', (req, res, ctx) => {
         const { code } = req.params
 
         const consent = consentsMock.filter((cons) => {
@@ -42,5 +79,30 @@ export const handlers = [
         return consent.length === 1
             ? res(ctx.status(200), ctx.json(consent[0]))
             : res(ctx.status(404))
+    }),
+
+    rest.get('/innbygger/api/consent/canditature/:code', (req, res, ctx) => {
+        const { code } = req.params
+
+        const consent = consentsMock.filter((cons) => {
+            return cons.code === code
+        })
+
+        if (consent.length === 1 && consent[0].candidates.length > 0) {
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    ...consent[0],
+                    candidates: [consent[0].candidates[0]],
+                }),
+            )
+        } else if (consent.length === 1 && consent[0].candidates.length === 0) {
+            return res(
+                ctx.status(200),
+                ctx.json({ ...consent[0], candidates: undefined }),
+            )
+        } else {
+            return res(ctx.status(404))
+        }
     }),
 ]
