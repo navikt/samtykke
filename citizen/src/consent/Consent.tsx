@@ -35,7 +35,9 @@ export default function Consent(): ReactElement {
     return (
         <div>
             {consent ? (
-                consent.candidates && consent.candidates.length === 1 ? <ActiveConsent /> : <GiveConsent />
+                consent.candidates && consent.candidates.length === 1 ? 
+                    <ActiveConsent /> 
+                    : <GiveConsent consent={consent}/>
             ) : <Heading size='medium'>{consentErrorMessage}</Heading>}
         </div>
     )

@@ -1,5 +1,13 @@
-import { EnumCandidateStatus, ICitizen, IConsent } from '../types'
+import { EnumCandidateStatus, ICitizen, IConsent, IEmployee } from '../types'
 import { rest } from 'msw'
+
+const employeeMock: IEmployee = {
+    firstname: 'Dan',
+    lastname: 'Børge',
+    email: 'dan.børge@nav.no',
+    consents: [],
+    messages: [],
+}
 
 const consentsMock: IConsent[] = [
     {
@@ -47,6 +55,7 @@ const consentsMock: IConsent[] = [
                 storeInfo: false,
             },
         ],
+        employee: employeeMock,
     },
     {
         title: 'Test av ny AAP kalkulator',
@@ -56,6 +65,7 @@ const consentsMock: IConsent[] = [
         code: 'L90-12N',
         expiration: new Date(),
         candidates: [],
+        employee: employeeMock,
     },
     {
         title: 'Dagpengeløsning 2.0',
@@ -65,6 +75,7 @@ const consentsMock: IConsent[] = [
         code: '12J-0ZA',
         expiration: new Date(),
         candidates: [],
+        employee: employeeMock,
     },
 ]
 

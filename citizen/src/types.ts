@@ -19,6 +19,7 @@ export interface IConsent {
     expiration: Date | undefined
     code: string
     candidates: ICandidate[]
+    employee: IEmployee
 }
 
 export enum EnumCandidateStatus {
