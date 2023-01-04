@@ -2,7 +2,7 @@ import { BodyLong, BodyShort, Checkbox, CheckboxGroup, ConfirmationPanel, Headin
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { IConsent, IEmployee } from '../../types'
-import { getDSISODateString, getISODateString } from '../../utils/date'
+import { getDSISODateString } from '../../utils/date'
 
 export default function ConsentPreview({ 
     consent,

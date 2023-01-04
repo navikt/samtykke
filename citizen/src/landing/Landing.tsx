@@ -18,13 +18,14 @@ export default function Landing(): ReactElement {
         const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
         if (code === '') {
             setCodeErrorMessage('Du må legge til en samtykke-kode')
-        }
-        else if (!codeRegex.test(code)) {
+        } else if (!codeRegex.test(code)) {
             setCodeErrorMessage('Samtykke-kode er på feil format')
         } else {
             try {
                 const { status }: { status: number} = await axios.get(`/innbygger/api/consent/${code}`)
-                if (status === 200 || status === 304) navigate(`/samtykke/${code}`)
+                if (status === 200) {
+                    navigate(`/samtykke/${code}`)
+                }
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 404) setCodeErrorMessage(`Fant ikke samtykke med kode: ${code}`)
@@ -34,8 +35,7 @@ export default function Landing(): ReactElement {
         }
 
     }
-    // TODO: on route to consent check if person already has consentet to that consent
-    // if not, show "GiveConsent" component, else show "ActiveConsent" component.
+
     return (
         <div className='mx-32 my-12'>
             <PageHeader 

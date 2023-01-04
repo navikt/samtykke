@@ -29,7 +29,7 @@ jobs:
           start: node server.js
           wait-on: 'http://localhost:3000/innbygger/'
           working-directory: ./citizen
-          env: HOST=http://localhost:3000/ansatt/
+          env: HOST=http://localhost:3000/innbygger/
       # Publish build to ghcr
       - name: Login to docker
         uses: docker/login-action@v2
