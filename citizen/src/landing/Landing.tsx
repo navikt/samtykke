@@ -16,8 +16,10 @@ export default function Landing(): ReactElement {
 
     const onLoadConsent = async () => {
         const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
-
-        if (!codeRegex.test(code)) {
+        if (code === '') {
+            setCodeErrorMessage('Du må legge til en samtykke-kode')
+        }
+        else if (!codeRegex.test(code)) {
             setCodeErrorMessage('Samtykke-kode er på feil format')
         } else {
             try {
