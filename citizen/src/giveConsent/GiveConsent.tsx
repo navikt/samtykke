@@ -20,21 +20,14 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         storeInfo: false
     })
 
-    const handleConsentCheckboxChange = (values: string[]) => {
-        if (values.includes('audioRecording')) {
-            console.log(values)
-            setCandidate({...candidate, audioRecording: true})
-            console.log('got here')
-        } else {
-            setCandidate({...candidate, audioRecording: false})
-            console.log('should definetly not get here')
-        }
+    const [hasGivenConsent, setHasGivenConsent] = useState<boolean>(false)
 
-        if (values.includes('storeInfo')) {
-            setCandidate({...candidate, storeInfo: true})
-        } else {
-            setCandidate({...candidate, storeInfo: false})
-        }
+    const handleConsentCheckboxChange = (values: string[]) => {
+        setCandidate(prevState => ({
+            ...prevState,
+            audioRecording: values.includes('audioRecording'),
+            storeInfo: values.includes('storeInfo')
+        }))
     }
 
     const handleConsentTextFieldsChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +38,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
     }
 
     const onGiveConsent = () => {
-        console.log(candidate.audioRecording)
+        console.log(candidate)
     }
 
     return (
@@ -66,7 +59,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                             Ja, dere kan ta lydopptak
                         </Checkbox>
                         <Checkbox value='storeInfo'>
-                        Ja, dere kan beholde kontakteinformasjonen min i intill 6 måneder
+                        Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
                         i tilfelle det er behov for en oppfølgingssamtale
                         </Checkbox>
                     </CheckboxGroup>
@@ -85,7 +78,12 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                         onChange={handleConsentTextFieldsChange}
                     />
                     <Heading size='small'>Samtykke</Heading>
-                    <ConfirmationPanel label='Ja, jeg samtykker'>
+                    <ConfirmationPanel 
+                        label='Ja, jeg samtykker'
+                        checked={hasGivenConsent || false}
+                        onChange={() => setHasGivenConsent((prevState) => !prevState)}
+                        //error={'For å kunne samtykke må du huke av at du har lest og forstått samtykke'}
+                    >
                         {`Jeg ønsker å delta i: ${consent.title}, og har lest og forstått samtykke`}
                     </ConfirmationPanel>
                 </Panel>
