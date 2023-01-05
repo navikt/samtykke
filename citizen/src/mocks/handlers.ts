@@ -92,7 +92,7 @@ export const handlers = [
             : res(ctx.status(404))
     }),
 
-    rest.get('/innbygger/api/consent/canditature/:code', (req, res, ctx) => {
+    rest.get('/innbygger/api/consent/:code/canditature/', (req, res, ctx) => {
         const { code } = req.params
 
         const consent = consentsMock.filter((cons) => {
@@ -116,4 +116,11 @@ export const handlers = [
             return res(ctx.status(404))
         }
     }),
+
+    rest.post(
+        '/innbygger/api/consent/:code/canditature/',
+        async (req, res, ctx) => {
+            return res(ctx.status(200))
+        },
+    ),
 ]

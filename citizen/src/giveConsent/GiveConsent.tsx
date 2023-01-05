@@ -1,10 +1,11 @@
 import { FillForms } from '@navikt/ds-icons'
-import { Button, Checkbox, CheckboxGroup, ConfirmationPanel, Heading, Panel, TextField } from '@navikt/ds-react'
+import { Alert, Button, Checkbox, CheckboxGroup, ConfirmationPanel, Heading, Panel, TextField } from '@navikt/ds-react'
 import { useNavigate } from 'react-router-dom'
 import React, { ChangeEvent, ReactElement, useState } from 'react'
 import PageHeader from '../common/PageHeader'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumCandidateStatus, ICandidate, IConsent } from '../types'
+import axios, { AxiosError } from 'axios'
 
 export default function GiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
@@ -22,6 +23,12 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
 
     const [hasGivenConsent, setHasGivenConsent] = useState<boolean>(false)
 
+    const [nameErrorMessage, setNameErrorMessage] = useState<string>('')
+    const [emailErrorMessage, setEmailErrorMessage] = useState<string>('')
+    const [giveConsentErrorMessage, setGiveConsentErrorMessage] = useState<string>('')
+
+    const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
+
     const handleConsentCheckboxChange = (values: string[]) => {
         setCandidate(prevState => ({
             ...prevState,
@@ -37,8 +44,49 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         })
     }
 
-    const onGiveConsent = () => {
-        console.log(candidate)
+    const onGiveConsent = async () => {
+        let isError = false
+
+        if (candidate.name.length === 0) {
+            setNameErrorMessage('Du må legge inn ditt navn')
+            isError = true
+        } else {
+            setNameErrorMessage('')
+        }
+
+        const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (candidate.email.length === 0) {
+            setEmailErrorMessage('Du må legge inn din e-post')
+            isError = true
+        } else if (!validEmailRegex.test(candidate.email)) {
+            setEmailErrorMessage('E-post er på ugyldig format')
+            isError = true
+        } else {
+            setEmailErrorMessage('')
+        }
+
+        if (!hasGivenConsent) {
+            setGiveConsentErrorMessage('For å kunne samtykke må du krysse av på at du har lest og forstått samtykke')
+            isError = true
+        } else {
+            setGiveConsentErrorMessage('')
+        }
+
+        if (!isError) {
+            try {
+                const { status } = await axios.post(`/innbygger/api/consent/${consent.code}/canditature/`, {
+                    ...candidate,
+                    consented: new Date(),
+                    status: EnumCandidateStatus.Accepted
+                })
+                if (status === 200) navigate('/')
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    if (error.response?.status === 406) setApiErrorMessage('Noe i skjemaet er feil...')
+                    else setApiErrorMessage('Noe gikk galt i kontakten med serveren...')
+                }
+            }
+        }
     }
 
     return (
@@ -69,6 +117,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                         name='name'
                         value={candidate.name || ''}
                         onChange={handleConsentTextFieldsChange}
+                        error={nameErrorMessage}
                     />
                     <TextField 
                         className='w-1/2'
@@ -76,13 +125,14 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                         name='email'
                         value={candidate.email || ''}
                         onChange={handleConsentTextFieldsChange}
+                        error={emailErrorMessage}
                     />
                     <Heading size='small'>Samtykke</Heading>
                     <ConfirmationPanel 
                         label='Ja, jeg samtykker'
                         checked={hasGivenConsent || false}
                         onChange={() => setHasGivenConsent((prevState) => !prevState)}
-                        //error={'For å kunne samtykke må du huke av at du har lest og forstått samtykke'}
+                        error={!hasGivenConsent && giveConsentErrorMessage}
                     >
                         {`Jeg ønsker å delta i: ${consent.title}, og har lest og forstått samtykke`}
                     </ConfirmationPanel>
@@ -91,6 +141,11 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                     <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
                     <Button onClick={onGiveConsent}>Gi samtykke</Button>
                 </div>
+                {apiErrorMessage && (
+                    <Alert variant="error">
+                        {apiErrorMessage}
+                    </Alert>
+                )}
             </div>
         </div>
     )
