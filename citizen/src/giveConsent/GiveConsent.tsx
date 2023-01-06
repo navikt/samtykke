@@ -107,8 +107,8 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                             Ja, dere kan ta lydopptak
                         </Checkbox>
                         <Checkbox value='storeInfo'>
-                        Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
-                        i tilfelle det er behov for en oppfølgingssamtale
+                            Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
+                            i tilfelle det er behov for en oppfølgingssamtale
                         </Checkbox>
                     </CheckboxGroup>
                     <TextField 

@@ -7,7 +7,7 @@ import GiveConsent from '../giveConsent/GiveConsent'
 import { ICandidate, IConsent } from '../types'
 
 export default function Consent(): ReactElement {
-    
+
     const [consent, setConsent] = useState<IConsent>()
 
     const { code } = useParams()
@@ -35,7 +35,7 @@ export default function Consent(): ReactElement {
         <div>
             {consent ? (
                 consent.candidates && consent.candidates.length === 1 ? 
-                    <ActiveConsent /> 
+                    <ActiveConsent consent={consent}/> 
                     : <GiveConsent consent={consent}/>
             ) : <Heading size='medium'>{consentErrorMessage}</Heading>}
         </div>
