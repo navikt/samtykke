@@ -54,7 +54,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
             setNameErrorMessage('')
         }
 
-        const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        const validEmailRegex = /^[a-z\wæøåA-Z\wæøå0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (candidate.email.length === 0) {
             setEmailErrorMessage('Du må legge inn din e-post')
             isError = true
