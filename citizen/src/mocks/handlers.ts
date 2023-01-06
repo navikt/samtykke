@@ -123,4 +123,11 @@ export const handlers = [
             return res(ctx.status(200))
         },
     ),
+
+    rest.put(
+        '/innbygger/api/consent/:code/canditature/',
+        async (req, res, ctx) => {
+            return res(ctx.status(200))
+        },
+    ),
 ]
