@@ -1,5 +1,5 @@
 import { FileContent } from '@navikt/ds-icons'
-import { Button, Checkbox, CheckboxGroup, Modal, Panel, TextField } from '@navikt/ds-react'
+import { Alert, Button, Checkbox, CheckboxGroup, Modal, Panel, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -147,10 +147,16 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                         </Button>
                     </div>
                 </div>
+                {apiErrorMessage && (
+                    <Alert variant="error">
+                        {apiErrorMessage}
+                    </Alert>
+                )}
             </div>
             <WithdrawConsentModal 
                 open={openWithdrawConsentModal}
                 setOpen={setOpenWithdrawConsentModal}
+                code={consent.code}
             />
         </div>
     )
