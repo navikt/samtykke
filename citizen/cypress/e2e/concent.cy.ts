@@ -28,6 +28,6 @@ describe('displaying of consent based on candidature should behave as expected',
 
         cy.get('*[class^="navds-heading navds-heading--xlarge"]')
             .eq(1)
-            .should('have.text', 'Se samtykke')
+            .should('have.text', 'Administrer samtykke')
     })
 })
