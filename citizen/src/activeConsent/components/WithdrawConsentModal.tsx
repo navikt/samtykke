@@ -9,6 +9,10 @@ export default function WithdrawConsentModal(
         open: boolean
         setOpen: Dispatch<SetStateAction<boolean>>
     }): ReactElement {
+    
+    useEffect(() => {
+        Modal.setAppElement(document.getElementById('root'))
+    }, [])
 
     return (
         <Modal
@@ -27,8 +31,17 @@ export default function WithdrawConsentModal(
                     slettes og deltakelsen din anonymiseres.
                 </BodyLong>
                 <div className='flex justify-end space-x-4'>
-                    <Button variant='secondary'>Avbryt</Button>
-                    <Button variant='danger'>Trekk</Button>
+                    <Button 
+                        variant='secondary'
+                        onClick={() => setOpen(false)}
+                    >
+                        Avbryt
+                    </Button>
+                    <Button 
+                        variant='danger'
+                    >
+                        Trekk
+                    </Button>
                 </div>
             </Modal.Content>
         </Modal>
