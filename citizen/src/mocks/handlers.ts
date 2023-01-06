@@ -80,6 +80,13 @@ const consentsMock: IConsent[] = [
 ]
 
 export const handlers = [
+    rest.get('/innbygger/api/consent/active/', (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json([consentsMock[0], consentsMock[1]]),
+        )
+    }),
+
     rest.get('/innbygger/api/consent/:code', (req, res, ctx) => {
         const { code } = req.params
 

@@ -16,7 +16,7 @@ export default function Consent(): ReactElement {
 
     const getConsent = async () => {
         try {
-            const { data }: { data: IConsent} = await axios.get(`/innbygger/api/consent/${code}/canditature/`)
+            const { data }: { data: IConsent } = await axios.get(`/innbygger/api/consent/${code}/canditature/`)
             setConsent(data)
         } catch (error) {
             if (error instanceof AxiosError) {
