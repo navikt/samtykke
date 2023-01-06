@@ -7,8 +7,7 @@ import GiveConsent from '../giveConsent/GiveConsent'
 import { ICandidate, IConsent } from '../types'
 
 export default function Consent(): ReactElement {
-    // GET innbygger/api/consent/canditature/:code/
-
+    
     const [consent, setConsent] = useState<IConsent>()
 
     const { code } = useParams()
