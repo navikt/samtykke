@@ -1,10 +1,11 @@
 import { FileContent } from '@navikt/ds-icons'
-import { Button, Checkbox, CheckboxGroup, Panel, TextField } from '@navikt/ds-react'
+import { Button, Checkbox, CheckboxGroup, Modal, Panel, TextField } from '@navikt/ds-react'
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { ICandidate, IConsent } from '../types'
+import WithdrawConsentModal from './components/WithdrawConsentModal'
 
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
@@ -16,6 +17,8 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
     const [emailErrorMessage, setEmailErrorMessage] = useState<string>('')
 
     const [candidateChanged, setCandidateChanged] = useState<boolean>(false)
+
+    const [openWithdrawConsentModal, setOpenWithdrawConsentModal] = useState<boolean>(false)
 
     const handleConsentCheckboxChange = (values: string[]) => {
         setCandidate(prevState => ({
@@ -90,10 +93,19 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                     <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
                     <div className='space-x-4'>
                         {candidateChanged ? <Button variant='secondary'>Oppdater</Button> : <></>}
-                        <Button variant="danger">Trekk samtykke</Button>
+                        <Button 
+                            variant="danger" 
+                            onClick={() => setOpenWithdrawConsentModal(true)}
+                        >
+                            Trekk samtykke
+                        </Button>
                     </div>
                 </div>
             </div>
+            <WithdrawConsentModal 
+                open={openWithdrawConsentModal}
+                setOpen={setOpenWithdrawConsentModal}
+            />
         </div>
     )
 }
