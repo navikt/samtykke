@@ -141,8 +141,4 @@ export const handlers = [
     rest.get('/ansatt/api/messages', (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(employeeMock.messages))
     }),
-
-    rest.patch('/ansatt/api/messages/:id', async (req, res, ctx) => {
-        return res(ctx.status(200))
-    }),
 ]
