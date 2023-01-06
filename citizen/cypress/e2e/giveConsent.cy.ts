@@ -1,4 +1,4 @@
-describe('Give consent form behaves as expected', () => {
+describe('give consent form behaves as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}#/samtykke/L90-12N`)
     })
