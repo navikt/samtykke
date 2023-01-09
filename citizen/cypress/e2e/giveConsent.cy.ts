@@ -18,7 +18,7 @@ describe('give consent form behaves as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.equal(`${Cypress.env('HOST')}#/`)
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}#/kvitering`)
         })
     })
 
