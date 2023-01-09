@@ -90,68 +90,73 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                 icon={<FileContent className='align-middle text-[2rem] absolute -top-[1rem]'/>}
             />
             <div className='mt-8'>
-                <ConsentSkeleton consent={consent} />
-                <Panel className='space-y-4'>
-                    <CheckboxGroup
-                        legend='Du takker ja til'
-                        description='Kryss av boksene du føler deg komfertabel med'
-                        onChange={handleConsentCheckboxChange}
-                    >
-                        <Checkbox 
-                            value='audioRecording' 
-                            checked={candidate.audioRecording || false}
-                        >
+                {consent && candidate ? (
+                    <>
+                        <ConsentSkeleton consent={consent} />
+                        <Panel className='space-y-4'>
+                            <CheckboxGroup
+                                legend='Du takker ja til'
+                                description='Kryss av boksene du føler deg komfertabel med'
+                                onChange={handleConsentCheckboxChange}
+                            >
+                                <Checkbox 
+                                    value='audioRecording' 
+                                    checked={candidate.audioRecording || false}
+                                >
                             Ja, dere kan ta lydopptak
-                        </Checkbox>
-                        <Checkbox 
-                            value='storeInfo' 
-                            checked={candidate.storeInfo || false}
-                        >
+                                </Checkbox>
+                                <Checkbox 
+                                    value='storeInfo' 
+                                    checked={candidate.storeInfo || false}
+                                >
                             Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
                             i tilfelle det er behov for en oppfølgingssamtale
-                        </Checkbox>
-                    </CheckboxGroup>
-                    <TextField 
-                        className='w-1/2'
-                        label='Ditt navn'
-                        name='name'
-                        value={candidate.name || ''}
-                        onChange={handleConsentTextFieldsChange}
-                        error={nameErrorMessage}
-                    />
-                    <TextField 
-                        className='w-1/2'
-                        label='Din e-post'
-                        name='email'
-                        value={candidate.email || ''}
-                        onChange={handleConsentTextFieldsChange}
-                        error={emailErrorMessage}
-                    />
-                </Panel>
-                <div className='flex justify-between my-4 px-2'>
-                    <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
-                    <div className='space-x-4'>
-                        {candidateChanged ? (
-                            <Button 
-                                variant='secondary'
-                                onClick={onUpdateCandidate}
-                            >
+                                </Checkbox>
+                            </CheckboxGroup>
+                            <TextField 
+                                className='w-1/2'
+                                label='Ditt navn'
+                                name='name'
+                                value={candidate.name || ''}
+                                onChange={handleConsentTextFieldsChange}
+                                error={nameErrorMessage}
+                            />
+                            <TextField 
+                                className='w-1/2'
+                                label='Din e-post'
+                                name='email'
+                                value={candidate.email || ''}
+                                onChange={handleConsentTextFieldsChange}
+                                error={emailErrorMessage}
+                            />
+                        </Panel>
+                        <div className='flex justify-between my-4 px-2'>
+                            <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
+                            <div className='space-x-4'>
+                                {candidateChanged ? (
+                                    <Button 
+                                        variant='secondary'
+                                        onClick={onUpdateCandidate}
+                                    >
                                 Oppdater
-                            </Button>
-                        ) : <></>}
-                        <Button 
-                            variant="danger" 
-                            onClick={() => setOpenWithdrawConsentModal(true)}
-                        >
+                                    </Button>
+                                ) : <></>}
+                                <Button 
+                                    variant="danger" 
+                                    onClick={() => setOpenWithdrawConsentModal(true)}
+                                >
                             Trekk samtykke
-                        </Button>
-                    </div>
-                </div>
-                {apiErrorMessage && (
-                    <Alert variant="error">
-                        {apiErrorMessage}
-                    </Alert>
-                )}
+                                </Button>
+                            </div>
+                        </div>
+                        {apiErrorMessage && (
+                            <Alert variant="error">
+                                {apiErrorMessage}
+                            </Alert>
+                        )}
+                    </>
+                ): <>Noe gikk galt...</>}
+               
             </div>
             <WithdrawConsentModal 
                 open={openWithdrawConsentModal}

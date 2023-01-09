@@ -43,7 +43,7 @@ export default function ActiveConsents(): ReactElement {
                                 return (
                                     <LinkPanel 
                                         key={index}
-                                        href={`/#/samtykke/${consent.code}`}
+                                        href={`/innbygger/samtykke/${consent.code}`}
                                     >
                                         <LinkPanel.Title>{consent.title}</LinkPanel.Title>
                                     </LinkPanel>
