@@ -83,7 +83,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                 if (status === 200) navigate('/kvitering', { 
                     state: { 
                         consent, 
-                        candidate, 
                         receiptType: EnumConsentReceipt.Accepted 
                     } 
                 })

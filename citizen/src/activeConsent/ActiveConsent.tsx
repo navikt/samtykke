@@ -5,6 +5,7 @@ import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
+import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { ICandidate, IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
 
@@ -65,7 +66,12 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                     `/innbygger/api/consent/${consent.code}/canditature/`,
                     candidate
                 )
-                if (status === 200) navigate('/')
+                if (status === 200) navigate('/kvitering', {
+                    state: {
+                        consent,
+                        receiptType: EnumConsentReceipt.Updated
+                    }
+                })
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 404) setApiErrorMessage('Fant ikke samtykket du prøver å oppdatere')
@@ -161,7 +167,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
             <WithdrawConsentModal 
                 open={openWithdrawConsentModal}
                 setOpen={setOpenWithdrawConsentModal}
-                code={consent.code}
+                consent={consent}
             />
         </div>
     )

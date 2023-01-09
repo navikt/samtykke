@@ -2,7 +2,8 @@ import { Alert, BodyLong, Button, Heading, Modal } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { Dispatch, ReactElement, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { EnumCandidateStatus, ICandidate } from '../../types'
+import { EnumConsentReceipt } from '../../receipt/EnumConsentReceipt'
+import { EnumCandidateStatus, ICandidate, IConsent } from '../../types'
 
 const anonymizedCandidate: ICandidate = {
     id: 'fjjjf',
@@ -18,11 +19,11 @@ export default function WithdrawConsentModal(
     { 
         open,
         setOpen,
-        code
+        consent
     } : { 
         open: boolean
         setOpen: Dispatch<SetStateAction<boolean>>
-        code: string
+        consent: IConsent
     }): ReactElement {
     
     const navigate = useNavigate()
@@ -32,10 +33,15 @@ export default function WithdrawConsentModal(
     const onWithdrawConsent = async () => {
         try {
             const { status }: { status: number} = await axios.put(
-                `/innbygger/api/consent/${code}/canditature/`,
+                `/innbygger/api/consent/${consent.code}/canditature/`,
                 anonymizedCandidate
             )
-            if (status === 200) navigate('/')
+            if (status === 200) navigate('/kvitering', {
+                state: {
+                    consent,
+                    receiptType: EnumConsentReceipt.Withdrawn
+                }
+            })
         } catch (error) {
             if (error instanceof AxiosError) {
                 if (error.response?.status === 404) setApiErrorMessage('Fant ikke samtykket du prøver å oppdatere')

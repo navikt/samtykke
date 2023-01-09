@@ -7,13 +7,14 @@ import { ICandidate, IConsent } from '../types'
 import { EnumConsentReceipt } from './EnumConsentReceipt'
 import ReceiptTemplate from './components/ReceiptTemplate'
 import AcceptedReceipt from './components/AcceptedReceipt'
+import UpdatedReceipt from './components/UpdatedReceipt'
+import WithdrawnReceipt from './components/WithdrawnReceipt'
 
 export default function Receipt(): ReactElement {
 
     const { state } = useLocation()
-    const { consent, candidate, receiptType }: { 
+    const { consent, receiptType }: { 
         consent: IConsent
-        candidate: ICandidate
         receiptType: EnumConsentReceipt
     } = state || {}
 
@@ -32,13 +33,9 @@ export default function Receipt(): ReactElement {
                                 consentExpiration={consent.expiration}
                             />
                         ) || receiptType === EnumConsentReceipt.Updated && (
-                            <ReceiptTemplate title='Ok'>
-                                <BodyLong>Oppdatert</BodyLong>
-                            </ReceiptTemplate>
+                            <UpdatedReceipt consentTitle={consent.title} />
                         ) || receiptType === EnumConsentReceipt.Withdrawn && (
-                            <ReceiptTemplate title='Ok'>
-                                <BodyLong>Trukket</BodyLong>
-                            </ReceiptTemplate>
+                            <WithdrawnReceipt consentTitle={consent.title}/>
                         )}
                     </div>
                 </div>
