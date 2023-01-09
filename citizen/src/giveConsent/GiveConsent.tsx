@@ -6,6 +6,7 @@ import PageHeader from '../common/PageHeader'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumCandidateStatus, ICandidate, IConsent } from '../types'
 import axios, { AxiosError } from 'axios'
+import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 
 export default function GiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
@@ -79,7 +80,13 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                     consented: new Date(),
                     status: EnumCandidateStatus.Accepted
                 })
-                if (status === 200) navigate('/')
+                if (status === 200) navigate('/kvitering', { 
+                    state: { 
+                        consent, 
+                        candidate, 
+                        receiptType: EnumConsentReceipt.Accepted 
+                    } 
+                })
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 406) setApiErrorMessage('Noe i skjemaet er feil...')

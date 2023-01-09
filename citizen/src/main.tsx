@@ -8,6 +8,7 @@ import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
 import Consent from './consent/Consent'
 import ActiveConsents from './activeConsents/ActiveConsents'
+import Receipt from './receipt/Receipt'
 
 worker.start({
     serviceWorker: {
@@ -21,8 +22,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Header />
             <Routes>
                 <Route path='/' element={<Landing />} />
-                <Route path='/samtykke/:code' element={<Consent />}/>
-                <Route path='/samtykker' element={<ActiveConsents />}/>
+                <Route path='/samtykke/:code' element={<Consent />} />
+                <Route path='/samtykker' element={<ActiveConsents />} />
+                <Route path='/kvitering' element={<Receipt />} />
             </Routes>
         </HashRouter>
     </React.StrictMode>
