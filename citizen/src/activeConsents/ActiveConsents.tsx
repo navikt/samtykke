@@ -39,7 +39,7 @@ export default function ActiveConsents(): ReactElement {
                     {activeConsents.length > 0 ? (
                         <>
                             <Heading size="large">Aktive samtykker</Heading>
-                            {activeConsents.map((consent: IConsent, index: number) => {
+                            {activeConsents instanceof Array && activeConsents.map((consent: IConsent, index: number) => {
                                 return (
                                     <LinkPanel 
                                         key={index}
