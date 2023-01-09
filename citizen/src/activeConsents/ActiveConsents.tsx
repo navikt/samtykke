@@ -2,10 +2,13 @@ import { Findout } from '@navikt/ds-icons'
 import { Heading, LinkPanel, Panel } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { IConsent } from '../types'
 
 export default function ActiveConsents(): ReactElement {
+
+    const navigate = useNavigate()
 
     const [activeConsents, setActiveConsents] = useState<IConsent[]>([])
 
@@ -43,7 +46,8 @@ export default function ActiveConsents(): ReactElement {
                                 return (
                                     <LinkPanel 
                                         key={index}
-                                        href={`/innbygger/samtykke/${consent.code}`}
+                                        className='cursor-pointer'
+                                        onClick={() => navigate(`/samtykke/${consent.code}`)}
                                     >
                                         <LinkPanel.Title>{consent.title}</LinkPanel.Title>
                                     </LinkPanel>
