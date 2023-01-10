@@ -9,6 +9,7 @@ import { worker } from './mocks/browser'
 import Consent from './consent/Consent'
 import ActiveConsents from './activeConsents/ActiveConsents'
 import Receipt from './receipt/Receipt'
+import Footer from './common/Footer'
 
 worker.start({
     serviceWorker: {
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 <Route path='/samtykker' element={<ActiveConsents />} />
                 <Route path='/kvitering' element={<Receipt />} />
             </Routes>
+            <Footer />
         </HashRouter>
     </React.StrictMode>
 )
