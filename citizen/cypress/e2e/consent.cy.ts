@@ -10,9 +10,10 @@ describe('displaying of consent based on candidature should behave as expected',
             .eq(1)
             .click()
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Gi samtykke')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Gi samtykke',
+        )
     })
 
     it('should display active consent if already candidate', () => {
@@ -26,8 +27,9 @@ describe('displaying of consent based on candidature should behave as expected',
             .eq(1)
             .click()
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Administrer samtykke')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Administrer samtykke',
+        )
     })
 })

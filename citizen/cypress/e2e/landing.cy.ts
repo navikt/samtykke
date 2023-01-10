@@ -2,9 +2,10 @@ describe('landing page behaves as expected', () => {
     it('should load landing page', () => {
         cy.visit(`${Cypress.env('HOST')}`)
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Gi nytt samtykke')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Gi nytt samtykke',
+        )
     })
 
     it('should handle empty consent code as expected', () => {
