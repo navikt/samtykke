@@ -11,9 +11,10 @@ describe('Active consent is loaded as expected', () => {
             .click()
 
         // Check if correct title and consent code is displayed
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Brukertest av NAV.no')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Brukertest av NAV.no',
+        )
         cy.get('*[class^="navds-heading navds-heading--medium"]')
             .eq(0)
             .should('have.text', 'Kode: X76-2B3')
@@ -101,9 +102,10 @@ describe('Active consent is loaded as expected', () => {
     it('does not load list of candidates if no candidates', () => {
         cy.visit(`${Cypress.env('HOST')}#/samtykke/12J-0ZA`)
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Dagpengeløsning 2.0')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Dagpengeløsning 2.0',
+        )
         cy.get('*[class^="navds-heading navds-heading--medium"]')
             .eq(0)
             .should('have.text', 'Kode: 12J-0ZA')

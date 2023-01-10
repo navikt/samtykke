@@ -38,9 +38,10 @@ describe('Messages is loaded as expected', () => {
             expect(loc.href).to.eq(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
         })
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]')
-            .eq(1)
-            .should('have.text', 'Brukertest av NAV.no')
+        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
+            'have.text',
+            'Brukertest av NAV.no',
+        )
     })
 
     it('removes not read indicator on message press', () => {
