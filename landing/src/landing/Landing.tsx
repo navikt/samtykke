@@ -11,7 +11,9 @@ export default function Landing(): ReactElement {
     return (
         <div className='bg-[#75c4c5] h-[calc(100vh-148px)]'>
             <div className='flex flex-col items-center py-12 space-y-4'>
-                <Heading size='xlarge'>Gi ditt samtykke</Heading>
+                <button onClick={() => navigate('/')}>
+                    <Heading size='xlarge' className='text-black'>Samtykke</Heading>
+                </button>
                 <div className='text-center px-64'>
                     <Heading size="small">
                         I samtykke-løsningen kan du gi ditt digitale samtykke til

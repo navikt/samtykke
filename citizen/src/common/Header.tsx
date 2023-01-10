@@ -9,7 +9,9 @@ export default function Header(): ReactElement {
 
     return (
         <div className='w-full m-0 flex flex-row justify-between bg-[#fefefe] p-12'>
-            <Heading size='xlarge'>Samtykke</Heading>
+            <button onClick={() => navigate('/')}>
+                <Heading size='xlarge' className='text-black'>Samtykke</Heading>
+            </button>
             <div>
                 <Button 
                     variant='tertiary' 
