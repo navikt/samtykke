@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
+import config from '../config'
 import { IConsent } from '../types'
 
 export default function Landing(): ReactElement {
@@ -22,7 +23,7 @@ export default function Landing(): ReactElement {
             setCodeErrorMessage('Samtykke-kode er på feil format')
         } else {
             try {
-                const { status }: { status: number} = await axios.get(`/innbygger/api/consent/${code}`)
+                const { status }: { status: number} = await axios.get(`${config.apiPath}/consent/${code}`)
                 if (status === 200) {
                     navigate(`/samtykke/${code}`)
                 }

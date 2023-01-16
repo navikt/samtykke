@@ -5,6 +5,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { IConsent } from '../types'
+import config from '../config'
 
 export default function ActiveConsents(): ReactElement {
 
@@ -16,7 +17,7 @@ export default function ActiveConsents(): ReactElement {
 
     const getActiveConsents = async () => {
         try {
-            const { data }: { data: IConsent[] } = await axios.get('/innbygger/api/consent/active/')
+            const { data }: { data: IConsent[] } = await axios.get(`${config.apiPath}/consent/active/`)
             setActiveConsents(data)
         } catch (error) {
             if (error instanceof AxiosError) {

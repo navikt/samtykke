@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ActiveConsent from '../activeConsent/ActiveConsent'
+import config from '../config'
 import GiveConsent from '../giveConsent/GiveConsent'
 import { ICandidate, IConsent } from '../types'
 
@@ -16,7 +17,7 @@ export default function Consent(): ReactElement {
 
     const getConsent = async () => {
         try {
-            const { data }: { data: IConsent } = await axios.get(`/innbygger/api/consent/${code}/canditature/`)
+            const { data }: { data: IConsent } = await axios.get(`${config.apiPath}/consent/${code}/canditature/`)
             setConsent(data)
         } catch (error) {
             if (error instanceof AxiosError) {

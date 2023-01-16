@@ -1,5 +1,6 @@
 import { EnumCandidateStatus, ICitizen, IConsent, IEmployee } from '../types'
 import { rest } from 'msw'
+import config from '../config'
 
 const employeeMock: IEmployee = {
     firstname: 'Dan',
@@ -80,14 +81,14 @@ const consentsMock: IConsent[] = [
 ]
 
 export const handlers = [
-    rest.get('/innbygger/api/consent/active/', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/consent/active/`, (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json([consentsMock[0], consentsMock[1]]),
         )
     }),
 
-    rest.get('/innbygger/api/consent/:code', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/consent/:code`, (req, res, ctx) => {
         const { code } = req.params
 
         const consent = consentsMock.filter((cons) => {
@@ -99,40 +100,46 @@ export const handlers = [
             : res(ctx.status(404))
     }),
 
-    rest.get('/innbygger/api/consent/:code/canditature/', (req, res, ctx) => {
-        const { code } = req.params
+    rest.get(
+        `${config.apiPath}/consent/:code/canditature/`,
+        (req, res, ctx) => {
+            const { code } = req.params
 
-        const consent = consentsMock.filter((cons) => {
-            return cons.code === code
-        })
+            const consent = consentsMock.filter((cons) => {
+                return cons.code === code
+            })
 
-        if (consent.length === 1 && consent[0].candidates.length > 0) {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    ...consent[0],
-                    candidates: [consent[0].candidates[0]],
-                }),
-            )
-        } else if (consent.length === 1 && consent[0].candidates.length === 0) {
-            return res(
-                ctx.status(200),
-                ctx.json({ ...consent[0], candidates: undefined }),
-            )
-        } else {
-            return res(ctx.status(404))
-        }
-    }),
+            if (consent.length === 1 && consent[0].candidates.length > 0) {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        ...consent[0],
+                        candidates: [consent[0].candidates[0]],
+                    }),
+                )
+            } else if (
+                consent.length === 1 &&
+                consent[0].candidates.length === 0
+            ) {
+                return res(
+                    ctx.status(200),
+                    ctx.json({ ...consent[0], candidates: undefined }),
+                )
+            } else {
+                return res(ctx.status(404))
+            }
+        },
+    ),
 
     rest.post(
-        '/innbygger/api/consent/:code/canditature/',
+        `${config.apiPath}/consent/:code/canditature/`,
         async (req, res, ctx) => {
             return res(ctx.status(200))
         },
     ),
 
     rest.put(
-        '/innbygger/api/consent/:code/canditature/',
+        `${config.apiPath}/consent/:code/canditature/`,
         async (req, res, ctx) => {
             return res(ctx.status(200))
         },

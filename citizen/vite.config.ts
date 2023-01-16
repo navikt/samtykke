@@ -7,10 +7,11 @@ export default defineConfig({
     base: '/innbygger/',
     server: {
         proxy: {
-            '/innbygger/api': {
-                target: 'http://localhost:8080',
+            '/innbygger/api/': {
+                target: 'http://0.0.0.0:8080',
                 changeOrigin: true,
                 secure: false,
+                rewrite: (path) => path.replace(/^\/innbygger\/api/, ''),
             },
         },
     },

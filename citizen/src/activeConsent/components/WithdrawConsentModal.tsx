@@ -4,6 +4,7 @@ import React, { Dispatch, ReactElement, SetStateAction, useEffect, useState } fr
 import { useNavigate } from 'react-router-dom'
 import { EnumConsentReceipt } from '../../receipt/EnumConsentReceipt'
 import { EnumCandidateStatus, ICandidate, IConsent } from '../../types'
+import config from '../../config'
 
 const anonymizedCandidate: ICandidate = {
     id: 'fjjjf',
@@ -33,7 +34,7 @@ export default function WithdrawConsentModal(
     const onWithdrawConsent = async () => {
         try {
             const { status }: { status: number} = await axios.put(
-                `/innbygger/api/consent/${consent.code}/canditature/`,
+                `${config.apiPath}/consent/${consent.code}/canditature/`,
                 anonymizedCandidate
             )
             if (status === 200) navigate('/kvitering', {

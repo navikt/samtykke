@@ -10,12 +10,15 @@ import Consent from './consent/Consent'
 import ActiveConsents from './activeConsents/ActiveConsents'
 import Receipt from './receipt/Receipt'
 import Footer from './common/Footer'
+import config from './config'
 
-worker.start({
-    serviceWorker: {
-        url: '/innbygger/mockServiceWorker.js'
-    }
-})
+if (config.shouldMockAPI === 'ja') {
+    worker.start({
+        serviceWorker: {
+            url: '/innbygger/mockServiceWorker.js'
+        }
+    })
+}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios'
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
+import config from '../config'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { ICandidate, IConsent } from '../types'
@@ -63,7 +64,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
         if (!isError) {
             try {
                 const { status }: { status: number } = await axios.put(
-                    `/innbygger/api/consent/${consent.code}/canditature/`,
+                    `${config.apiPath}/consent/${consent.code}/canditature/`,
                     candidate
                 )
                 if (status === 200) navigate('/kvitering', {
