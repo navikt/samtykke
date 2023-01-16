@@ -26,7 +26,7 @@ jobs:
         with:
           install: false
           browser: chrome
-          start: node server.js
+          start: VITE_MOCK_DATA=ja && VITE_API_PATH=/innbygger/api/citizen && node server.js
           wait-on: 'http://localhost:3000/innbygger/'
           working-directory: ./citizen
           env: HOST=http://localhost:3000/innbygger/
