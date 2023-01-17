@@ -3,6 +3,7 @@ import { rest } from 'msw'
 import config from '../config'
 
 const employeeMock: IEmployee = {
+    id: 'iosdhgoij924',
     firstname: 'Dan',
     lastname: 'Børge',
     email: 'dan.børge@nav.no',
@@ -20,7 +21,7 @@ const consentsMock: IConsent[] = [
         expiration: new Date(),
         candidates: [
             {
-                id: '21097oifdsh',
+                id: 1,
                 name: 'Lars Pølse',
                 email: 'lars.pølse@gmail.com',
                 status: EnumCandidateStatus.Accepted,
@@ -29,7 +30,7 @@ const consentsMock: IConsent[] = [
                 storeInfo: false,
             },
             {
-                id: '23894kshf',
+                id: 1,
                 name: 'Ole Bolle Brus',
                 email: 'ole.bolle.brus@outlook.no',
                 status: EnumCandidateStatus.Accepted,
@@ -38,7 +39,7 @@ const consentsMock: IConsent[] = [
                 storeInfo: true,
             },
             {
-                id: 'oigh3022584',
+                id: 1,
                 name: 'Pelle Politi',
                 email: 'pelle.politi@politiet.no',
                 status: EnumCandidateStatus.Withdrawn,
@@ -47,7 +48,7 @@ const consentsMock: IConsent[] = [
                 storeInfo: false,
             },
             {
-                id: 'bsoi329854',
+                id: 1,
                 name: 'Nasse Nøff',
                 email: 'nasse.noeff@svenske.se',
                 status: EnumCandidateStatus.Withdrawn,

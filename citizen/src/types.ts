@@ -1,4 +1,5 @@
 export interface IEmployee {
+    id: string
     firstname: string
     lastname: string
     email: string
@@ -28,7 +29,7 @@ export enum EnumCandidateStatus {
 }
 
 export interface ICandidate {
-    id: string
+    id: number
     name: string
     email: string
     status: EnumCandidateStatus
