@@ -31,8 +31,6 @@ jobs:
           working-directory: ./citizen
           env: 
             HOST=http://localhost:3000/innbygger/
-            VITE_MOCK_DATA=ja
-            VITE_API_PATH=/innbygger/api/citizen
       # Publish build to ghcr
       - name: Login to docker
         uses: docker/login-action@v2
