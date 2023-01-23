@@ -1,6 +1,10 @@
 import express from 'express'
 import path from 'path'
-import {fileURLToPath} from 'url'
+import { fileURLToPath } from 'url'
+import dotenv from 'dotenv'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+
+dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -16,6 +20,8 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
+app.use(`${process.env.VITE_API_PATH}`, createProxyMiddleware({ target: process.env.VITE_API_URL, changeOrigin: true}))
+
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
 
-app.listen(3000, () => { console.log('Listening on port 3000')})
+app.listen(3000, () => { console.log('Listening on port 3000') })
