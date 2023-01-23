@@ -24,7 +24,7 @@ jobs:
           build: yarn build:mock
           install: false
           browser: chrome
-          start: node server.js
+          start: yarn start:build:mock
           wait-on: 'http://localhost:3000/innbygger/'
           working-directory: ./citizen
           env: 

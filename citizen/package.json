@@ -7,6 +7,7 @@
     "dev": "concurrently \"npm run dev:css\" \"vite\"",
     "build": "npm run build:css && tsc && vite build",
     "build:mock": "npm run build:css && tsc && vite build --mode mock",
+    "start:build:mock": "VITE_MOCK_DATA=ja && node server.js",
     "preview": "vite preview",
     "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
     "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css",
