@@ -22,7 +22,7 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
 
 // If data should be mocked by MSW, do not use proxy
 if (process.env.VITE_MOCK_DATA !== 'ja') {
-    app.use(basePath, createProxyMiddleware({ target: `${process.env.VITE_API_URL}`, changeOrigin: true}))
+    app.use(`${basePath}/api`, createProxyMiddleware({ target: `${process.env.VITE_API_URL}`, changeOrigin: true}))
 }
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
