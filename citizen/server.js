@@ -20,9 +20,23 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
+const restream = (proxyReq, req) => {
+    if (req.body) {
+        const bodyData = JSON.stringify(req.body)
+        proxyReq.setHeader('Content-Type', 'application/json')
+        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+        proxyReq.write(bodyData)
+    }
+}
+
 // If data should be mocked by MSW, do not use proxy
 if (process.env.VITE_MOCK_DATA !== 'ja') {
-    app.use(`${basePath}/api`, createProxyMiddleware({ target: `${process.env.VITE_API_URL}`, changeOrigin: true}))
+    app.use(`${basePath}/api`, createProxyMiddleware({ 
+        target: `${process.env.VITE_API_URL}`, 
+        changeOrigin: true, 
+        pathRewrite: { [`^${basePath}/api`]: '' },
+        onProxyReq: restream
+    }))
 }
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
