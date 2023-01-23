@@ -6,6 +6,7 @@ on:
     #paths: [citizen/**]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-citizen:${{ github.sha }}
+  VITE_MOCK_DATA: ja
 
 jobs:
   test-n-build:
@@ -24,7 +25,7 @@ jobs:
           build: yarn build:mock
           install: false
           browser: chrome
-          start: yarn start:build:mock
+          start: node server.js
           wait-on: 'http://localhost:3000/innbygger/'
           working-directory: ./citizen
           env: 

@@ -21,6 +21,7 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
 })
 
 // If data should be mocked by MSW, do not use proxy
+
 if (process.env.VITE_MOCK_DATA !== 'ja') {
     app.use(`${process.env.VITE_API_PATH}`, createProxyMiddleware({ target: process.env.VITE_API_URL, changeOrigin: true}))
 }
