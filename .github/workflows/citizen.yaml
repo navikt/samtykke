@@ -6,7 +6,6 @@ on:
     #paths: [citizen/**]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-citizen:${{ github.sha }}
-  VITE_MOCK_DATA: ja
 
 jobs:
   test-n-build:
@@ -21,6 +20,8 @@ jobs:
         run: yarn install
       # Run tests
       - uses: cypress-io/github-action@v4
+        env:
+          VITE_MOCK_DATA: ja
         with:
           build: yarn build:mock
           install: false
