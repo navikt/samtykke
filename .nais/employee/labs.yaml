@@ -31,3 +31,7 @@ spec:
     cpuThresholdPercentage: 80
   ingresses:
     - https://samtykke.labs.nais.io/ansatt
+  accesPolicy:
+    outbound:
+      rules:
+        - application: samtykke-api
