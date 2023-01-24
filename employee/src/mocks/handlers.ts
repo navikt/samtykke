@@ -142,4 +142,8 @@ export const handlers = [
     rest.get(`${config.apiPath}/messages`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(employeeMock.messages))
     }),
+
+    rest.patch(`${config.apiPath}/messages/:id`, async (req, res, ctx) => {
+        return res(ctx.status(200))
+    }),
 ]
