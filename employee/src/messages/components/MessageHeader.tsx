@@ -2,6 +2,7 @@ import { Email } from '@navikt/ds-icons'
 import { Accordion } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useState } from 'react'
+import config from '../../config'
 
 export default function MessageHeader({
     title,
@@ -18,7 +19,7 @@ export default function MessageHeader({
     const patchMessageRead = async () => {
         if (!messageRead) {
             try {
-                const { status } = await axios.patch(`/ansatt/api/messages/${id}`, {
+                const { status } = await axios.patch(`${config.apiPath}/messages/${id}`, {
                     read: true
                 })
                 if (status === 200 || status === 304) setMessageRead(true)
