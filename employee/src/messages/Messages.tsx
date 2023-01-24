@@ -17,7 +17,7 @@ export default function Messages(): ReactElement {
 
     const getMessages = async () => {
         try {
-            const { data }: { data: IMessage[] } = await axios.get(`${config.apiPath}/api/messages`)
+            const { data }: { data: IMessage[] } = await axios.get(`${config.apiPath}/messages`)
             setMessages(data)
         } catch (error) {
             if (error instanceof AxiosError) {
