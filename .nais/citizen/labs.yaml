@@ -37,7 +37,7 @@ spec:
     - name: VITE_API_PATH
       value: /innbygger/api/citizen
     - name: VITE_API_URL
-      value: https://samtykke-api.labs.nais.io/citizen
+      value: http://samtykke-api/citizen
   accesPolicy:
     outbound:
       rules:
