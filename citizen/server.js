@@ -31,10 +31,10 @@ const restream = (proxyReq, req) => {
 
 // If data should be mocked by MSW, do not use proxy
 if (process.env.VITE_MOCK_DATA !== 'ja') {
-    app.use(`${basePath}/api`, createProxyMiddleware({ 
+    app.use(`${process.env.VITE_API_PATH}`, createProxyMiddleware({ 
         target: `${process.env.VITE_API_URL}`, 
         changeOrigin: true, 
-        pathRewrite: { [`^${basePath}/api`]: '' },
+        pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
         onProxyReq: restream
     }))
 }
