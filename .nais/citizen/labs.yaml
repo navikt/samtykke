@@ -37,8 +37,4 @@ spec:
     - name: VITE_API_PATH
       value: /innbygger/api/citizen
     - name: VITE_API_URL
-      value: http://samtykke-api/citizen
-  accesPolicy:
-    outbound:
-      rules:
-        - application: samtykke-api
+      value: http://samtykke-api
