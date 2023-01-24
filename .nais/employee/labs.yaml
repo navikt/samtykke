@@ -31,7 +31,10 @@ spec:
     cpuThresholdPercentage: 80
   ingresses:
     - https://samtykke.labs.nais.io/ansatt
-  accesPolicy:
-    outbound:
-      rules:
-        - application: samtykke-api
+  env:
+    - name: VITE_MOCK_DATA
+      value: nei
+    - name: VITE_API_PATH
+      value: /innbygger/api/employee
+    - name: VITE_API_URL
+      value: https://samtykke-api.labs.nais.io/employee

@@ -7,6 +7,7 @@ import PageHeader from '../common/PageHeader'
 import { IMessage } from '../types'
 import MessageContent from './components/MessageContent'
 import MessageHeader from './components/MessageHeader'
+import config from '../config'
 
 export default function Messages(): ReactElement {
 
@@ -16,7 +17,7 @@ export default function Messages(): ReactElement {
 
     const getMessages = async () => {
         try {
-            const { data }: { data: IMessage[] } = await axios.get('/ansatt/api/messages')
+            const { data }: { data: IMessage[] } = await axios.get(`${config.apiPath}/api/messages`)
             setMessages(data)
         } catch (error) {
             if (error instanceof AxiosError) {

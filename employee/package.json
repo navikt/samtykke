@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:css\" \"vite\"",
     "build": "npm run build:css && tsc && vite build",
+    "build:mock": "npm run build:css && tsc && vite build --mode mock",
     "preview": "vite preview",
     "build:css": "tailwindcss -m -i ./src/index.css -o ./src/styles/app.css",
     "dev:css": "tailwindcss -w -i ./src/index.css -o ./src/styles/app.css",
@@ -24,6 +25,7 @@
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
     "msw": "^0.49.0",
     "path": "^0.12.7",
     "react": "^18.2.0",

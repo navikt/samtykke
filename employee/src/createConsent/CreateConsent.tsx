@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { IConsent } from '../types'
 import { getYesterdayDate, getExpirationLimitDate } from '../utils/date'
 import axios, { AxiosError } from 'axios'
+import config from '../config'
 
 export default function CreateConsent(): ReactElement {
 
@@ -101,7 +102,7 @@ export default function CreateConsent(): ReactElement {
 
         if (!isError) {
             try {
-                const { status } = await axios.post('/ansatt/api/consent', consent)
+                const { status } = await axios.post(`${config.apiPath}/consent`, consent)
                 if (status === 200) navigate('/')
             } catch (error) {
                 if (error instanceof AxiosError) {

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import ContentPanel from '../common/ContentPanel'
 import { IConsent, IEmployee } from '../types'
 import ConsentPreviews from './components/ConsentPreviews'
+import config from '../config'
 
 export default function Landing(): ReactElement {
 
@@ -18,7 +19,7 @@ export default function Landing(): ReactElement {
 
     const getCurrentEmployee = async () => {
         try {
-            const { data }: { data: IEmployee } = await axios.get('/ansatt/api/currentEmployee')
+            const { data }: { data: IEmployee } = await axios.get(`${config.apiPath}/currentEmployee`)
             setEmployeeName(`${data.firstname} ${data.lastname}`)
         } catch (error) {
             if (error instanceof AxiosError) setEmployeeName('Navn Navnesen')
@@ -27,7 +28,7 @@ export default function Landing(): ReactElement {
 
     const getActiveConsents = async () => {
         try {
-            const { data }: { data: IConsent[] } = await axios.get('/ansatt/api/consent/active')
+            const { data }: { data: IConsent[] } = await axios.get(`${config.apiPath}/consent/active`)
             setActiveConsent(data)
         } catch (error) {
             if (error instanceof AxiosError) {

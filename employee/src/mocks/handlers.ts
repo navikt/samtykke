@@ -1,4 +1,5 @@
 import { rest } from 'msw'
+import config from '../config'
 import { EnumCandidateStatus, IEmployee } from '../types'
 import { createConsentCode } from './utils'
 
@@ -107,16 +108,16 @@ const employeeMock: IEmployee = {
 }
 
 export const handlers = [
-    rest.get('/ansatt/api/currentEmployee', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/currentEmployee`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(employeeMock))
     }),
 
-    rest.get('/ansatt/api/consent/active', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/consent/active`, (req, res, ctx) => {
         // Returns the active consents of the current user
         return res(ctx.status(200), ctx.json(employeeMock.consents))
     }),
 
-    rest.post('/ansatt/api/consent', async (req, res, ctx) => {
+    rest.post(`${config.apiPath}/consent`, async (req, res, ctx) => {
         let consent = JSON.parse(
             new TextDecoder().decode(await req.arrayBuffer()),
         )
@@ -126,7 +127,7 @@ export const handlers = [
         return res(ctx.status(200))
     }),
 
-    rest.get('/ansatt/api/consent/:code', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/consent/:code`, (req, res, ctx) => {
         const { code } = req.params
 
         const consent = employeeMock.consents.filter((cons) => {
@@ -138,7 +139,7 @@ export const handlers = [
             : res(ctx.status(404))
     }),
 
-    rest.get('/ansatt/api/messages', (req, res, ctx) => {
+    rest.get(`${config.apiPath}/messages`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(employeeMock.messages))
     }),
 ]

@@ -18,18 +18,19 @@ jobs:
       - name: Yarn install
         working-directory: employee
         run: yarn install
-      - name: Yarn build
-        working-directory: employee
-        run: yarn build
       # Run tests
       - uses: cypress-io/github-action@v4
         with:
+          build: yarn build:mock
           install: false
           browser: chrome
           start: node server.js
           wait-on: 'http://localhost:3000/ansatt/'
           working-directory: ./employee
           env: HOST=http://localhost:3000/ansatt/
+      - name: Yarn build
+        working-directory: employee
+        run: yarn build
       # Publish build to ghcr
       - name: Login to docker
         uses: docker/login-action@v2

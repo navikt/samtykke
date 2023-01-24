@@ -9,12 +9,15 @@ import { worker } from './mocks/browser'
 import CreateConsent from './createConsent/CreateConsent'
 import ActiveConsent from './activeConsent/ActiveConsent'
 import Messages from './messages/Messages'
+import config from './config'
 
-worker.start({
-    serviceWorker: {
-        url: '/ansatt/mockServiceWorker.js'
-    }
-})
+if (config.shouldMockAPI === 'ja') {
+    worker.start({
+        serviceWorker: {
+            url: '/ansatt/mockServiceWorker.js'
+        }
+    })
+}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

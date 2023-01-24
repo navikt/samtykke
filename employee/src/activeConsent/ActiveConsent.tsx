@@ -8,6 +8,7 @@ import PageHeader from '../common/PageHeader'
 import { EnumCandidateStatus, ICandidate, IConsent } from '../types'
 import { getISODateString } from '../utils/date'
 import CandidatesList from './components/CandidatesList'
+import config from '../config'
 
 export default function ActiveConsent(): ReactElement {
     
@@ -19,7 +20,7 @@ export default function ActiveConsent(): ReactElement {
 
     const getConsent = async () => {
         try {
-            const { data }: { data: IConsent } = await axios.get(`/ansatt/api/consent/${code}`)
+            const { data }: { data: IConsent } = await axios.get(`${config.apiPath}/consent/${code}`)
             setConsent(data)
         } catch (error) {
             if (error instanceof AxiosError) {
