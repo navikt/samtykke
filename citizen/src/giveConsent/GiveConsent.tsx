@@ -14,7 +14,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
     const navigate = useNavigate()
     
     const [candidate, setCandidate] = useState<ICandidate>({
-        id: '',
+        id: 0,
         name: '',
         email: '',
         status: EnumCandidateStatus.Withdrawn,
