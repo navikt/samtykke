@@ -10,11 +10,13 @@ import SignIn from './signIn/SignIn'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <HashRouter>
-            <Header />
-            <Routes>
-                <Route path='/' element={<Landing />} />
-                <Route path='/innlogging' element={<SignIn />} />
-            </Routes>
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/innlogging" element={<SignIn />} />
+                </Routes>
+            </div>
         </HashRouter>
     </React.StrictMode>,
 )
