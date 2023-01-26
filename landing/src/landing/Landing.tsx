@@ -2,7 +2,15 @@ import { Right } from '@navikt/ds-icons'
 import { Ingress, Button, Heading } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import reops from '../assets/reops.png'
+import reops800AVIF from '../assets/reops-800.avif'
+import reops1280AVIF from '../assets/reops-1280.avif'
+import reops2560AVIF from '../assets/reops-2560.avif'
+import reops800WebP from '../assets/reops-800.webp'
+import reops1280WebP from '../assets/reops-1280.webp'
+import reops2560WebP from '../assets/reops-2560.webp'
+import reops800JPEG from '../assets/reops-800.jpg'
+import reops1280JPEG from '../assets/reops-1280.jpg'
+import reops2560JPEG from '../assets/reops-2560.jpg'
 
 export default function Landing(): ReactElement {
     const navigate = useNavigate()
@@ -27,11 +35,28 @@ export default function Landing(): ReactElement {
                         Til samtykke
                     </Button>
                 </div>
+                <picture>
+                    <source
+                        srcSet={`${reops800AVIF} 800w, ${reops1280AVIF} 1280w`}
+                        sizes="(max-width: 1280px) 1280px, 100vw"
+                        type="image/avif"
+                    />
+                    <source
+                        srcSet={`${reops800WebP} 800w, ${reops1280WebP} 1280w`}
+                        sizes="(max-width: 1280px) 1280px, 100vw"
+                        type="image/webp"
+                    />
+                    <source
+                        srcSet={`${reops800JPEG} 800w, ${reops1280JPEG} 1280w`}
+                        sizes="(max-width: 1280px) 1280px, 100vw"
+                        type="image/jpeg"
+                    />
+                    <img
+                        src={reops800JPEG}
+                        alt="Illustrasjon av mennesker som bærer forskjellige geometrisk objekter."
+                    />
+                </picture>
             </div>
-            <img
-                src={reops}
-                alt="Illustrasjon av mennesker som bærer forskjellige geometrisk objekter."
-            />
         </div>
     )
 }
