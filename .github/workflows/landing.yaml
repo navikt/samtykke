@@ -3,7 +3,7 @@ name: Deploy landing
 on:
   push:
     branches: [main]
-    paths: [landing/**]
+    #paths: [landing/**]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
 
@@ -38,6 +38,7 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: labs-gcp
+         DEPLOY_SERVER: deploy.nais.io:443
+          #CLUSTER: labs-gcp
           RESOURCE: .nais/landing/labs.yaml
           VAR: image=${{ env.DOCKER_IMAGE }}
