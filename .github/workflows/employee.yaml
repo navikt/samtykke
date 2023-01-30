@@ -51,5 +51,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           DEPLOY_SERVER: deploy.nais.io:443
+          CLUSTER: labs-gcp
           RESOURCE: .nais/employee/labs.yaml
           VAR: image=${{ env.DOCKER_IMAGE }}
