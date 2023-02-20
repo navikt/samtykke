@@ -29,7 +29,7 @@ export enum EnumCandidateStatus {
 }
 
 export interface ICandidate {
-    id: number
+    id?: number
     name: string
     email: string
     status: EnumCandidateStatus
