@@ -4,23 +4,22 @@ import { Edit } from '@navikt/ds-icons'
 import PageHeader from '../common/PageHeader'
 import ConsentPreview from './components/ConsentPreview'
 import { useNavigate } from 'react-router-dom'
-import { IConsent } from '../types'
-import { getYesterdayDate, getExpirationLimitDate } from '../utils/date'
+import { IConsent, IConsentBase } from '../types'
+import { getYesterdayDate, getExpirationLimitDate, convertToJavaLocalDate } from '../utils/date'
 import axios, { AxiosError } from 'axios'
 import config from '../config'
+import { getISODateString } from '../utils/date'
 
 export default function CreateConsent(): ReactElement {
 
     const navigate = useNavigate()
 
-    const [consent, setConsent] = useState<IConsent>({
+    const [consent, setConsent] = useState<IConsentBase>({
         title: '',
         responsibleGroup: '',
         purpose: '',
-        totalInvolved: 1,
-        code: '',
         expiration: undefined,
-        candidates: []
+        totalInvolved: 1
     })
     
     const [titleErrorMessage, setTitleErrorMessage] = useState<string>('')
@@ -50,10 +49,6 @@ export default function CreateConsent(): ReactElement {
         let isError = false
 
         if (selectedDay) {
-            setConsent({
-                ...consent,
-                expiration: selectedDay
-            })
             setExpiraitonErrorMessage('')
         } else {
             setExpiraitonErrorMessage('Du må sette en utløpsdato')
@@ -106,7 +101,7 @@ export default function CreateConsent(): ReactElement {
                 if (status === 200) navigate('/')
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    if (error.response?.status === 406) setApiErrorMessage('Noe i skjemaet er feil...')
+                    if (error.response?.status === 400) setApiErrorMessage('Noe i skjemaet er feil...')
                     else setApiErrorMessage('Noe gikk galt i kontakten med serveren...')
                 }
             }
@@ -164,6 +159,12 @@ export default function CreateConsent(): ReactElement {
                                 {...inputProps} 
                                 label="Utløpsdato"
                                 error={expirationErrorMessage}
+                                onSelect={() => {
+                                    setConsent({
+                                        ...consent,
+                                        expiration: convertToJavaLocalDate(selectedDay!)
+                                    })
+                                }}
                             />
                         </UNSAFE_DatePicker>
                     </div>

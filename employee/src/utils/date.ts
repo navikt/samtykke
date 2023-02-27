@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format, parse, parseISO, toDate } from 'date-fns'
 
 export const getYesterdayDate = (): Date => {
     const yesterday: Date = new Date()
@@ -18,4 +18,8 @@ export const getISODateString = (date: Date): string => {
 
 export const getDSISODateString = (date: Date): string => {
     return format(date, 'dd.MM.yyyy')
+}
+
+export const convertToJavaLocalDate = (date: Date) => {
+    return format(date, 'yyyy-MM-dd')
 }

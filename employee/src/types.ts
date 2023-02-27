@@ -6,12 +6,15 @@ export interface IEmployee {
     messages: IMessage[]
 }
 
-export interface IConsent {
+export interface IConsentBase {
     title: string
     responsibleGroup: string
     purpose: string
     totalInvolved: number
-    expiration: Date | undefined
+    expiration: Date | string | undefined
+}
+
+export interface IConsent extends IConsentBase {
     code: string
     candidates: ICandidate[]
 }
