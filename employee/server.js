@@ -31,7 +31,7 @@ const restream = (proxyReq, req) => {
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
     app.use(`${process.env.VITE_API_PATH}`, createProxyMiddleware({ 
-        target: `${process.env.VITE_API_URL}`, 
+        target: `${process.env.VITE_API_URL}/employee`, 
         changeOrigin: true, 
         pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '/employee' },
         onProxyReq: restream
