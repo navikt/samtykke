@@ -8,6 +8,7 @@ import { EnumCandidateStatus, ICandidate, IConsent } from '../types'
 import axios, { AxiosError } from 'axios'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import config from '../config'
+import { format } from 'date-fns'
 
 export default function GiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
@@ -77,7 +78,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
             try {
                 const { status } = await axios.post(`${config.apiPath}/consent/${consent.code}/canditature/`, {
                     ...candidate,
-                    consented: new Date(),
+                    consented: format(new Date(), 'yyyy-MM-dd'),
                     status: EnumCandidateStatus.Accepted
                 })
                 if (status === 200) navigate('/kvitering', { 

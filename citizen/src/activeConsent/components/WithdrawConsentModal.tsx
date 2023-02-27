@@ -7,7 +7,7 @@ import { EnumCandidateStatus, ICandidate, IConsent } from '../../types'
 import config from '../../config'
 
 const anonymizedCandidate: ICandidate = {
-    id: 'fjjjf',
+    id:  1,
     name: 'xxx',
     email: 'xxxx@x.xx',
     consented: undefined,
@@ -34,7 +34,7 @@ export default function WithdrawConsentModal(
     const onWithdrawConsent = async () => {
         try {
             const { status }: { status: number} = await axios.put(
-                `${config.apiPath}/consent/${consent.code}/canditature/`,
+                `${config.apiPath}/consent/${consent.code}/canditature/anonymize/`,
                 anonymizedCandidate
             )
             if (status === 200) navigate('/kvitering', {

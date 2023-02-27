@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import ActiveConsent from '../activeConsent/ActiveConsent'
 import config from '../config'
 import GiveConsent from '../giveConsent/GiveConsent'
-import { ICandidate, IConsent } from '../types'
+import { ICandidate, IConsent, IConsentBase } from '../types'
 
 export default function Consent(): ReactElement {
 
