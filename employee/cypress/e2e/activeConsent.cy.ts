@@ -47,7 +47,7 @@ describe('Active consent is loaded as expected', () => {
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
             .eq(1)
-            .should('have.text', 'SAMTYKKE_GITT')
+            .should('have.text', 'ACCEPTED')
 
         // Check if audio consent is not given, store information consent is given, but candidate has concented
         cy.get('*[class^="navds-accordion__header"]').children().eq(1).click()
@@ -70,7 +70,7 @@ describe('Active consent is loaded as expected', () => {
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
             .eq(1)
-            .should('have.text', 'SAMTYKKE_GITT')
+            .should('have.text', 'ACCEPTED')
 
         // Check if candidates which has not consented has their named withdrawn
         cy.get('*[class^="navds-accordion__header-content"]')
@@ -87,7 +87,7 @@ describe('Active consent is loaded as expected', () => {
             .eq(2)
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
             .eq(2)
-            .should('have.text', 'SAMTYKKE_TRUKKET')
+            .should('have.text', 'WITHDRAWN')
     })
 
     it('does not load a concent which do not exist', () => {
