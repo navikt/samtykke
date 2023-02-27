@@ -1,0 +1,40 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: samtykke-citizen
+  namespace: team-researchops
+  labels:
+    team: team-researchops
+spec:
+  image: {{ image }}
+  port: 3000
+  liveness:
+    path: /innbygger/isalive
+    port: 3000
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: /innbygger/isready
+    port: 3000
+    initialDelay: 20
+    timeout: 60
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 80
+  ingresses:
+    - https://samtykke.dev.nav.no/innbygger
+  env:
+    - name: VITE_MOCK_DATA
+      value: nei
+    - name: VITE_API_PATH
+      value: /ansatt/api/citizen
+    - name: VITE_API_URL
+      value: http://samtykke-api/citizen

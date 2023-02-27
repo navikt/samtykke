@@ -3,7 +3,7 @@ name: Test and deploy employee
 on:
   push:
     branches: [main]
-    paths: [employee/**]
+    #paths: [employee/**]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-employee:${{ github.sha }}
 
@@ -53,4 +53,11 @@ jobs:
           DEPLOY_SERVER: deploy.nais.io:443
           CLUSTER: labs-gcp
           RESOURCE: .nais/employee/labs.yaml
+          VAR: image=${{ env.DOCKER_IMAGE }}
+      - name: Deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/employee/dev.yaml
           VAR: image=${{ env.DOCKER_IMAGE }}
