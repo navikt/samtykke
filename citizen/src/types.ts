@@ -24,8 +24,8 @@ export interface IConsent {
 }
 
 export enum EnumCandidateStatus {
-    Accepted = 'SAMTYKKE_GITT',
-    Withdrawn = 'SAMTYKKE_TRUKKET',
+    Accepted = 'ACCEPTED',
+    Withdrawn = 'WITHDRAWN',
 }
 
 export interface ICandidate {

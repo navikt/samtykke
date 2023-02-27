@@ -15,7 +15,7 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                     {candidates.map((candidate: ICandidate, index: number) => {
                         return (
                             <Accordion.Item key={index}>
-                                {candidate.status === EnumCandidateStatus.Accepted ? (
+                                {candidate.status as EnumCandidateStatus === EnumCandidateStatus.Accepted ? (
                                     <>
                                         <Accordion.Header>{candidate.name}</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
