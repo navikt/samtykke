@@ -97,7 +97,10 @@ export default function CreateConsent(): ReactElement {
 
         if (!isError) {
             try {
-                const { status } = await axios.post(`${config.apiPath}/consent`, consent)
+                const { status } = await axios.post(`${config.apiPath}/consent`, {
+                    ...consent, 
+                    expiration: convertToJavaLocalDate(selectedDay!)
+                })
                 if (status === 200) navigate('/')
             } catch (error) {
                 if (error instanceof AxiosError) {
@@ -162,7 +165,7 @@ export default function CreateConsent(): ReactElement {
                                 onSelect={() => {
                                     setConsent({
                                         ...consent,
-                                        expiration: convertToJavaLocalDate(selectedDay!)
+                                        expiration: selectedDay
                                     })
                                 }}
                             />

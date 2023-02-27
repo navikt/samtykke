@@ -2,9 +2,12 @@ import express from 'express'
 import path from 'path'
 import {fileURLToPath} from 'url'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import dotenv from 'dotenv'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+dotenv.config()
 
 const app = express()
 
@@ -30,7 +33,7 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
     app.use(`${process.env.VITE_API_PATH}`, createProxyMiddleware({ 
         target: `${process.env.VITE_API_URL}`, 
         changeOrigin: true, 
-        pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
+        pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '/employee' },
         onProxyReq: restream
     }))
 }
