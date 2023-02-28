@@ -8,7 +8,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/innbygger/api/': {
-                target: 'https://samtykke-api.dev.intern.nav.no',
+                target: 'http://0.0.0.0:8080',
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/innbygger\/api/, ''),
