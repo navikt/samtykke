@@ -68,7 +68,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                     <BodyLong>
                     Når intervjuet er ferdig, vil svarene anonymiseres. Anonymiseringen gjennomføres
                     så fort som mulig. Opplysningene som kan lede tilbake til deg slettes så snart
-                    anonymiseringen er gjennomført og senest innen {consent.expiration instanceof Date ? getISODateString(consent.expiration) : consent.expiration}.
+                    anonymiseringen er gjennomført og senest innen {consent.expiration ? getISODateString(consent.expiration) : '19.9.1999'}.
                     </BodyLong>
                     <Heading size="small">Dine rettigheter</Heading>
                     <ul className='list-disc list-outside pl-6 space-y-1'>

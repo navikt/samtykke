@@ -35,6 +35,6 @@ spec:
     - name: VITE_MOCK_DATA
       value: nei
     - name: VITE_API_PATH
-      value: /ansatt/api/citizen
+      value: /innbygger/api/citizen
     - name: VITE_API_URL
       value: https://samtykke-api.dev.intern.nav.no
