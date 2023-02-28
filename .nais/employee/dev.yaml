@@ -37,4 +37,4 @@ spec:
     - name: VITE_API_PATH
       value: /ansatt/api/employee
     - name: VITE_API_URL
-      value: http://samtykke-api
+      value: https://samtykke-api.dev.intern.nav.no
