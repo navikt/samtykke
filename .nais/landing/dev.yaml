@@ -30,4 +30,4 @@ spec:
     max: 1
     cpuThresholdPercentage: 80
   ingresses:
-    - https://samtykke.labs.nais.io
+    - https://samtykke.dev.nav.no
