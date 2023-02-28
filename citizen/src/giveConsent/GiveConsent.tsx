@@ -77,9 +77,12 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         if (!isError) {
             try {
                 const { status } = await axios.post(`${config.apiPath}/consent/${consent.code}/canditature/`, {
-                    ...candidate,
+                    name: candidate.name,
+                    email: candidate.email,
+                    status: EnumCandidateStatus.Accepted,
                     consented: format(new Date(), 'yyyy-MM-dd'),
-                    status: EnumCandidateStatus.Accepted
+                    audioRecording: candidate.audioRecording,
+                    storeInfo: candidate.storeInfo
                 })
                 if (status === 200) navigate('/kvitering', { 
                     state: { 
