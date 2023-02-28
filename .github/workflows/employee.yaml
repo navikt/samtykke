@@ -8,7 +8,7 @@ env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-employee:${{ github.sha }}
 
 jobs:
-  test-n-build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -45,17 +45,27 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
-      # Deploy to NAIS
-      - name: Deploy to labs-gcp
-        uses: nais/deploy/actions/deploy@v1
+  # Deploy to NAIS
+  deploy-to-labs:
+    name: Deploy to labs-gcp
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           DEPLOY_SERVER: deploy.nais.io:443
           CLUSTER: labs-gcp
           RESOURCE: .nais/employee/labs.yaml
           VAR: image=${{ env.DOCKER_IMAGE }}
-      - name: Deploy to dev-gcp
-        uses: nais/deploy/actions/deploy@v1
+  deploy-to-dev:
+    name: Deploy to dev-gcp
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
