@@ -3,7 +3,7 @@ name: Test and deploy employee
 on:
   push:
     branches: [main]
-    #paths: [employee/**]
+    paths: [employee/**, .nais/employee*]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-employee:${{ github.sha }}
 

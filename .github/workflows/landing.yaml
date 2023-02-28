@@ -3,7 +3,7 @@ name: Deploy landing
 on:
   push:
     branches: [main]
-    paths: [landing/**]
+    paths: [landing/**, .nais/landing/**]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
 
