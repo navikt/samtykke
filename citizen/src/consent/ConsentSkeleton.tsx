@@ -25,8 +25,11 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                     </BodyLong>
                     <BodyLong>
                     Har du spørsmål om undersøkelsen eller ønsker å vite mer om eller benytte
-                    deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen, 
-                        {` ${consent.employee.firstname} ${consent.employee.lastname}`} på e-post: {consent.employee.email}.
+                    deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen,
+                        {consent.employee ? ( 
+                            ` ${consent.employee.firstname} ${consent.employee.lastname} på e-post: ${consent.employee.email}.`)
+                            : 'Navn Navnesen på e-post navn.navnesen@nav.no' 
+                        } 
                     </BodyLong>
                     <BodyLong>
                     Nav Arbeids- og Velferdsdirektoratet har ansvaret for behandlingen av
@@ -65,7 +68,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                     <BodyLong>
                     Når intervjuet er ferdig, vil svarene anonymiseres. Anonymiseringen gjennomføres
                     så fort som mulig. Opplysningene som kan lede tilbake til deg slettes så snart
-                    anonymiseringen er gjennomført og senest innen {getISODateString(consent.expiration!)}.
+                    anonymiseringen er gjennomført og senest innen {getISODateString(consent.expiration as Date)}.
                     </BodyLong>
                     <Heading size="small">Dine rettigheter</Heading>
                     <ul className='list-disc list-outside pl-6 space-y-1'>
