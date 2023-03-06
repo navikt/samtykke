@@ -54,3 +54,13 @@ spec:
       value: /innbygger/api/citizen
     - name: VITE_API_URL
       value: https://samtykke-api.dev.intern.nav.no
+    - name: AUDIENCE
+      value: dev-gcp:team-researchops:samtykke-api
+    - name: URL
+      value: https://samtykke.dev.nav.no/innbygger
+  accessPolicy:
+    outbound:
+      external:
+        - host: tokendings.dev-gcp.nais.io
+      rules:
+        - application: samtykke-api
