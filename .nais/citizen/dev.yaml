@@ -31,6 +31,22 @@ spec:
     cpuThresholdPercentage: 80
   ingresses:
     - https://samtykke.dev.nav.no/innbygger
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
+    clientUri: https://www.dev.nav.no
+    frontchannelLogoutPath: /innbygger/logout
+    postLogoutRedirectURIs:
+      - https://samtykke.dev.nav.no/innbygger/logout/callback
+    accessTokenLifetime: 3600
+    sessionLifetime: 3600
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: true
+      errorPath: ""
   env:
     - name: VITE_MOCK_DATA
       value: nei
