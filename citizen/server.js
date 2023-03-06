@@ -124,25 +124,24 @@ class TokenExchangeClient {
     }
 }
 
-const isEmpty = (obj) => !obj || !Object.keys(obj).length
-
-const { exchangeIDPortenToken } = new TokenExchangeClient()
-
-const prepareSecuredRequest = async (req, res, next) => {
-    const { authorization } = req.headers
-    const token = authorization.split(' ')[1]
-
-    const accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
-
-    req.headers = {
-        ...req.headers,
-        authorization: `Bearer ${accessToken}`
-    }
-
-    next()
-}
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
+    const { exchangeIDPortenToken } = new TokenExchangeClient()
+
+    const prepareSecuredRequest = async (req, res, next) => {
+        const { authorization } = req.headers
+        const token = authorization.split(' ')[1]
+
+        const accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
+
+        req.headers = {
+            ...req.headers,
+            authorization: `Bearer ${accessToken}`
+        }
+
+        next()
+    }
+    
     app.use(`${process.env.VITE_API_PATH}`, 
         prepareSecuredRequest,
         createProxyMiddleware({ 
