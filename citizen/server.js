@@ -24,107 +24,61 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
-class TokenExchangeClient {
-    tokenXClient = null
-    audience = null
+let tokenxClient
 
-    constructor() {
-        this.init()
-            .then((client) => {
-                this.tokenXClient = client
-            })
-    }
+async function initTokenX() {
+    const tokenxIssuer = await Issuer.discover(process.env.TOKEN_X_WELL_KNOWN_URL)
 
-    exchangeIDPortenToken = async (accessToken) => {
-        const clientAssertion = await this.createClientAssertion()
-
-        return this.tokenXClient
-            .grant({
-                grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                token_endpoint_auth_method: 'private_key_jwt',
-                client_assertion: clientAssertion,
-                subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                subject_token: accessToken,
-                audience: process.env.AUDIENCE,
-            })
-            .then((tokenSet) => {
-                return Promise.resolve(tokenSet.access_token)
-            })
-            .catch((error) => {
-                console.log('Error in exchange of token: ', error)
-                return Promise.reject(error)
-            })
-    }
-
-    createClientAssertion = async () => {
-        const now = Math.floor(Date.now() / 1000)
-
-        const payload = {
-            sub: process.env.TOKEN_X_CLIENT_ID,
-            iss: process.env.TOKEN_X_CLIENT_ID,
-            aud: this.audience,
-            jti: uuid(),
-            nbf: now,
-            iat: now,
-            exp: now + 60
-        }
-
-        const key = await this.asKey(process.env.TOKEN_X_PRIVATE_JWK)
-
-        let options = {
-            algorithm: 'RS256',
-            header: {
-                kid: key.kid,
-                typ: 'JWT',
-                alg: 'RS256',
-            },
-        }
-
-        return jwt.sign(payload, key.toPEM(true), options)
-    }
-
-    asKey = async (jwk) => {
-        if (!jwk) throw Error('JWK missing')
-
-        return jose.JWK.asKey(jwk).then((key) => {
-            return Promise.resolve(key)
-        })
-    }
-
-    init = async () => {
-        const tokenX = await Issuer.discover(process.env.TOKEN_X_WELL_KNOWN_URL)
-        this.audience = tokenX.token_endpoint
-
-        console.log(`Discovered TokenX @ ${tokenX.issuer}`)
-
-        try {
-            const client = new tokenX.Client({
-                client_id: process.env.TOKEN_X_CLIENT_ID,
-                redirect_uris: ['http://localhost:3000/oauth2/callback'],
-                token_endpoint_auth_method: 'none',
-            })
-
-            console.log('Created TokenX client')
-
-            return Promise.resolve(client)
-        } catch (error) {
-            console.log('Error in parsing of jwt or creation of TokenX client: ', error)
-            return Promise.reject(error)
-        }
-    }
+    tokenxClient = new tokenxIssuer.Client({
+        client_id: process.env.TOKEN_X_CLIENT_ID,
+        token_endpoint_auth_method: 'private_key_jwt',
+    }, {
+        keys: [JSON.parse(process.env.TOKEN_X_PRIVATE_JWK)],
+    })
 }
 
+async function getTokenXToken(token, additionalClaims) {
+    let tokenSet
+    try {
+        tokenSet = await tokenxClient?.grant({
+            grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+            client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+            subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+            audience: process.env.AUDIENCE,
+            subject_token: token,
+        },
+        additionalClaims
+        )
+    } catch (err) {
+        console.error('Something went wrong in fetching of token', err)
+    }
+    return tokenSet
+}
+
+async function exchangeToken(token) {
+    if (!token) {
+        return
+    }
+
+    const additionalClaims = {
+        clientAssertionPayload: {
+            nbf: Math.floor(Date.now() / 1000),
+            aud: [tokenxClient?.issuer.metadata.token_endpoint],
+        },
+    }
+
+    return await getTokenXToken(token, additionalClaims)
+}
+
+initTokenX()
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
     try {
-        const { exchangeIDPortenToken } = new TokenExchangeClient()
-
         const prepareSecuredRequest = async (req, res, next) => {
             const { authorization } = req.headers
             const token = authorization.split(' ')[1]
 
-            const accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
+            const accessToken = await exchangeToken(token)
 
             req.headers = {
                 ...req.headers,
