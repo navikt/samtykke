@@ -70,7 +70,6 @@ async function exchangeToken(token) {
     return await getTokenXToken(token, additionalClaims)
 }
 
-
 if (process.env.VITE_MOCK_DATA !== 'ja') {
     initTokenX()
     try {
@@ -82,10 +81,10 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
 
             req.headers = {
                 ...req.headers,
-                authorization: `Bearer ${accessToken}`
+                authorization: `Bearer ${accessToken.access_token}`
             }
 
-            console.log(accessToken)
+            console.log(accessToken.access_token)
 
             next()
         }
