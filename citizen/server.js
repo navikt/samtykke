@@ -126,30 +126,34 @@ class TokenExchangeClient {
 
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
-    const { exchangeIDPortenToken } = new TokenExchangeClient()
+    try {
+        const { exchangeIDPortenToken } = new TokenExchangeClient()
 
-    const prepareSecuredRequest = async (req, res, next) => {
-        const { authorization } = req.headers
-        const token = authorization.split(' ')[1]
+        const prepareSecuredRequest = async (req, res, next) => {
+            const { authorization } = req.headers
+            const token = authorization.split(' ')[1]
 
-        const accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
+            const accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
 
-        req.headers = {
-            ...req.headers,
-            authorization: `Bearer ${accessToken}`
+            req.headers = {
+                ...req.headers,
+                authorization: `Bearer ${accessToken}`
+            }
+
+            next()
         }
 
-        next()
+        app.use(`${process.env.VITE_API_PATH}`, 
+            prepareSecuredRequest,
+            createProxyMiddleware({ 
+                target: `${process.env.VITE_API_URL}/citizen`, 
+                changeOrigin: true, 
+                pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
+                onProxyReq: restream
+            }))
+    } catch (error) {
+        console.log(error)
     }
-    
-    app.use(`${process.env.VITE_API_PATH}`, 
-        prepareSecuredRequest,
-        createProxyMiddleware({ 
-            target: `${process.env.VITE_API_URL}/citizen`, 
-            changeOrigin: true, 
-            pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
-            onProxyReq: restream
-        }))
 }
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
