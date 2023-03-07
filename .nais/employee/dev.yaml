@@ -34,6 +34,8 @@ spec:
   azure:
     application:
       enabled: true
+      allowAllUsers: true
+      tenant: nav.no
     sidecar:
       enabled: true
       autoLogin: true
@@ -49,6 +51,6 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: tokendings.dev-gcp.nais.io
+        - host: login.microsoftonline.com
       rules:
         - application: samtykke-api
