@@ -31,6 +31,17 @@ spec:
     cpuThresholdPercentage: 80
   ingresses:
     - https://samtykke.dev.nav.no/ansatt
+  azure:
+    application:
+      enabled: true
+      tenant: nav.no
+      singlePageApplication: true
+      claims:
+        extra:
+          - "azp_name"
+    sidecar:
+      enabled: true
+      autoLogin: true
   env:
     - name: VITE_MOCK_DATA
       value: nei
@@ -38,3 +49,11 @@ spec:
       value: /ansatt/api/employee
     - name: VITE_API_URL
       value: https://samtykke-api.dev.intern.nav.no
+    - name: AUDIENCE
+      value: dev-gcp:team-researchops:samtykke-api
+  accessPolicy:
+    outbound:
+      external:
+        - host: tokendings.dev-gcp.nais.io
+      rules:
+        - application: samtykke-api

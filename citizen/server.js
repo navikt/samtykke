@@ -3,9 +3,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-import { v4 as uuid } from 'uuid'
-import jwt from 'jsonwebtoken'
-import jose from 'node-jose'
 import { Issuer, Strategy, TokenSet } from 'openid-client'
 
 dotenv.config()
