@@ -70,9 +70,9 @@ async function exchangeToken(token) {
     return await getTokenXToken(token, additionalClaims)
 }
 
-initTokenX()
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
+    initTokenX()
     try {
         const prepareSecuredRequest = async (req, res, next) => {
             const { authorization } = req.headers
