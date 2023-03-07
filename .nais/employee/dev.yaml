@@ -34,11 +34,6 @@ spec:
   azure:
     application:
       enabled: true
-      tenant: nav.no
-      singlePageApplication: true
-      claims:
-        extra:
-          - NAVident
     sidecar:
       enabled: true
       autoLogin: true
