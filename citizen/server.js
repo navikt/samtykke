@@ -140,6 +140,8 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
                 authorization: `Bearer ${accessToken}`
             }
 
+            console.log(accessToken)
+
             next()
         }
 
