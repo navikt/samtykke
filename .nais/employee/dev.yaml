@@ -38,7 +38,7 @@ spec:
       singlePageApplication: true
       claims:
         extra:
-          - "azp_name"
+          - NAVident
     sidecar:
       enabled: true
       autoLogin: true
