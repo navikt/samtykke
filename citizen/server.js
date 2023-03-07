@@ -24,15 +24,6 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
-const restream = (proxyReq, req) => {
-    if (req.body) {
-        const bodyData = JSON.stringify(req.body)
-        proxyReq.setHeader('Content-Type', 'application/json')
-        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
-        proxyReq.write(bodyData)
-    }
-}
-
 class TokenExchangeClient {
     tokenXClient = null
     audience = null
@@ -151,7 +142,6 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
                 target: `${process.env.VITE_API_URL}/citizen`, 
                 changeOrigin: true, 
                 pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
-                onProxyReq: restream
             }))
     } catch (error) {
         console.log(error)
