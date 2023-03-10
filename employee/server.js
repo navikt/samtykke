@@ -38,18 +38,17 @@ async function getAzureOBOToken(accessToken) {
                 authorization: `Bearer ${accessToken}`,
             },
             body: new URLSearchParams(tokenOptions).toString()
-        }.then((tokenSet) => {
-            if (!tokenSet.ok) {
-                return tokenSet.text().then((text) => {
-                    throw new Error(text)
-                })
-            }
-            return Promise.resolve(tokenSet.json())
-        }).catch((error) => {
-            console.error('Error in exchange of token ', error)
-            return Promise.reject(error)
-        })
-    )
+        }
+    ).then(async (tokenSet) => {
+        if (!tokenSet.ok) {
+            const text = await tokenSet.text()
+            throw new Error(text)
+        }
+        return Promise.resolve(tokenSet.json())
+    }).catch((error) => {
+        console.error('Error in exchange of token ', error)
+        return Promise.reject(error)
+    })
 }
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
