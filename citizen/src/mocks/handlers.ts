@@ -1,6 +1,7 @@
 import { EnumCandidateStatus, ICitizen, IConsent, IEmployee } from '../types'
 import { rest } from 'msw'
 import config from '../config'
+import { v4 as uuidv4 } from 'uuid'
 
 const employeeMock: IEmployee = {
     id: 'iosdhgoij924',
@@ -26,6 +27,7 @@ const consentsMock: IConsent[] = [
                 email: 'lars.pølse@gmail.com',
                 status: EnumCandidateStatus.Accepted,
                 consented: new Date(),
+                trackingNumber: uuidv4(),
                 audioRecording: true,
                 storeInfo: false,
             },
@@ -35,6 +37,7 @@ const consentsMock: IConsent[] = [
                 email: 'ole.bolle.brus@outlook.no',
                 status: EnumCandidateStatus.Accepted,
                 consented: new Date(),
+                trackingNumber: uuidv4(),
                 audioRecording: false,
                 storeInfo: true,
             },
@@ -44,6 +47,7 @@ const consentsMock: IConsent[] = [
                 email: 'pelle.politi@politiet.no',
                 status: EnumCandidateStatus.Withdrawn,
                 consented: undefined,
+                trackingNumber: uuidv4(),
                 audioRecording: true,
                 storeInfo: false,
             },
@@ -53,6 +57,7 @@ const consentsMock: IConsent[] = [
                 email: 'nasse.noeff@svenske.se',
                 status: EnumCandidateStatus.Withdrawn,
                 consented: undefined,
+                trackingNumber: uuidv4(),
                 audioRecording: false,
                 storeInfo: false,
             },
