@@ -8,7 +8,7 @@ describe('give consent form behaves as expected', () => {
         cy.get('input[name="email"]').type('lars.pølse@gmail.com')
 
         cy.get('*[class^="navds-checkbox navds-checkbox--medium"]')
-            .eq(2)
+            .eq(1)
             .click()
 
         cy.get(
