@@ -40,8 +40,12 @@ export default function ConsentPreview({
                 <Heading size="small">Forhåndsvisning av samtykkeskjema</Heading>
             </div>
             <Panel className='space-y-4'>
-                <Heading size="medium">
-                    Samtykke for: {consent.title ? consent.title : '<tittel>'}
+                <Heading size="medium" className='flex flex-row'>
+                    Samtykke for:
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.title ? consent.title : '<tittel>'}
+                    </span>
                 </Heading>
                 <BodyLong>
                     Du er invitert i denne undersøkelsen fordi du har vist en interesse for 
@@ -49,16 +53,29 @@ export default function ConsentPreview({
                 </BodyLong>
                 <Heading size="small">Hvem er vi, og hvem er ansvarlig for undersøkelsen?</Heading>
                 <BodyLong>
-                    Vi er ansatte 
-                    i: {consent.responsibleGroup ? consent.responsibleGroup : '<team/seksjon>'} til 
-                    Arbeid- og velferdsdirektoratet (NAV). Vi jobber med å forbedre NAVs
+                    Vi er ansatte i: 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.responsibleGroup ? consent.responsibleGroup : '<team/seksjon>'}
+                    </span>
+                    &nbsp; 
+                    til Arbeid- og velferdsdirektoratet (NAV). Vi jobber med å forbedre NAVs
                     tjenester gjennom å involvere personer som bruker, eller kan komme til å
                     bruke dem. 
                 </BodyLong>
                 <BodyLong>
                     Har du spørsmål om undersøkelsen eller ønsker å vite mer om eller benytte
-                    deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen, 
-                    {` ${employee?.firstname} ${employee?.lastname}`} på e-post: {employee?.email}.
+                    deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen,
+                    &nbsp; 
+                    <span className='bg-blue-50'>
+                        {` ${employee?.firstname} ${employee?.lastname}`}    
+                    </span>
+                    &nbsp;
+                    på e-post: 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {employee?.email}
+                    </span>.
                 </BodyLong>
                 <BodyLong>
                     Nav Arbeids- og Velferdsdirektoratet har ansvaret for behandlingen av
@@ -67,11 +84,23 @@ export default function ConsentPreview({
                 <Heading size="small">Hva må du gjøre hvis du velger å delta i denne undersøkelsen?</Heading>
                 <BodyLong>
                     Vi ønsker at du deltar i et intervju hvor vi spør deg om dine tanker og
-                    eventuelle erfaringer med {consent.purpose ? consent.purpose : '<formål>'} hos
-                    NAV. Hva du svarer og om du vil svare på spørsmålene bestemmer du selv.
+                    eventuelle erfaringer med 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.theme ? consent.theme : '<tema>'}
+                    </span>
+                    &nbsp;
+                    hos NAV. Hva du svarer og om du vil svare på spørsmålene bestemmer du selv.
+                    Formålet med undersøkelsen er å 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.purpose ? consent.purpose : '<formål>'}
+                    </span>.
+                </BodyLong>
+                <BodyShort>
                     Samtalen gjøres på video, telefon eller fysisk. Intervjuet kan vare i
                     (opptill en time). 
-                </BodyLong>
+                </BodyShort>
                 <Heading size='small'>Må jeg delta i denne undersøkelsen?</Heading>
                 <BodyLong>
                     Nei det er <b>frivillig</b> å delta. Mottar du tjenester fra NAV vil ikke
@@ -88,16 +117,28 @@ export default function ConsentPreview({
                     undersøkelsen.
                 </BodyLong>
                 <BodyLong>
-                    Personalopplysningene dine blir lagret i en kort periode. Det
-                    er {consent.totalInvolved > 0 ? consent.totalInvolved : '<antall-involverte>'} person(er)
-                    som har tilgang til dine opplysninger. Det er kun disse personene som jobber
-                    med denne undersøkelsen i NAV, som har tilgang til opplysningne. De har
+                    Personalopplysningene dine blir lagret i en kort periode. Det er 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.totalInvolved > 0 ? consent.totalInvolved : '<antall-involverte>'}
+                    </span>
+                    &nbsp;
+                    person(er) som har tilgang til dine opplysninger. Det er kun disse personene som 
+                    jobber med denne undersøkelsen i NAV, som har tilgang til opplysningne. De har
                     taushetsplikt
                 </BodyLong>
                 <BodyLong>
                     Når intervjuet er ferdig, vil svarene anonymiseres. Anonymiseringen gjennomføres
                     så fort som mulig. Opplysningene som kan lede tilbake til deg slettes så snart
-                    anonymiseringen er gjennomført og senest innen {expiration ? getDSISODateString(expiration) : '<utløper>'}.
+                    anonymiseringen er gjennomført og senest innen 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {expiration ? getDSISODateString(expiration) : '<utløper>'}
+                    </span>. De anonyme dataene vil brukes til 
+                    &nbsp;
+                    <span className='bg-blue-50'>
+                        {consent.endResult ? consent.endResult : '<sluttresultat>'}
+                    </span>.
                 </BodyLong>
                 <Heading size="small">Dine rettigheter</Heading>
                 <ul className='list-disc list-outside pl-6 space-y-1'>
@@ -151,10 +192,6 @@ export default function ConsentPreview({
                     disabled
                 >
                     <Checkbox>Ja, dere kan ta lydopptak</Checkbox>
-                    <Checkbox>
-                        Ja, dere kan beholde kontakteinformasjonen min i intill 6 måneder
-                        i tilfelle det er behov for en oppfølgingssamtale
-                    </Checkbox>
                 </CheckboxGroup>
                 <TextField label='Ditt navn' disabled className='w-1/2'/>
                 <TextField label='Din e-post' disabled className='w-1/2'/>

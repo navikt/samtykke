@@ -9,9 +9,11 @@ export interface IEmployee {
 export interface IConsentBase {
     title: string
     responsibleGroup: string
+    theme: string
     purpose: string
     totalInvolved: number
     expiration: Date | string | undefined
+    endResult: string
 }
 
 export interface IConsent extends IConsentBase {

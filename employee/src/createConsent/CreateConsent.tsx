@@ -1,4 +1,4 @@
-import { Alert, Button, Heading, Panel, Textarea, TextField, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react'
+import { Alert, Button, Heading, Panel, ReadMore, Textarea, TextField, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react'
 import React, { ChangeEvent, ReactElement, useState } from 'react'
 import { Edit } from '@navikt/ds-icons'
 import PageHeader from '../common/PageHeader'
@@ -9,6 +9,7 @@ import { getYesterdayDate, getExpirationLimitDate, convertToJavaLocalDate } from
 import axios, { AxiosError } from 'axios'
 import config from '../config'
 import { getISODateString } from '../utils/date'
+import PurposeReadMore from './components/PurposeReadMore'
 
 export default function CreateConsent(): ReactElement {
 
@@ -17,16 +18,20 @@ export default function CreateConsent(): ReactElement {
     const [consent, setConsent] = useState<IConsentBase>({
         title: '',
         responsibleGroup: '',
+        theme: '',
         purpose: '',
         expiration: undefined,
-        totalInvolved: 1
+        totalInvolved: 1,
+        endResult: ''
     })
     
     const [titleErrorMessage, setTitleErrorMessage] = useState<string>('')
     const [responsibleGroupErrorMessage, setResponsibleGroupErrorMessage] = useState<string>('')
+    const [themeErrorMessage, setThemeErrorMessage] = useState<string>('')
     const [purposeErrorMessage, setPurposeErrorMessage] = useState<string>('')
     const [totalInvolvedErrorMessage, setTotalInvovledErrorMessage] = useState<string>('')
     const [expirationErrorMessage, setExpiraitonErrorMessage] = useState<string>('')
+    const [endResultErrorMessage, setEndResultErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
@@ -75,6 +80,13 @@ export default function CreateConsent(): ReactElement {
             setResponsibleGroupErrorMessage('')
         }
 
+        if (consent.theme.length === 0) {
+            setThemeErrorMessage('Du må sette et tema')
+            isError = true
+        } else {
+            setThemeErrorMessage('')
+        }
+
         if (consent.purpose.length === 0) {
             setPurposeErrorMessage('Du må sette et formål')
             isError = true
@@ -86,6 +98,13 @@ export default function CreateConsent(): ReactElement {
             isError = true
         } else {
             setPurposeErrorMessage('')
+        }
+
+        if (consent.endResult.length === 0) {
+            setEndResultErrorMessage('Du må sette et sluttresultat')
+            isError = true
+        } else {
+            setEndResultErrorMessage('')
         }
 
         if (consent.totalInvolved < 1) {
@@ -111,7 +130,6 @@ export default function CreateConsent(): ReactElement {
         }
     }
 
-
     return (
         <div className='mx-32 my-12 flex space-x-6'>
             <div className='w-1/2'>
@@ -130,16 +148,33 @@ export default function CreateConsent(): ReactElement {
                     <TextField 
                         label='Team/seksjon'
                         name='responsibleGroup'
+                        description='Produktområde, seksjon eller avdeling i NAV som er ansvarlige for samtykket'
                         value={consent.responsibleGroup || ''}
                         onChange={handleConsentChange}
                         error={responsibleGroupErrorMessage}
                     />
+                    <TextField
+                        label='Tema'
+                        name='theme'
+                        value={consent.theme || ''}
+                        onChange={handleConsentChange}
+                        error={themeErrorMessage}
+                    />
                     <Textarea 
                         label="Formålet med samtykket"
                         name='purpose'
+                        description={<PurposeReadMore />}
                         value={consent.purpose || ''}
                         onChange={handleConsentChange}
                         error={purposeErrorMessage}
+                    />
+                    <Textarea 
+                        label='Sluttresultat'
+                        name='endResult'
+                        description='Det dataen generert i undersøkelsen skal brukes til'
+                        value={consent.endResult || ''}
+                        onChange={handleConsentChange}
+                        error={endResultErrorMessage}
                     />
                     <div className='flex flex-row space-x-12'>
                         <div>
