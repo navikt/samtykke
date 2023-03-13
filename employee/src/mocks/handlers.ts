@@ -12,10 +12,12 @@ const employeeMock: IEmployee = {
         {
             title: 'Brukertest av NAV.no',
             responsibleGroup: 'Team Personbruker',
+            theme: 'visuelle',
             purpose: 'sdoigj',
             totalInvolved: 4,
             code: 'X76-2B3',
             expiration: new Date(),
+            endResult: 'visuell mapping',
             candidates: [
                 {
                     id: '21097oifdsh',
@@ -62,19 +64,23 @@ const employeeMock: IEmployee = {
         {
             title: 'Test av ny AAP kalkulator',
             responsibleGroup: 'AAP',
+            theme: 'dårlig øknomi',
             purpose: 'Veldig ddpobjp',
             totalInvolved: 5,
             code: 'L90-12N',
             expiration: new Date(),
+            endResult: 'rapport',
             candidates: [],
         },
         {
             title: 'Dagpengeløsning 2.0',
             responsibleGroup: 'Team Dagpenger',
+            theme: 'dårlig økonomi',
             purpose: 'oihsfg',
             totalInvolved: 3,
             code: '12J-0ZA',
             expiration: new Date(),
+            endResult: 'rapport',
             candidates: [],
         },
     ],
