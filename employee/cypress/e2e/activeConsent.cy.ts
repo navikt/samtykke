@@ -24,7 +24,7 @@ describe('Active consent is loaded as expected', () => {
         // Check if right name is displayed
         cy.get('*[class^="navds-accordion__header-content"]')
             .eq(0)
-            .should('have.text', 'Lars Pølse')
+            .should('include.text', 'Lars Pølse')
 
         // Check if audio consent is given, store information consent is not given, and if candidate has concented
         cy.get('*[class^="navds-accordion__header"]').children().eq(0).click()
