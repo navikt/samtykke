@@ -30,7 +30,7 @@ spec:
     max: 1
     cpuThresholdPercentage: 80
   ingresses:
-    - https://samtykke.intern.dev.nav.no/ansatt
+    - https://samtykke.ekstern.dev.nav.no/ansatt
   azure:
     application:
       enabled: true
@@ -45,7 +45,7 @@ spec:
     - name: VITE_API_PATH
       value: /ansatt/api/employee
     - name: VITE_API_URL
-      value: https://samtykke-api.intern.dev.nav.no
+      value: http://samtykke-api.team-researchops
     - name: AUDIENCE
       value: dev-gcp:team-researchops:samtykke-api
   accessPolicy:
