@@ -19,7 +19,7 @@ const consentsMock: IConsent[] = [
         purpose: 'sdoigj',
         totalInvolved: 4,
         code: 'X76-2B3',
-        expiration: new Date(),
+        expiration: '03-04-2023',
         candidates: [
             {
                 id: 1,
@@ -70,7 +70,7 @@ const consentsMock: IConsent[] = [
         purpose: 'Veldig ddpobjp',
         totalInvolved: 5,
         code: 'L90-12N',
-        expiration: new Date(),
+        expiration: '03-04-2023',
         candidates: [],
         employee: employeeMock,
     },
@@ -80,7 +80,7 @@ const consentsMock: IConsent[] = [
         purpose: 'oihsfg',
         totalInvolved: 3,
         code: '12J-0ZA',
-        expiration: new Date(),
+        expiration: '03-04-2023',
         candidates: [],
         employee: employeeMock,
     },

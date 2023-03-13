@@ -20,7 +20,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         status: EnumCandidateStatus.Withdrawn,
         consented: undefined,
         audioRecording: false,
-        storeInfo: false
     })
 
     const [hasGivenConsent, setHasGivenConsent] = useState<boolean>(false)
@@ -35,7 +34,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         setCandidate(prevState => ({
             ...prevState,
             audioRecording: values.includes('audioRecording'),
-            storeInfo: values.includes('storeInfo')
         }))
     }
 
@@ -82,7 +80,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                     status: EnumCandidateStatus.Accepted,
                     consented: format(new Date(), 'yyyy-MM-dd'),
                     audioRecording: candidate.audioRecording,
-                    storeInfo: candidate.storeInfo
                 })
                 if (status === 200) navigate('/kvitering', { 
                     state: { 
@@ -115,10 +112,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                     >
                         <Checkbox value='audioRecording'>
                             Ja, dere kan ta lydopptak
-                        </Checkbox>
-                        <Checkbox value='storeInfo'>
-                            Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
-                            i tilfelle det er behov for en oppfølgingssamtale
                         </Checkbox>
                     </CheckboxGroup>
                     <TextField 

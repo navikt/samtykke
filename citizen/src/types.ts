@@ -15,9 +15,11 @@ export interface ICitizen {
 export interface IConsentBase {
     title: string
     responsibleGroup: string
+    theme: string
     purpose: string
     totalInvolved: number
     expiration: Date | string | undefined
+    endResult: string
 }
 
 export interface IConsent extends IConsentBase {
@@ -37,9 +39,8 @@ export interface ICandidate {
     email: string
     status: EnumCandidateStatus
     consented: Date | undefined
-    trackingNumber: string
+    trackingNumber?: string
     audioRecording: boolean
-    storeInfo: boolean
 }
 
 export interface IMessage {

@@ -8,3 +8,7 @@ export const getISODateString = (date: Date | string): string => {
         return `${dateArray[2]}.${dateArray[1]}.${dateArray[0]}` 
     }
 }
+
+export const getDSISODateString = (date: Date): string => {
+    return format(date, 'dd.MM.yyyy')
+}
