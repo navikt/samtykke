@@ -1,5 +1,5 @@
 import { ErrorColored, SuccessColored } from '@navikt/ds-icons'
-import { Accordion, Heading } from '@navikt/ds-react'
+import { Accordion, BodyShort, Heading } from '@navikt/ds-react'
 import { format, parseISO } from 'date-fns'
 import React, { ReactElement } from 'react'
 import { EnumCandidateStatus, ICandidate } from '../../types'
@@ -8,6 +8,11 @@ import ErrorHeader from './ErrorHeader'
 import SuccessHeader from './SuccessHeader'
 
 export default function CandidatesList({ candidates }: { candidates: ICandidate[] }): ReactElement {
+
+    const formatTrackingNumber = (trackingNumber: string): string => {
+        return trackingNumber.split('-')[0].toUpperCase()
+    }
+
     return (
         <>
             {candidates.length !== 0 ? (
@@ -17,7 +22,7 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                             <Accordion.Item key={index}>
                                 {candidate.status as EnumCandidateStatus === EnumCandidateStatus.Accepted ? (
                                     <>
-                                        <Accordion.Header>{candidate.name}</Accordion.Header>
+                                        <Accordion.Header>{`${candidate.name} - ${formatTrackingNumber(candidate.trackingNumber)}`}</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
                                             <div>
                                                 {candidate.audioRecording ? (
@@ -36,7 +41,9 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                     </>
                                 ) : (
                                     <>
-                                        <Accordion.Header className='italic'>Navn trukket</Accordion.Header>
+                                        <Accordion.Header className='italic'>
+                                            {`Navn trukket - ${formatTrackingNumber(candidate.trackingNumber)}`}
+                                        </Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
                                             <div>
                                                 <ErrorHeader text='Lydopptak:' />

@@ -5,7 +5,7 @@ import { format, parseISO } from 'date-fns'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
-import { EnumCandidateStatus, ICandidate, IConsent } from '../types'
+import { ICandidate, IConsent } from '../types'
 import { getISODateString } from '../utils/date'
 import CandidatesList from './components/CandidatesList'
 import config from '../config'
@@ -46,7 +46,7 @@ export default function ActiveConsent(): ReactElement {
                         <div className='flex flex-row justify-evenly py-4'>
                             <Heading size="medium">Kode: {consent.code}</Heading>
                             <Heading size="medium">
-                                Utløper: {getISODateString(consent.expiration!)}
+                                Utløper: {getISODateString(consent.expiration)}
                             </Heading> 
                         </div>
                     </PageHeader>

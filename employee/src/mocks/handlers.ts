@@ -2,6 +2,7 @@ import { rest } from 'msw'
 import config from '../config'
 import { EnumCandidateStatus, IEmployee } from '../types'
 import { createConsentCode } from './utils'
+import { v4 as uuidv4 } from 'uuid'
 
 const employeeMock: IEmployee = {
     firstname: 'Dan',
@@ -22,6 +23,7 @@ const employeeMock: IEmployee = {
                     email: 'lars.pølse@gmail.com',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: true,
                     storeInfo: false,
                 },
@@ -31,6 +33,7 @@ const employeeMock: IEmployee = {
                     email: 'ole.bolle.brus@outlook.no',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: false,
                     storeInfo: true,
                 },
@@ -40,6 +43,7 @@ const employeeMock: IEmployee = {
                     email: 'pelle.politi@politiet.no',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: true,
                     storeInfo: false,
                 },
@@ -49,6 +53,7 @@ const employeeMock: IEmployee = {
                     email: 'nasse.noeff@svenske.se',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: false,
                     storeInfo: false,
                 },

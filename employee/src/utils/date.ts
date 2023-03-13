@@ -12,8 +12,8 @@ export const getExpirationLimitDate = (): Date => {
     return expirationLimitDate
 }
 
-export const getISODateString = (date: Date): string => {
-    return format(parseISO(date.toString()), 'dd.MM.yyyy')
+export const getISODateString = (date: Date | string | undefined): string => {
+    return format(parseISO(date!.toString()), 'dd.MM.yyyy')
 }
 
 export const getDSISODateString = (date: Date): string => {

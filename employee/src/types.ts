@@ -30,6 +30,7 @@ export interface ICandidate {
     email: string
     status: EnumCandidateStatus
     consented: Date | undefined
+    trackingNumber: string
     audioRecording: boolean
     storeInfo: boolean
 }
