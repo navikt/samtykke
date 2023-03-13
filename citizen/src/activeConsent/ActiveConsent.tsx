@@ -28,8 +28,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
     const handleConsentCheckboxChange = (values: string[]) => {
         setCandidate(prevState => ({
             ...prevState,
-            audioRecording: values.includes('audioRecording'),
-            storeInfo: values.includes('storeInfo')
+            audioRecording: values.includes('audioRecording')
         }))
     }
     
@@ -111,13 +110,6 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                     checked={candidate.audioRecording || false}
                                 >
                                     Ja, dere kan ta lydopptak
-                                </Checkbox>
-                                <Checkbox 
-                                    value='storeInfo' 
-                                    checked={candidate.storeInfo || false}
-                                >
-                                    Ja, dere kan beholde kontaktinformasjon min i inntil 6 måneder
-                                    i tilfelle det er behov for en oppfølgingssamtale
                                 </Checkbox>
                             </CheckboxGroup>
                             <TextField 
