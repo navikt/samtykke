@@ -16,10 +16,12 @@ const consentsMock: IConsent[] = [
     {
         title: 'Brukertest av NAV.no',
         responsibleGroup: 'Team Personbruker',
+        theme: 'dårlig råd',
         purpose: 'sdoigj',
         totalInvolved: 4,
         code: 'X76-2B3',
-        expiration: '03-04-2023',
+        expiration: new Date(),
+        endResult: 'rapport',
         candidates: [
             {
                 id: 1,
@@ -29,7 +31,6 @@ const consentsMock: IConsent[] = [
                 consented: new Date(),
                 trackingNumber: uuidv4(),
                 audioRecording: true,
-                storeInfo: false,
             },
             {
                 id: 1,
@@ -39,7 +40,6 @@ const consentsMock: IConsent[] = [
                 consented: new Date(),
                 trackingNumber: uuidv4(),
                 audioRecording: false,
-                storeInfo: true,
             },
             {
                 id: 1,
@@ -49,7 +49,6 @@ const consentsMock: IConsent[] = [
                 consented: undefined,
                 trackingNumber: uuidv4(),
                 audioRecording: true,
-                storeInfo: false,
             },
             {
                 id: 1,
@@ -59,7 +58,6 @@ const consentsMock: IConsent[] = [
                 consented: undefined,
                 trackingNumber: uuidv4(),
                 audioRecording: false,
-                storeInfo: false,
             },
         ],
         employee: employeeMock,
@@ -67,20 +65,24 @@ const consentsMock: IConsent[] = [
     {
         title: 'Test av ny AAP kalkulator',
         responsibleGroup: 'AAP',
+        theme: 'dårlig råd',
         purpose: 'Veldig ddpobjp',
         totalInvolved: 5,
         code: 'L90-12N',
         expiration: '03-04-2023',
+        endResult: 'rapport',
         candidates: [],
         employee: employeeMock,
     },
     {
         title: 'Dagpengeløsning 2.0',
         responsibleGroup: 'Team Dagpenger',
+        theme: 'dårlig råd',
         purpose: 'oihsfg',
         totalInvolved: 3,
         code: '12J-0ZA',
         expiration: '03-04-2023',
+        endResult: 'rapport',
         candidates: [],
         employee: employeeMock,
     },
