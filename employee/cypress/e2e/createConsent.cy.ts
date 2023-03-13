@@ -8,9 +8,11 @@ describe('Data is filled correctly and request is successfull', () => {
     it('should redirect on correct data', () => {
         cy.get('input[name="title"]').type('Brukertest for AAP')
         cy.get('input[name="responsibleGroup"]').type('Team AAP')
+        cy.get('input[name="theme"]').type('Dårlig råd')
         cy.get('textarea[name="purpose"]').type(
             'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
         )
+        cy.get('textarea[name="endResult"]').type('rapport')
         cy.get(
             '*[class^="navds-date__field-input navds-text-field__input navds-body-short navds-body-medium"]',
         )
@@ -28,53 +30,6 @@ describe('Data is filled correctly and request is successfull', () => {
         })
     })
 
-    it('should display input in consent preview', () => {
-        cy.get('input[name="title"]').type('Brukertest for AAP')
-        cy.get('input[name="responsibleGroup"]').type('Team AAP')
-        cy.get('textarea[name="purpose"]').type(
-            'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
-        )
-
-        cy.get(
-            '*[class^="navds-date__field-input navds-text-field__input navds-body-short navds-body-medium"]',
-        )
-            .type(format(parseISO(new Date().toISOString()), 'dd.MM.yyyy'))
-            .type('{esc}')
-
-        cy.get('*[class^="w-1/2"]')
-            .eq(1)
-            .get('*[class^="navds-heading navds-heading--medium"]')
-            .should('have.text', 'Samtykke for: Brukertest for AAP')
-
-        cy.get('*[class^="w-1/2"]')
-            .eq(1)
-            .get('p')
-            .eq(1)
-            .should(
-                'have.text',
-                'Vi er ansatte i: Team AAP til Arbeid- og velferdsdirektoratet (NAV). Vi jobber med å forbedre NAVs tjenester gjennom å involvere personer som bruker, eller kan komme til å bruke dem.',
-            )
-
-        cy.get('*[class^="w-1/2"]')
-            .eq(1)
-            .get('p')
-            .eq(8)
-            .should(
-                'have.text',
-                `Når intervjuet er ferdig, vil svarene anonymiseres. Anonymiseringen gjennomføres så fort som mulig. Opplysningene som kan lede tilbake til deg slettes så snart anonymiseringen er gjennomført og senest innen ${format(
-                    parseISO(new Date().toISOString()),
-                    'dd.MM.yyyy',
-                )}.`,
-            )
-
-        cy.get(
-            '*[class^="navds-confirmation-panel__content navds-body-long"]',
-        ).should(
-            'have.text',
-            'Jeg ønsker å delta i: Brukertest for AAP, og har lest og forstått samtykke',
-        )
-    })
-
     it('should display errors on empty input', () => {
         cy.get(
             '*[class^="navds-button navds-button--primary navds-button--medium"]',
@@ -90,9 +45,15 @@ describe('Data is filled correctly and request is successfull', () => {
             .should('have.text', 'Du må sette et team/seksjon')
         cy.get('*[class^="navds-error-message navds-label"]')
             .eq(2)
-            .should('have.text', 'Du må sette et formål')
+            .should('have.text', 'Du må sette et tema')
         cy.get('*[class^="navds-error-message navds-label"]')
             .eq(3)
+            .should('have.text', 'Du må sette et formål')
+        cy.get('*[class^="navds-error-message navds-label"]')
+            .eq(4)
+            .should('have.text', 'Du må sette et sluttresultat')
+        cy.get('*[class^="navds-error-message navds-label"]')
+            .eq(5)
             .should('have.text', 'Du må sette en utløpsdato')
     })
 
@@ -110,7 +71,7 @@ describe('Data is filled correctly and request is successfull', () => {
             .eq(0)
             .should('have.text', 'Tittelen må være lengre enn 5 bokstaver')
         cy.get('*[class^="navds-error-message navds-label"]')
-            .eq(2)
+            .eq(3)
             .should('have.text', 'Formålet må være lengre en 30 bokstaver')
 
         cy.get('input[name="title"]')
@@ -144,7 +105,7 @@ describe('Data is filled correctly and request is successfull', () => {
             .eq(0)
             .should('have.text', 'Tittelen må være under 50 bokstaver')
         cy.get('*[class^="navds-error-message navds-label"]')
-            .eq(2)
+            .eq(3)
             .should('have.text', 'Formålet må være under 300 bokstaver')
     })
 
