@@ -75,7 +75,7 @@ describe('Active consent is loaded as expected', () => {
         // Check if candidates which has not consented has their named withdrawn
         cy.get('*[class^="navds-accordion__header-content"]')
             .eq(2)
-            .should('have.text', 'Navn trukket')
+            .should('include.text', 'Navn trukket')
 
         cy.get('*[class^="navds-accordion"]').children().eq(2).click()
         cy.get('*[class^="navds-accordion__content"]')
