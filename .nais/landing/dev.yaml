@@ -30,4 +30,4 @@ spec:
     max: 1
     cpuThresholdPercentage: 80
   ingresses:
-    - https://samtykke.dev.nav.no
+    - https://samtykke.ekstern.dev.nav.no
