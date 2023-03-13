@@ -30,7 +30,7 @@ spec:
     max: 1
     cpuThresholdPercentage: 80
   ingresses:
-    - https://samtykke.ekstern.dev.nav.no/ansatt
+    - https://samtykke.intern.dev.nav.no/ansatt
   azure:
     application:
       enabled: true

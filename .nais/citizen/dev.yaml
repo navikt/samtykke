@@ -30,15 +30,15 @@ spec:
     max: 1
     cpuThresholdPercentage: 80
   ingresses:
-    - https://samtykke.ekstern.dev.nav.no/innbygger
+    - https://samtykke.intern.dev.nav.no/innbygger
   tokenx:
     enabled: true
   idporten:
     enabled: true
-    clientUri: https://www.ekstern.dev.nav.no
+    clientUri: https://www.intern.dev.nav.no
     frontchannelLogoutPath: /innbygger/logout
     postLogoutRedirectURIs:
-      - https://samtykke.ekstern.dev.nav.no/innbygger/logout/callback
+      - https://samtykke.intern.dev.nav.no/innbygger/logout/callback
     accessTokenLifetime: 3600
     sessionLifetime: 3600
     sidecar:
@@ -57,7 +57,7 @@ spec:
     - name: AUDIENCE
       value: dev-gcp:team-researchops:samtykke-api
     - name: URL
-      value: https://samtykke.ekstern.dev.nav.no/innbygger
+      value: https://samtykke.intern.dev.nav.no/innbygger
   accessPolicy:
     outbound:
       external:
