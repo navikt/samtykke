@@ -1,5 +1,5 @@
-import { ErrorColored, FileContent, SuccessColored } from '@navikt/ds-icons'
-import { Accordion, Alert, BodyShort, Heading, Panel } from '@navikt/ds-react'
+import { Download, ErrorColored, FileContent, SuccessColored } from '@navikt/ds-icons'
+import { Accordion, Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import { format, parseISO } from 'date-fns'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import { ICandidate, IConsent } from '../types'
 import { getISODateString } from '../utils/date'
 import CandidatesList from './components/CandidatesList'
 import config from '../config'
+import { PDFDocument} from 'pdf-lib'
 
 export default function ActiveConsent(): ReactElement {
     
@@ -35,6 +36,21 @@ export default function ActiveConsent(): ReactElement {
         getConsent()
     }, [])
 
+    const dowloadConsent = async () => {
+        const pdfBytes = await fetch(`${config.apiPath}/consent/${code}/pdf`).then(res => res.arrayBuffer())
+
+        const consentPDF = await PDFDocument.load(pdfBytes)
+
+        const link = document.createElement('a')
+        link.id = 'pdf_download'
+        link.href = await consentPDF.saveAsBase64({ dataUri: true})
+        link.download = `Samtykke-${consent?.title}.pdf`
+
+        link.click()
+
+        document.getElementById('pdf_download')?.remove()
+    }
+
     return (
         <div className='mx-32 my-12'>
             {consent ? (
@@ -54,6 +70,14 @@ export default function ActiveConsent(): ReactElement {
                         <Heading size="large" className='p-4'>Kandidater</Heading>
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
+                    <div className='flex justify-end my-4 px-2'>
+                        <Button 
+                            variant="secondary" 
+                            icon={<Download />} 
+                            onClick={dowloadConsent}>
+                            Last ned
+                        </Button>
+                    </div>
                 </>
             ) : <Heading size='medium'>{consentErrorMessage}</Heading> 
             } 

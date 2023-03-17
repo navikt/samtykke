@@ -4,7 +4,6 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import config from '../../config'
 import { IConsent, IConsentBase, IEmployee } from '../../types'
 import { getDSISODateString } from '../../utils/date'
-
 export default function ConsentPreview({ 
     consent,
     expiration 
