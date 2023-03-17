@@ -9,7 +9,6 @@ import { ICandidate, IConsent } from '../types'
 import { getISODateString } from '../utils/date'
 import CandidatesList from './components/CandidatesList'
 import config from '../config'
-import { PDFDocument} from 'pdf-lib'
 
 export default function ActiveConsent(): ReactElement {
     
@@ -37,18 +36,17 @@ export default function ActiveConsent(): ReactElement {
     }, [])
 
     const dowloadConsent = async () => {
-        const pdfBytes = await fetch(`${config.apiPath}/consent/${code}/pdf`).then(res => res.arrayBuffer())
+        await axios
+            .get(`${config.apiPath}/consent/${code}/pdf`, { responseType: 'blob' })
+            .then(res => {
+                const link = document.createElement('a')
 
-        const consentPDF = await PDFDocument.load(pdfBytes)
+                link.href = window.URL.createObjectURL(new Blob([res.data]))
+                link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
+                link.click()
 
-        const link = document.createElement('a')
-        link.id = 'pdf_download'
-        link.href = await consentPDF.saveAsBase64({ dataUri: true})
-        link.download = `Samtykke-${consent?.title}.pdf`
-
-        link.click()
-
-        document.getElementById('pdf_download')?.remove()
+                link.remove()
+            })
     }
 
     return (
