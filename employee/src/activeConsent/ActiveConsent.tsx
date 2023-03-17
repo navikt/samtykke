@@ -41,7 +41,7 @@ export default function ActiveConsent(): ReactElement {
             .then(res => {
                 const link = document.createElement('a')
 
-                link.href = window.URL.createObjectURL(new Blob([res.data]))
+                link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
                 link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
                 link.click()
 
