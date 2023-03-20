@@ -1,4 +1,4 @@
-import { FileContent } from '@navikt/ds-icons'
+import { Download, FileContent } from '@navikt/ds-icons'
 import { Alert, Button, Checkbox, CheckboxGroup, Modal, Panel, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
@@ -16,14 +16,39 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
 
     const [candidate, setCandidate] = useState<ICandidate>(consent.candidates[0])
     
+    const [downloadingConsent, setDownloadingConsent] = useState<boolean>(false)
+
     const [nameErrorMessage, setNameErrorMessage] = useState<string>('')
     const [emailErrorMessage, setEmailErrorMessage] = useState<string>('')
+    const [downloadPDFErrorMessage, setDownloadPDFErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     const [candidateChanged, setCandidateChanged] = useState<boolean>(false)
 
     const [openWithdrawConsentModal, setOpenWithdrawConsentModal] = useState<boolean>(false)
+
+    const downloadConsent = async () => {
+        setDownloadingConsent(true)
+
+        try {
+            await axios
+                .get(`${config.apiPath}/consent/${consent.code}/pdf`, { responseType: 'blob' })
+                .then(res => {
+                    const link = document.createElement('a')
+
+                    link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
+                    link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
+                    link.click()
+
+                    link.remove()
+                })
+        } catch (error) {
+            setDownloadPDFErrorMessage('Noe gikk galt i nedlastningen av PDF')
+        }
+
+        setDownloadingConsent(false)
+    }
 
     const handleConsentCheckboxChange = (values: string[]) => {
         setCandidate(prevState => ({
@@ -132,20 +157,35 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                         <div className='flex justify-between my-4 px-2'>
                             <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
                             <div className='space-x-4'>
-                                {candidateChanged ? (
-                                    <Button 
+                                <div className='flex justify-center space-x-4'>
+                                    {downloadPDFErrorMessage && (
+                                        <Alert variant='error'>
+                                            {downloadPDFErrorMessage}
+                                        </Alert>
+                                    )}
+                                    {candidateChanged ? (
+                                        <Button 
+                                            variant='secondary'
+                                            onClick={onUpdateCandidate}
+                                        >
+                                            Oppdater
+                                        </Button>
+                                    ) : <></>}
+                                    <Button
                                         variant='secondary'
-                                        onClick={onUpdateCandidate}
+                                        icon={<Download />}
+                                        onClick={downloadConsent}
+                                        loading={downloadingConsent}
                                     >
-                                Oppdater
+                                        Last ned
                                     </Button>
-                                ) : <></>}
-                                <Button 
-                                    variant="danger" 
-                                    onClick={() => setOpenWithdrawConsentModal(true)}
-                                >
-                            Trekk samtykke
-                                </Button>
+                                    <Button 
+                                        variant="danger" 
+                                        onClick={() => setOpenWithdrawConsentModal(true)}
+                                    >
+                                        Trekk samtykke
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                         {apiErrorMessage && (

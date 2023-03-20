@@ -1,7 +1,6 @@
 import { Download, ErrorColored, FileContent, SuccessColored } from '@navikt/ds-icons'
 import { Accordion, Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
-import { format, parseISO } from 'date-fns'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
