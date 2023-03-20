@@ -15,8 +15,11 @@ export default function ActiveConsent(): ReactElement {
     const [consent, setConsent] = useState<IConsent>()
 
     const { code } = useParams()
+    
+    const [downloadingConsent, setDownloadingConsent] = useState<boolean>(false)
 
     const [consentErrorMessage, setConsentErrorMessage] = useState<string>('')
+    const [downloadPDFErrorMessage, setDownloadPDFErrorMessage] = useState<string>('')
 
     const getConsent = async () => {
         try {
@@ -36,17 +39,25 @@ export default function ActiveConsent(): ReactElement {
     }, [])
 
     const dowloadConsent = async () => {
-        await axios
-            .get(`${config.apiPath}/consent/${code}/pdf`, { responseType: 'blob' })
-            .then(res => {
-                const link = document.createElement('a')
+        setDownloadingConsent(true)
 
-                link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
-                link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
-                link.click()
+        try {
+            await axios
+                .get(`${config.apiPath}/consent/${code}/pdf`, { responseType: 'blob' })
+                .then(res => {
+                    const link = document.createElement('a')
 
-                link.remove()
-            })
+                    link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
+                    link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
+                    link.click()
+
+                    link.remove()
+                })
+        } catch (error) {
+            setDownloadPDFErrorMessage('Noe gikk galt i nedlastningen av PDF')
+        }
+
+        setDownloadingConsent(false)
     }
 
     return (
@@ -68,11 +79,18 @@ export default function ActiveConsent(): ReactElement {
                         <Heading size="large" className='p-4'>Kandidater</Heading>
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
-                    <div className='flex justify-end my-4 px-2'>
+                    <div className='flex justify-end my-4 px-2 space-x-4'>
+                        {downloadPDFErrorMessage && (
+                            <Alert variant='error'>
+                                {downloadPDFErrorMessage}
+                            </Alert>
+                        )}
                         <Button 
                             variant="secondary" 
                             icon={<Download />} 
-                            onClick={dowloadConsent}>
+                            onClick={dowloadConsent}
+                            loading={downloadingConsent}
+                        >
                             Last ned
                         </Button>
                     </div>
