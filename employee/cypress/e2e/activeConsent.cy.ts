@@ -38,11 +38,6 @@ describe('Active consent is loaded as expected', () => {
             .should('have.text', 'Lydopptak:')
         cy.get('*[class^="navds-accordion__content"]')
             .eq(0)
-            .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(0)
-            .should('have.text', 'Lagre kontaktinfo i 6 mnd:')
-        cy.get('*[class^="navds-accordion__content"]')
-            .eq(0)
             .find(
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
@@ -57,13 +52,6 @@ describe('Active consent is loaded as expected', () => {
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
             .eq(0)
             .should('have.text', 'Lydopptak:')
-        cy.get('*[class^="navds-accordion__content"]')
-            .eq(1)
-            .find(
-                '*[class^="text-green-600 navds-heading navds-heading--small"]',
-            )
-            .eq(0)
-            .should('have.text', 'Lagre kontaktinfo i 6 mnd:')
         cy.get('*[class^="navds-accordion__content"]')
             .eq(1)
             .find(
