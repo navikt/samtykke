@@ -57,7 +57,7 @@ describe('Active consent is loaded as expected', () => {
             .find(
                 '*[class^="text-green-600 navds-heading navds-heading--small"]',
             )
-            .eq(1)
+            .eq(0)
             .should('have.text', 'ACCEPTED')
 
         // Check if candidates which has not consented has their named withdrawn
@@ -74,7 +74,7 @@ describe('Active consent is loaded as expected', () => {
         cy.get('*[class^="navds-accordion__content"]')
             .eq(2)
             .find('*[class^="text-red-600 navds-heading navds-heading--small"]')
-            .eq(2)
+            .eq(1)
             .should('have.text', 'WITHDRAWN')
     })
 
