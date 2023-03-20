@@ -24,16 +24,11 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                     <>
                                         <Accordion.Header>{`${candidate.name} - ${formatTrackingNumber(candidate.trackingNumber)}`}</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
-                                            <div>
+                                            <div className='flex flex-row justify-center'>
                                                 {candidate.audioRecording ? (
                                                     <SuccessHeader text='Lydopptak:' />
                                                 ) : (
                                                     <ErrorHeader text='Lydopptak:' />
-                                                )}
-                                                {candidate.storeInfo ? (
-                                                    <SuccessHeader text='Lagre kontaktinfo i 6 mnd:' />
-                                                ) : (
-                                                    <ErrorHeader text='Lagre kontaktinfo i 6 mnd:' />
                                                 )}
                                             </div>
                                             <CandidateStatus status={candidate.status} consented={candidate.consented}/>
@@ -45,10 +40,7 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                             {`Navn trukket - ${formatTrackingNumber(candidate.trackingNumber)}`}
                                         </Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
-                                            <div>
-                                                <ErrorHeader text='Lydopptak:' />
-                                                <ErrorHeader text='Lagre kontaktinfo i 6 mnd:' />
-                                            </div>
+                                            <ErrorHeader text='Lydopptak:' />
                                             <CandidateStatus status={candidate.status} />
                                         </Accordion.Content>
                                     </>

@@ -27,7 +27,6 @@ const employeeMock: IEmployee = {
                     consented: new Date(),
                     trackingNumber: uuidv4(),
                     audioRecording: true,
-                    storeInfo: false,
                 },
                 {
                     id: '23894kshf',
@@ -37,7 +36,6 @@ const employeeMock: IEmployee = {
                     consented: new Date(),
                     trackingNumber: uuidv4(),
                     audioRecording: false,
-                    storeInfo: true,
                 },
                 {
                     id: 'oigh3022584',
@@ -47,7 +45,6 @@ const employeeMock: IEmployee = {
                     consented: undefined,
                     trackingNumber: uuidv4(),
                     audioRecording: true,
-                    storeInfo: false,
                 },
                 {
                     id: 'bsoi329854',
@@ -57,7 +54,6 @@ const employeeMock: IEmployee = {
                     consented: undefined,
                     trackingNumber: uuidv4(),
                     audioRecording: false,
-                    storeInfo: false,
                 },
             ],
         },

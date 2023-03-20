@@ -34,7 +34,6 @@ export interface ICandidate {
     consented: Date | undefined
     trackingNumber: string
     audioRecording: boolean
-    storeInfo: boolean
 }
 
 export interface IMessage {
