@@ -58,18 +58,18 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
         if (candidate.email.length === 0) {
             setEmailErrorMessage('Du må legge inn din e-post')
             isError = true
-        } else if (!validEmailRegex.test(candidate.email)) {
+        } else if (validEmailRegex.test(candidate.email)) {
+            setEmailErrorMessage('')
+        } else {
             setEmailErrorMessage('E-post er på ugyldig format')
             isError = true
-        } else {
-            setEmailErrorMessage('')
         }
 
-        if (!hasGivenConsent) {
+        if (hasGivenConsent) {
+            setGiveConsentErrorMessage('')
+        } else {
             setGiveConsentErrorMessage('For å kunne samtykke må du krysse av på at du har lest og forstått samtykke')
             isError = true
-        } else {
-            setGiveConsentErrorMessage('')
         }
 
         if (!isError) {

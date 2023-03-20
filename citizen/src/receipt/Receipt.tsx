@@ -30,6 +30,7 @@ export default function Receipt(): ReactElement {
                             <AcceptedReceipt 
                                 consentTitle={consent.title}
                                 consentExpiration={consent.expiration}
+                                consentCode={consent.code}
                             />
                         ) || receiptType === EnumConsentReceipt.Updated && (
                             <UpdatedReceipt consentTitle={consent.title} />
