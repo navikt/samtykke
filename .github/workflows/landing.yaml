@@ -3,7 +3,7 @@ name: Deploy landing
 on:
   push:
     branches: [main]
-    paths: [landing/**, .nais/landing/**]
+    paths: [landing/**, .nais/landing/**, .github/workflows/landing.yaml]
 
 jobs:
   build:
