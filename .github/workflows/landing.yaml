@@ -4,11 +4,13 @@ on:
   push:
     branches: [main]
     paths: [landing/**, .nais/landing/**]
-env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
 
 jobs:
   build:
+    name: Build, push and deploy Docker container
+    permissions:
+      contents: "read"
+      id-token: "write"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,42 +23,19 @@ jobs:
       - name: Yarn build
         working-directory: landing
         run: yarn build
-      - name: Login to docker
-        uses: docker/login-action@v2
+      - uses: nais/docker-build-push@v0
+        id: docker-push
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and publish Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: landing
-          file: Dockerfile
-          push: true
-          tags: ${{ env.DOCKER_IMAGE }}
-  deploy-to-labs:
-    name: Deploy to labs-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          DEPLOY_SERVER: deploy.nais.io:443
-          CLUSTER: labs-gcp
-          RESOURCE: .nais/landing/labs.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
-  deploy-to-dev:
-    name: Deploy to dev-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+          team: team-researchops
+          dockerfile: Dockerfile
+          docker_context: landing
+          image_suffix: -landing
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/landing/dev.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
+          VAR: image=${{ steps.docker-push.outputs.image }}
     
