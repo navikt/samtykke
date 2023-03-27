@@ -3,12 +3,14 @@ name: Test and deploy employee
 on:
   push:
     branches: [main]
-    paths: [employee/**, .nais/employee/**]
-env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-employee:${{ github.sha }}
+    paths: [employee/**, .nais/employee/**, .github/workflows/employee.yaml]
 
 jobs:
   build:
+    name: Build, push and deploy Docker container
+    permissions:
+      contents: "read"
+      id-token: "write"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,43 +33,18 @@ jobs:
       - name: Yarn build
         working-directory: employee
         run: yarn build
-      # Publish build to ghcr
-      - name: Login to docker
-        uses: docker/login-action@v2
+      - uses: nais/docker-build-push@v0
+        id: docker-push
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and publish Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: employee
-          file: Dockerfile
-          push: true
-          tags: ${{ env.DOCKER_IMAGE }}
-  # Deploy to NAIS
-  deploy-to-labs:
-    name: Deploy to labs-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          DEPLOY_SERVER: deploy.nais.io:443
-          CLUSTER: labs-gcp
-          RESOURCE: .nais/employee/labs.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
-  deploy-to-dev:
-    name: Deploy to dev-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+          team: team-researchops
+          dockerfile: Dockerfile
+          docker_context: employee
+          image_suffix: -employee
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/employee/dev.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
+          VAR: image=${{ steps.docker-push.outputs.image }}
