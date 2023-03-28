@@ -36,9 +36,9 @@ spec:
   idporten:
     enabled: true
     clientUri: https://www.ekstern.dev.nav.no
-    frontchannelLogoutPath: /innbygger/logout
+    frontchannelLogoutPath: /innbygger/oauth2/logout
     postLogoutRedirectURIs:
-      - https://samtykke.ekstern.dev.nav.no/innbygger/logout/callback
+      - https://samtykke.ekstern.dev.nav.no/innbygger/oauth2/logout/callback
     accessTokenLifetime: 3600
     sessionLifetime: 3600
     sidecar:
