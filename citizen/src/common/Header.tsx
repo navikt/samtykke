@@ -20,7 +20,10 @@ export default function Header(): ReactElement {
                 >
                     Se aktive samtykker
                 </Button>
-                <Button icon={ <Logout />}>Logg ut</Button>
+                <Button 
+                    icon={ <Logout />}
+                    onClick={() => navigate(`/logout?redirect_uri=${window.location.href.substr(0, window.location.href.length - location.pathname.length)}${location.pathname}`)}
+                >Logg ut</Button>
             </div>
         </div>
     )
