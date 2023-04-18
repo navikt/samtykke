@@ -82,7 +82,7 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
             createProxyMiddleware({
                 target: `${process.env.VITE_SLACKBOT_URL}`,
                 changeOrigin: true,
-                pathRewrite: { [`${process.env.VITE_SLACKBOT_URL}`]: '' }
+                pathRewrite: { ['/ansatt/slack']: '' }
             }))
     } catch (error) {
         console.log(error)
