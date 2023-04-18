@@ -12,8 +12,7 @@ const anonymizedCandidate: ICandidate = {
     email: 'xxxx@x.xx',
     consented: undefined,
     status: EnumCandidateStatus.Withdrawn,
-    audioRecording: false,
-    storeInfo: false
+    audioRecording: false
 }
 
 export default function WithdrawConsentModal(

@@ -443,6 +443,11 @@
     strict-event-emitter "^0.2.4"
     web-encoding "^1.1.5"
 
+"@navikt/aksel-icons@^2.8.12":
+  version "2.8.12"
+  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-2.8.12.tgz#7bbe3513f695378a3963058ba0b54f07911b327f"
+  integrity sha512-ENCpOSrPPFDDudy1qU97JRTsPWrEsfd9TemUWRc2H9+jgVuguoDbAJVCvJb4U0VnAWS+qGiEEdJmPFLf2/++CA==
+
 "@navikt/ds-css@^1.4.2":
   version "1.5.9"
   resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-1.5.9.tgz#0fbbf2f8dd3a3e1367d5e4d57ab295b6638872fd"

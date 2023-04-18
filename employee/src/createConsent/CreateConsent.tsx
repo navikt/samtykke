@@ -10,6 +10,7 @@ import axios, { AxiosError } from 'axios'
 import config from '../config'
 import { getISODateString } from '../utils/date'
 import PurposeReadMore from './components/PurposeReadMore'
+import SlackChannelModal from './components/SlackChannelModal'
 
 export default function CreateConsent(): ReactElement {
 
@@ -22,9 +23,12 @@ export default function CreateConsent(): ReactElement {
         purpose: '',
         expiration: undefined,
         totalInvolved: 1,
-        endResult: ''
+        endResult: '',
+        slackChannelId: ''
     })
     
+    const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
+
     const [titleErrorMessage, setTitleErrorMessage] = useState<string>('')
     const [responsibleGroupErrorMessage, setResponsibleGroupErrorMessage] = useState<string>('')
     const [themeErrorMessage, setThemeErrorMessage] = useState<string>('')
@@ -50,7 +54,7 @@ export default function CreateConsent(): ReactElement {
         })
     }
 
-    const onCreateConsent = async () => {
+    const onNext = async () => {
         let isError = false
 
         if (selectedDay) {
@@ -115,18 +119,11 @@ export default function CreateConsent(): ReactElement {
         }
 
         if (!isError) {
-            try {
-                const { status } = await axios.post(`${config.apiPath}/consent`, {
-                    ...consent, 
-                    expiration: convertToJavaLocalDate(selectedDay!)
-                })
-                if (status === 200) navigate('/')
-            } catch (error) {
-                if (error instanceof AxiosError) {
-                    if (error.response?.status === 400) setApiErrorMessage('Noe i skjemaet er feil...')
-                    else setApiErrorMessage('Noe gikk galt i kontakten med serveren...')
-                }
-            }
+            setConsent({
+                ...consent,
+                expiration: convertToJavaLocalDate(selectedDay!)
+            })
+            setOpenSlackChannelModal(true)
         }
     }
 
@@ -209,7 +206,7 @@ export default function CreateConsent(): ReactElement {
                 </Panel>
                 <div className='flex justify-between my-4 px-2'>
                     <Button variant='secondary' onClick={() => navigate('/')}>Avbryt</Button>
-                    <Button onClick={onCreateConsent}>Opprett samtykkeskjema</Button>
+                    <Button onClick={onNext}>Videre</Button>
                 </div>
                 {apiErrorMessage && (
                     <Alert variant="error">
@@ -220,6 +217,11 @@ export default function CreateConsent(): ReactElement {
             <div className='w-1/2'>
                 <ConsentPreview consent={consent} expiration={selectedDay}/>
             </div>
+            <SlackChannelModal 
+                open={openSlackChannelModal}
+                setOpen={setOpenSlackChannelModal}
+                consent={consent}
+            />
         </div>
     )
 }

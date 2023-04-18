@@ -13,6 +13,12 @@ export default defineConfig({
                 secure: false,
                 rewrite: (path) => path.replace(/^\/ansatt\/api/, ''),
             },
+            '/ansatt/slack': {
+                target: 'http://localhost:8081',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/ansatt\/slack/, ''),
+            }
         },
     },
 })

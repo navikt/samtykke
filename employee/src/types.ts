@@ -14,6 +14,7 @@ export interface IConsentBase {
     totalInvolved: number
     expiration: Date | string | undefined
     endResult: string
+    slackChannelId: string
 }
 
 export interface IConsent extends IConsentBase {

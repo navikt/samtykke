@@ -46,6 +46,8 @@ spec:
       value: /ansatt/api/employee
     - name: VITE_API_URL
       value: http://samtykke-api.team-researchops
+    - name: VITE_SLACKBOT_URL
+      value: http://samtykke-slackbot.team-researchops
     - name: AUDIENCE
       value: dev-gcp:team-researchops:samtykke-api
   accessPolicy:

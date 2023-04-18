@@ -67,12 +67,22 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
             next()
         }
 
+        // Middleware for samtykke-api
         app.use(`${process.env.VITE_API_PATH}`, 
             prepareSecuredRequest,
             createProxyMiddleware({ 
                 target: `${process.env.VITE_API_URL}/employee`, 
                 changeOrigin: true, 
                 pathRewrite: { [`^${process.env.VITE_API_PATH}`]: '' },
+            }))
+        
+        // Middleware for samtykke-slackbot
+        app.use('/ansatt/slack',
+            // TODO: prepare secured request
+            createProxyMiddleware({
+                target: `${process.env.VITE_SLACKBOT_URL}`,
+                changeOrigin: true,
+                pathRewrite: { [`${process.env.VITE_SLACKBOT_URL}`]: '' }
             }))
     } catch (error) {
         console.log(error)
