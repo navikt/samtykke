@@ -56,3 +56,4 @@ spec:
         - host: login.microsoftonline.com
       rules:
         - application: samtykke-api
+        - application: samtykke-slackbot
