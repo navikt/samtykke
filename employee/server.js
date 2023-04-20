@@ -20,13 +20,13 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
-async function getAzureOBOToken(accessToken) {
+async function getAzureOBOToken(accessToken, appName) {
     const tokenOptions = {
         grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
         client_id: process.env.AZURE_APP_CLIENT_ID,
         client_secret: process.env.AZURE_APP_CLIENT_SECRET,
         assertion: accessToken,
-        scope: 'api://dev-gcp.team-researchops.samtykke-api/.default',
+        scope: `api://dev-gcp.team-researchops.${appName}/.default`,
         requested_token_use: 'on_behalf_of',
     }
 
@@ -53,11 +53,25 @@ async function getAzureOBOToken(accessToken) {
 
 if (process.env.VITE_MOCK_DATA !== 'ja') {
     try {
-        const prepareSecuredRequest = async (req, res, next) => {
+        const prepareSecuredRequestForAPI = async (req, res, next) => {
             const { authorization } = req.headers
             const token = authorization.split(' ')[1]
 
-            const accessToken = await getAzureOBOToken(token).then((accessToken) => accessToken.access_token)
+            const accessToken = await getAzureOBOToken(token, 'samtykke-api').then((accessToken) => accessToken.access_token)
+
+            req.headers = {
+                ...req.headers,
+                authorization: `Bearer ${accessToken}`,
+            }
+
+            next()
+        }
+
+        const prepareSecuredRequestForSlackbot = async (req, res, next) => {
+            const { authorization } = req.headers
+            const token = authorization.split(' ')[1]
+
+            const accessToken = await getAzureOBOToken(token, 'samtykke-slackbot').then((accessToken) => accessToken.access_token)
 
             req.headers = {
                 ...req.headers,
@@ -69,7 +83,7 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
 
         // Middleware for samtykke-api
         app.use(`${process.env.VITE_API_PATH}`, 
-            prepareSecuredRequest,
+            prepareSecuredRequestForAPI,
             createProxyMiddleware({ 
                 target: `${process.env.VITE_API_URL}/employee`, 
                 changeOrigin: true, 
@@ -78,7 +92,7 @@ if (process.env.VITE_MOCK_DATA !== 'ja') {
         
         // Middleware for samtykke-slackbot
         app.use('/ansatt/slack',
-            // TODO: prepare secured request
+            prepareSecuredRequestForSlackbot,
             createProxyMiddleware({
                 target: `${process.env.VITE_SLACKBOT_URL}`,
                 changeOrigin: true,
