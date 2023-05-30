@@ -25,6 +25,8 @@ export default function SlackChannelModal({
     const [disableCreateConsent, setDisableCreateConsent] = useState<boolean>(true)
     const [showCheckmark, setShowCheckmark] = useState<boolean>(false)
 
+    const [showSizeWarning, setShowSizeWarning] = useState<boolean>(false)
+
     const [slackChannelErrorMessage, setSlackChannelErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
@@ -45,6 +47,7 @@ export default function SlackChannelModal({
                 setDisableCreateConsent(false)
                 setShowCheckmark(true)
                 setSlackChannelErrorMessage('')
+                setShowSizeWarning(data.sizeWarning)
             } catch (error) {
                 if (error instanceof AxiosError) {
                     if (error.response?.status === 404) {
@@ -101,6 +104,11 @@ export default function SlackChannelModal({
                     value={slackChannel}
                     error={slackChannelErrorMessage}
                 />
+                {showSizeWarning && (
+                    <Alert variant="warning" className='mt-2'>
+                        OBS! Denne kanalen har over 20 medlemmer
+                    </Alert>
+                )}
                 {apiErrorMessage && (
                     <Alert variant="error" className='mt-2'>
                         {apiErrorMessage}
