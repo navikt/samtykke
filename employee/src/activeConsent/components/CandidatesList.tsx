@@ -15,7 +15,11 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
 
     return (
         <>
-            {candidates.length !== 0 ? (
+            {candidates.length === 0 ? (
+                <Heading size="medium" className='italic'>
+                    <div className='px-6 mb-6'>Ingen har gitt samtykke enda...</div>
+                </Heading>
+            ) : (
                 <Accordion className='px-6 mb-6'>
                     {candidates.map((candidate: ICandidate, index: number) => {
                         return (
@@ -49,8 +53,6 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                         )
                     })}
                 </Accordion>
-            ) : (
-                <Heading size="medium" className='px-6 mb-6 italic'>Ingen har gitt samtykke enda...</Heading>
             )}
         </>
     )
