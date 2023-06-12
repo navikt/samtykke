@@ -149,6 +149,10 @@ export const handlers = [
             : res(ctx.status(404))
     }),
 
+    rest.get(`${config.apiPath}/consent/:code/pdf`, (req, res, ctx) => {
+        return res(ctx.status(200))
+    }),
+
     rest.get(`${config.apiPath}/messages`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(employeeMock.messages))
     }),
