@@ -36,5 +36,8 @@ export default{
         datePicker: {
             input: createClassSelectorString('navds-date__field-input navds-text-field__input navds-body-short navds-body-medium')
         },
+        errorMessage: {
+            label: createClassSelectorString('navds-error-message navds-label')
+        }
     }
 }

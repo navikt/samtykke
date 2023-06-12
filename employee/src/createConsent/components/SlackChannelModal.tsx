@@ -40,6 +40,7 @@ export default function SlackChannelModal({
 
         if (slackChannel.length === 0) {
             setSlackChannelErrorMessage('Du må skrive inn en slack kanal')
+            setShowCheckmark(true)
         } else {
             try {
                 const { data } = await axios.get(`/ansatt/slack/validChannel/${slackChannel}`)
