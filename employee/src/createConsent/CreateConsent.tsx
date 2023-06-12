@@ -1,4 +1,4 @@
-import { Alert, Button, Heading, Panel, ReadMore, Textarea, TextField, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react'
+import { Alert, Button, Heading, Panel, ReadMore, Textarea, TextField, DatePicker, useDatepicker } from '@navikt/ds-react'
 import React, { ChangeEvent, ReactElement, useState } from 'react'
 import { Edit } from '@navikt/ds-icons'
 import PageHeader from '../common/PageHeader'
@@ -39,7 +39,7 @@ export default function CreateConsent(): ReactElement {
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
-    const { datepickerProps, inputProps, selectedDay } = UNSAFE_useDatepicker({
+    const { datepickerProps, inputProps, selectedDay } = useDatepicker({
         fromDate: new Date('Aug 23 2019'),
     })
 
@@ -184,13 +184,13 @@ export default function CreateConsent(): ReactElement {
                                 error={totalInvolvedErrorMessage}
                             />
                         </div>
-                        <UNSAFE_DatePicker {...datepickerProps}
+                        <DatePicker {...datepickerProps}
                             disabled={[
                                 { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
                                 { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
                             ]}
                         >
-                            <UNSAFE_DatePicker.Input
+                            <DatePicker.Input
                                 {...inputProps} 
                                 label="Utløpsdato"
                                 error={expirationErrorMessage}
@@ -201,7 +201,7 @@ export default function CreateConsent(): ReactElement {
                                     })
                                 }}
                             />
-                        </UNSAFE_DatePicker>
+                        </DatePicker>
                     </div>
                 </Panel>
                 <div className='flex justify-between my-4 px-2'>

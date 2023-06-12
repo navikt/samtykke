@@ -78,6 +78,10 @@ describe('Active consent is loaded as expected', () => {
             .should('have.text', 'WITHDRAWN')
     })
 
+    it('is able to download consent as pdf', () => {
+        cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
+    })
+
     it('does not load a concent which do not exist', () => {
         cy.visit(`${Cypress.env('HOST')}samtykke/sdoighs73456096`)
 
