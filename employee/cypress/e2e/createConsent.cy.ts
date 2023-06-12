@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns'
 
 describe('Data is filled correctly and request is successfull', () => {
     beforeEach(() => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/ny`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/ny`)
     })
 
     // it('should redirect on correct data', () => {
@@ -117,7 +117,7 @@ describe('Data is filled correctly and request is successfull', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.eq(`${Cypress.env('HOST')}#/samtykke/ny`)
+            expect(loc.href).to.eq(`${Cypress.env('HOST')}samtykke/ny`)
         })
     })
 })

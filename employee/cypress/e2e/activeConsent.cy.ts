@@ -79,7 +79,7 @@ describe('Active consent is loaded as expected', () => {
     })
 
     it('does not load a concent which do not exist', () => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/sdoighs73456096`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/sdoighs73456096`)
 
         cy.get('*[class^="navds-heading navds-heading--medium"]').should(
             'have.text',
@@ -88,7 +88,7 @@ describe('Active consent is loaded as expected', () => {
     })
 
     it('does not load list of candidates if no candidates', () => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/12J-0ZA`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/12J-0ZA`)
 
         cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
             'have.text',

@@ -1,6 +1,6 @@
 describe('Messages is loaded as expected', () => {
     beforeEach(() => {
-        cy.visit(`${Cypress.env('HOST')}#/meldinger`)
+        cy.visit(`${Cypress.env('HOST')}meldinger`)
     })
 
     it('displays all messages correctly', () => {
@@ -35,7 +35,7 @@ describe('Messages is loaded as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.eq(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
+            expect(loc.href).to.eq(`${Cypress.env('HOST')}samtykke/X76-2B3`)
         })
 
         cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
