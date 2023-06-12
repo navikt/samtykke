@@ -123,7 +123,6 @@ export const handlers = [
     }),
 
     rest.get(`${config.apiPath}/consent/active`, (req, res, ctx) => {
-        // Returns the active consents of the current user
         return res(ctx.status(200), ctx.json(employeeMock.consents))
     }),
 
@@ -160,4 +159,8 @@ export const handlers = [
     rest.patch(`${config.apiPath}/messages/:id`, async (req, res, ctx) => {
         return res(ctx.status(200))
     }),
+
+    rest.get('/ansatt/slack/validChannel/:channelName', (req, res, ctx) => {
+        return res(ctx.status(200))
+    })
 ]

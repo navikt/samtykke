@@ -1,39 +1,42 @@
 import { format, parseISO } from 'date-fns'
+import selectors from '../support/selectorTypes'
 
 describe('Data is filled correctly and request is successfull', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}samtykke/ny`)
     })
 
-    // it('should redirect on correct data', () => {
-    //     cy.get('input[name="title"]').type('Brukertest for AAP')
-    //     cy.get('input[name="responsibleGroup"]').type('Team AAP')
-    //     cy.get('input[name="theme"]').type('Dårlig råd')
-    //     cy.get('textarea[name="purpose"]').type(
-    //         'Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren',
-    //     )
-    //     cy.get('textarea[name="endResult"]').type('rapport')
-    //     cy.get(
-    //         '*[class^="navds-date__field-input navds-text-field__input navds-body-short navds-body-medium"]',
-    //     )
-    //         .type(format(parseISO(new Date().toISOString()), 'dd.MM.yyyy'))
-    //         .type('{esc}')
+    it('should redirect on correct data', () => {
+        cy.get('input[name="title"]').type('Brukertest for AAP')
+        cy.get('input[name="responsibleGroup"]').type('Team AAP')
+        cy.get('input[name="theme"]').type('Dårlig råd')
+        cy.get('textarea[name="purpose"]')
+            .type('Dette er en brukertest som tar for seg å teste den nye AAP kalkulatoren')
+        cy.get('textarea[name="endResult"]').type('rapport')
+        cy.get(selectors.aksel.datePicker.input)
+            .type(format(parseISO(new Date().toISOString()), 'dd.MM.yyyy'))
 
-    //     cy.get(
-    //         '*[class^="navds-button navds-button--primary navds-button--medium"]',
-    //     )
-    //         .eq(1)
-    //         .click()
+        cy.get(selectors.aksel.button.primary.medium)
+            .eq(1)
+            .click({ force: true })
 
-    //     cy.location().should((loc) => {
-    //         expect(loc.href).to.equal(`${Cypress.env('HOST')}#/`)
-    //     })
-    // })
+        cy.get('input[name="slackChannel"]').type('samtykke-bot')
+
+        cy.get(selectors.aksel.button.secondary.medium)
+            .eq(2)
+            .click()
+
+        cy.get(selectors.aksel.button.primary.medium)
+            .eq(2)
+            .click()
+
+        cy.location().should((loc) => {
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}`)
+        })
+    })
 
     it('should display errors on empty input', () => {
-        cy.get(
-            '*[class^="navds-button navds-button--primary navds-button--medium"]',
-        )
+        cy.get(selectors.aksel.button.primary.medium)
             .eq(1)
             .click()
 

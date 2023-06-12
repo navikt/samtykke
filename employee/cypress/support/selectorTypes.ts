@@ -14,6 +14,9 @@ export default{
             }
         },
         button: {
+            primary: {
+                medium: createClassSelectorString('navds-button navds-button--primary navds-button--medium')
+            },
             secondary: {
                 small: createClassSelectorString('navds-button navds-button--secondary navds-button--small'),
                 medium: createClassSelectorString('navds-button navds-button--secondary navds-button--medium')
@@ -29,6 +32,9 @@ export default{
                 italic: createClassSelectorString('italic navds-heading navds-heading--medium')
             },
             xlarge: createClassSelectorString('navds-heading navds-heading--xlarge')
-        }
+        },
+        datePicker: {
+            input: createClassSelectorString('navds-date__field-input navds-text-field__input navds-body-short navds-body-medium')
+        },
     }
 }
