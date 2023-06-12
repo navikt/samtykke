@@ -15,7 +15,8 @@ export default{
         },
         button: {
             secondary: {
-                small: createClassSelectorString('navds-button navds-button--secondary navds-button--small') 
+                small: createClassSelectorString('navds-button navds-button--secondary navds-button--small'),
+                medium: createClassSelectorString('navds-button navds-button--secondary navds-button--medium')
             }
         },
         heading: {

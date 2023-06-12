@@ -1,3 +1,4 @@
+import path from 'path'
 import selectors from '../support/selectorTypes'
 
 describe('Active consent is loaded as expected', () => {
@@ -74,6 +75,10 @@ describe('Active consent is loaded as expected', () => {
 
     it('is able to download consent as pdf', () => {
         cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
+
+        cy.get(selectors.aksel.button.secondary.medium).click()
+
+        cy.readFile(path.join(Cypress.config('downloadsFolder'), 'Samtykke-Brukertest av NAV.no.pdf'))
     })
 
     it('does not load a concent which do not exist', () => {
