@@ -1,29 +1,19 @@
 describe('Landing page is loaded propperly', () => {
+    beforeEach(() => {
+        cy.visit(`${Cypress.env('HOST')}`)
+    })
+
     it('should load employee name', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
-        cy.contains('Dan Børge')
+        cy.findByText('Dan Børge')
     })
 
-    it('should load active consents', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
+    it('loads list of active consents with consent codes', () => {
+        cy.findByRole('button', { name: 'Brukertest av NAV.no'}).click().then
+        cy.findByRole('button', { name: 'Test av ny AAP kalkulator'}).click()
+        cy.findByRole('button', { name: 'Dagpengeløsning 2.0'}).click()
 
-        cy.get('*[class^="navds-accordion"]')
-            .find('*[class^="navds-accordion__item"]')
-            .should('have.length', 3)
-    })
-
-    it('active consent contain consent-code', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
-        cy.get('*[class^="navds-accordion"]')
-            .children()
-            .eq(0)
-            .click()
-            .children()
-            .get('b')
-            .each(($el, index, $list) => {
-                cy.wrap($el).invoke('text').should('have.length', 7)
-            })
+        cy.findByText('X76-2B3')
+        cy.findByText('L90-12N')
+        cy.findByText('12J-0ZA')
     })
 })
