@@ -38,6 +38,11 @@ export default{
         },
         errorMessage: {
             label: createClassSelectorString('navds-error-message navds-label')
+        },
+        alert: {
+            warning: {
+                medium: createClassSelectorString('navds-alert navds-alert--warning navds-alert--medium')
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ export default function SlackChannelModal({
 
         if (slackChannel.length === 0) {
             setSlackChannelErrorMessage('Du må skrive inn en slack kanal')
-            setShowCheckmark(true)
+            setShowCheckmark(false)
         } else {
             try {
                 const { data } = await axios.get(`/ansatt/slack/validChannel/${slackChannel}`)
@@ -106,9 +106,11 @@ export default function SlackChannelModal({
                     error={slackChannelErrorMessage}
                 />
                 {showSizeWarning && (
-                    <Alert variant="warning" className='mt-2'>
-                        OBS! Denne kanalen har over 20 medlemmer
-                    </Alert>
+                    <div className='mt-2'>
+                        <Alert variant="warning">
+                            OBS! Denne kanalen har over 20 medlemmer
+                        </Alert>
+                    </div>
                 )}
                 {apiErrorMessage && (
                     <Alert variant="error" className='mt-2'>

@@ -161,6 +161,9 @@ export const handlers = [
     }),
 
     rest.get('/ansatt/slack/validChannel/:channelName', (req, res, ctx) => {
-        return res(ctx.status(200))
+        return res(ctx.status(200), ctx.json({
+            slackChannelId: '#000000000',
+            sizeWarning: true
+        }))
     })
 ]

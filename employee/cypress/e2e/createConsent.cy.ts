@@ -40,7 +40,21 @@ describe('Data is filled correctly and request is successfull', () => {
     })
 
     it('displays size warning on selecting slack channel', () => {
-        // TODO: implement test
+        fillConsentInputs()
+
+        cy.get(selectors.aksel.button.primary.medium)
+            .eq(1)
+            .click({ force: true })
+
+        cy.get('input[name="slackChannel"]').type('samtykke-bot-test')
+
+        cy.get(selectors.aksel.button.secondary.medium)
+            .eq(2)
+            .click()
+
+        cy.get(selectors.aksel.alert.warning.medium)
+            .find('div')
+            .should('have.text', 'OBS! Denne kanalen har over 20 medlemmer')
     })
 
     it('should display error on no slack channel selected', () => {
