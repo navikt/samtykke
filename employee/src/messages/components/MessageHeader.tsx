@@ -19,14 +19,11 @@ export default function MessageHeader({
     const patchMessageRead = async () => {
         if (!messageRead) {
             try {
-                const { status } = await axios.patch(`${config.apiPath}/messages/${id}`, {
-                    read: true
-                })
+                const { status } = await axios.patch(`${config.apiPath}/messages/${id}`)
                 if (status === 200 || status === 304) setMessageRead(true)
             } catch (error) {
                 // TODO: add error handling
             }
-
         }
     }
 
@@ -36,9 +33,9 @@ export default function MessageHeader({
                 <div className='flex flex-row place-items-center'>
                     <Email className='mr-4'/>
                     {title}
-                    {!messageRead ? (
+                    {messageRead ? <></> : (
                         <div className='ml-4 w-3 h-3 bg-orange-400 rounded-full' />
-                    ) : <></> }
+                    ) }
                 </div>
             </div>
         </Accordion.Header>
