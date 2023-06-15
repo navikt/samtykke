@@ -10,8 +10,7 @@ const fillConsentInputs = () => {
     cy.findByRole('textbox', { name: 'Sluttresultat'}).type('rapport')
     cy.findByRole('textbox', { name: 'Utløpsdato'})
         .type(`${format(parseISO(new Date().toISOString()), 'dd.MM.yyyy')}`)
-        // Bug in Aksel, need to do it like this for now
-        .realPress('Tab').realPress('Tab').realPress('Tab').realPress('Enter').realPress('Enter')
+        .type('{esc}')
 }
 
 describe('Data is filled correctly and request is successfull', () => {
