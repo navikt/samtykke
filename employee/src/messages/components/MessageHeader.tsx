@@ -1,5 +1,5 @@
 import { Email } from '@navikt/ds-icons'
-import { Accordion } from '@navikt/ds-react'
+import { Accordion, Tag } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useState } from 'react'
 import config from '../../config'
@@ -30,11 +30,11 @@ export default function MessageHeader({
     return (
         <Accordion.Header onClick={() => patchMessageRead()}>
             <div className='flex flex-row place-items-center'>
-                <div className='flex flex-row place-items-center'>
-                    <Email className='mr-4'/>
-                    {title}
+                <div className='flex flex-row place-items-center space-x-4'>
+                    <Email />
+                    <div>{title}</div>
                     {messageRead ? <></> : (
-                        <div className='ml-4 w-3 h-3 bg-orange-400 rounded-full' />
+                        <Tag variant='warning' size='xsmall'>Ikke lest</Tag>
                     ) }
                 </div>
             </div>
