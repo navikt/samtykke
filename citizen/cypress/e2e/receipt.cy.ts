@@ -1,6 +1,6 @@
 describe('receipt handles as expected', () => {
     it('after giving consent, correct receipt is displayed', () => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/L90-12N`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/L90-12N`)
 
         cy.get('input[name="name"]').type('Lars pølse')
         cy.get('input[name="email"]').type('lars.pølse@gmail.com')
@@ -16,7 +16,7 @@ describe('receipt handles as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.equal(`${Cypress.env('HOST')}#/kvitering`)
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}kvitering`)
         })
 
         cy.get('p')
@@ -28,7 +28,7 @@ describe('receipt handles as expected', () => {
     })
 
     it('after updating consent, correct receipt is displayed', () => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
 
         cy.get('input[name="name"]').type('foiha')
 
@@ -45,7 +45,7 @@ describe('receipt handles as expected', () => {
     })
 
     it('after withdrawing consent, correct receipt is displayed', () => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
 
         cy.get(
             '*[class^="navds-button navds-button--danger navds-button--medium"]',
@@ -65,7 +65,7 @@ describe('receipt handles as expected', () => {
     })
 
     it('if not routing from a consent, reciept should not be displayed', () => {
-        cy.visit(`${Cypress.env('HOST')}#/kvitering`)
+        cy.visit(`${Cypress.env('HOST')}kvitering`)
 
         cy.get('*[class^="navds-heading navds-heading--large"]').should(
             'have.text',

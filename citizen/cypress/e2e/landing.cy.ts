@@ -1,7 +1,9 @@
 describe('landing page behaves as expected', () => {
-    it('should load landing page', () => {
+    beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}`)
-
+    })
+    
+    it('should load landing page', () => {
         cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
             'have.text',
             'Gi nytt samtykke',
@@ -9,8 +11,6 @@ describe('landing page behaves as expected', () => {
     })
 
     it('should handle empty consent code as expected', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
         cy.get(
             '*[class^="navds-button navds-button--primary navds-button--medium"]',
         )
@@ -24,8 +24,6 @@ describe('landing page behaves as expected', () => {
     })
 
     it('should handle consent code with wrong format as expected', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
         cy.get('input').type('llv1uyg7xv')
 
         cy.get(
@@ -41,8 +39,6 @@ describe('landing page behaves as expected', () => {
     })
 
     it('should handle consent which does not exist as expected', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
         cy.get('input').type('7cv-n3t')
 
         cy.get(
@@ -58,8 +54,6 @@ describe('landing page behaves as expected', () => {
     })
 
     it('should route to consent which does exist', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
         cy.get('input').type('X76-2B3')
 
         cy.get(
@@ -69,7 +63,7 @@ describe('landing page behaves as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.eq(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
+            expect(loc.href).to.eq(`${Cypress.env('HOST')}samtykke/X76-2B3`)
         })
     })
 })

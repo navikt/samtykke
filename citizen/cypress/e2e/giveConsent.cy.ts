@@ -1,6 +1,6 @@
 describe('give consent form behaves as expected', () => {
     beforeEach(() => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/L90-12N`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/L90-12N`)
     })
 
     it('should redirect on correct data', () => {
@@ -18,7 +18,7 @@ describe('give consent form behaves as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.equal(`${Cypress.env('HOST')}#/kvitering`)
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}kvitering`)
         })
     })
 
@@ -69,7 +69,7 @@ describe('give consent form behaves as expected', () => {
 
         cy.location().should((loc) => {
             expect(loc.href).to.equal(
-                `${Cypress.env('HOST')}#/samtykke/L90-12N`,
+                `${Cypress.env('HOST')}samtykke/L90-12N`,
             )
         })
     })

@@ -1,7 +1,9 @@
 describe('displaying of consent based on candidature should behave as expected', () => {
-    it('should display give consent if no canditature', () => {
+    beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}`)
-
+    })
+    
+    it('should display give consent if no canditature', () => {
         cy.get('input').type('12J-0ZA')
 
         cy.get(
@@ -17,8 +19,6 @@ describe('displaying of consent based on candidature should behave as expected',
     })
 
     it('should display active consent if already candidate', () => {
-        cy.visit(`${Cypress.env('HOST')}`)
-
         cy.get('input').type('X76-2B3')
 
         cy.get(

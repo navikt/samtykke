@@ -1,6 +1,6 @@
 describe('active consent behaves as expected', () => {
     beforeEach(() => {
-        cy.visit(`${Cypress.env('HOST')}#/samtykke/X76-2B3`)
+        cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
     })
 
     it('should activate update button on data change', () => {
@@ -75,7 +75,7 @@ describe('active consent behaves as expected', () => {
             .click()
 
         cy.location().should((loc) => {
-            expect(loc.href).to.equal(`${Cypress.env('HOST')}#/kvitering`)
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}kvitering`)
         })
     })
 })
