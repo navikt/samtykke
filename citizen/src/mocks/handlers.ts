@@ -152,4 +152,11 @@ export const handlers = [
             return res(ctx.status(200))
         },
     ),
+
+    rest.put(
+        `${config.apiPath}/consent/:code/canditature/anonymize/`,
+        async (req, res, ctx) => {
+            return res(ctx.status(200))
+        }
+    )
 ]
