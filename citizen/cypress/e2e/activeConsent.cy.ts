@@ -3,77 +3,44 @@ describe('active consent behaves as expected', () => {
         cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
     })
 
-    it('should activate update button on data change', () => {
-        cy.get('input[name="name"]').type('foiha')
+    it('should be able to update information in consent', () => {
+        cy.findByRole('textbox', { name: 'Ditt navn' }).type('foiha')
 
-        cy.get(
-            '*[class^="navds-button navds-button--secondary navds-button--medium"]',
-        )
-            .eq(1)
-            .should('have.text', 'Oppdater')
+        cy.findByRole('button', { name: 'Oppdater'}).click()
+
+        cy.location().should((loc) => {
+            expect(loc.href).to.equal(`${Cypress.env('HOST')}kvitering`)
+        })
     })
 
     it('should de-activate button on data reverting to original', () => {
-        cy.get('input[name="name"]').type('foi')
+        cy.findByRole('textbox', { name: 'Ditt navn' }).type('foi')
+        cy.findByRole('button', { name: 'Oppdater'})
 
-        cy.get(
-            '*[class^="navds-button navds-button--secondary navds-button--medium"]',
-        )
-            .eq(1)
-            .should('have.text', 'Oppdater')
-
-        cy.get('input[name="name"]').type('{backspace}{backspace}{backspace}')
-
-        cy.get(
-            '*[class^="navds-button navds-button--secondary navds-button--medium"]',
-        )
-            .contains('Oppdater')
-            .should('not.exist')
+        cy.findByRole('textbox', { name: 'Ditt navn' }).type('{backspace}{backspace}{backspace}')
+        cy.findByRole('button', { name: 'Oppdater'}).should('not.exist')
     })
 
-    it('should display errors on wrong/no input', () => {
-        cy.get('input[name="name"]').clear()
-        cy.get('input[name="email"]').clear()
+    it('should display errors on illegal input', () => {
+        cy.findByRole('textbox', { name: 'Ditt navn' }).clear()
+        cy.findByRole('textbox', { name: 'Din e-post' }).clear()
 
-        cy.get(
-            '*[class^="navds-button navds-button--secondary navds-button--medium"]',
-        )
-            .eq(1)
-            .click()
+        cy.findByRole('button', { name: 'Oppdater'}).click()
 
-        cy.get('*[class^="navds-error-message navds-label"]')
-            .eq(0)
-            .should('have.text', 'Du må legge inn ditt navn')
+        cy.findByText('Du må legge inn ditt navn')
+        cy.findByText('Du må legge inn din e-post')
+        
+        cy.findByRole('textbox', { name: 'Din e-post' }).type('sdpob1"49#ækb.n%f')
 
-        cy.get('*[class^="navds-error-message navds-label"]')
-            .eq(1)
-            .should('have.text', 'Du må legge inn din e-post')
+        cy.findByRole('button', { name: 'Oppdater'}).click()
 
-        cy.get('input[name="email"]').type('sdpob1"49#ækb.n%f')
-
-        cy.get(
-            '*[class^="navds-button navds-button--secondary navds-button--medium"]',
-        )
-            .eq(1)
-            .click()
-
-        cy.get('*[class^="navds-error-message navds-label"]')
-            .eq(1)
-            .should('have.text', 'E-post er på ugyldig format')
+        cy.findByText('E-post er på ugyldig format')
     })
 
     it('on withdraw consent, modal is opened and behaves as expected', () => {
-        cy.get(
-            '*[class^="navds-button navds-button--danger navds-button--medium"]',
-        ).click()
-
-        cy.get(
-            '*[class^="navds-button navds-button--danger navds-button--medium"]',
-        )
-            .eq(1)
-            .contains('Trekk')
-            .click()
-
+        cy.findByRole('button', { name: 'Trekk samtykke'}).click()
+        cy.findByRole('button', { name: 'Trekk'}).click()
+        
         cy.location().should((loc) => {
             expect(loc.href).to.equal(`${Cypress.env('HOST')}kvitering`)
         })
