@@ -1,5 +1,4 @@
 import { format, parseISO } from 'date-fns'
-import selectors from '../support/selectorTypes'
 
 const fillConsentInputs = () => {
     cy.findByRole('textbox', { name: 'Tittel' }).type('Brukertest for AAP')

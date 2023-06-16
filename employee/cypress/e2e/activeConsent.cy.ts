@@ -1,5 +1,4 @@
 import path from 'path'
-import selectors from '../support/selectorTypes'
 
 describe('Active consent is loaded as expected', () => {
     it('loads expected active consent with correct data', () => {
@@ -12,48 +11,15 @@ describe('Active consent is loaded as expected', () => {
         cy.findByText('Kode: X76-2B3')
 
         cy.findByRole('button', {name: /Lars Pølse/ }).click()
-
-        // Check if audio consent is given, store information consent is not given, and if candidate has concented
-        cy.get(selectors.aksel.accordion.content)
-            .eq(0)
-            .find(selectors.aksel.heading.small.green)
-            .eq(0)
-            .should('have.text', 'Lydopptak:')
-        cy.get(selectors.aksel.accordion.content)
-            .eq(0)
-            .find(selectors.aksel.heading.small.green)
-            .eq(1)
-            .should('have.text', 'ACCEPTED')
-
-        // Check if audio consent is not given, store information consent is given, but candidate has concented
         cy.findByRole('button', { name: /Ole Bolle Brus/ }).click()
-
-        cy.get(selectors.aksel.accordion.content)
-            .eq(1)
-            .find(selectors.aksel.heading.small.red)
-            .eq(0)
-            .should('have.text', 'Lydopptak:')
-        cy.get(selectors.aksel.accordion.content)
-            .eq(1)
-            .find(selectors.aksel.heading.small.green)
-            .eq(0)
-            .should('have.text', 'ACCEPTED')
-
-        // Check if candidates which has not consented has their named withdrawn
         cy.findAllByRole('button', { name: /Navn trukket/ })
             .should('have.length', 2)
             .click({ multiple: true })
-
-        cy.get(selectors.aksel.accordion.content)
-            .eq(2)
-            .find(selectors.aksel.heading.small.red)
-            .eq(0)
-            .should('have.text', 'Lydopptak:')
-        cy.get(selectors.aksel.accordion.content)
-            .eq(2)
-            .find(selectors.aksel.heading.small.red)
-            .eq(1)
-            .should('have.text', 'WITHDRAWN')
+        
+        cy.findAllByText('Samtykke til lydopptak gitt').should('have.length', 1)
+        cy.findAllByText('Samtykke til lydopptak ikke gitt').should('have.length', 3)
+        cy.findAllByText('Samtykke gitt').should('have.length', 2)
+        cy.findAllByText('Samtykke trukket').should('have.length', 2)
     })
 
     it('is able to download consent as pdf', () => {
@@ -78,6 +44,6 @@ describe('Active consent is loaded as expected', () => {
 
         cy.findByText('Ingen har gitt samtykke enda...')
 
-        cy.get(selectors.aksel.accordion._).should('not.exist')
+        cy.get('*[class^="navds-accordion"]').should('not.exist')
     })
 })

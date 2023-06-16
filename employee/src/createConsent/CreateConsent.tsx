@@ -34,8 +34,6 @@ export default function CreateConsent(): ReactElement {
     const [expirationErrorMessage, setExpiraitonErrorMessage] = useState<string>('')
     const [endResultErrorMessage, setEndResultErrorMessage] = useState<string>('')
 
-    const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
-
     const { datepickerProps, inputProps, selectedDay } = useDatepicker({
         fromDate: new Date('Aug 23 2019'),
     })
@@ -205,11 +203,6 @@ export default function CreateConsent(): ReactElement {
                     <Button variant='secondary' onClick={() => navigate('/')}>Avbryt</Button>
                     <Button onClick={onNext}>Videre</Button>
                 </div>
-                {apiErrorMessage && (
-                    <Alert variant="error">
-                        {apiErrorMessage}
-                    </Alert>
-                )}
             </div>
             <div className='w-1/2'>
                 <ConsentPreview consent={consent} expiration={selectedDay}/>

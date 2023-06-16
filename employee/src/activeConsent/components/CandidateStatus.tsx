@@ -1,4 +1,4 @@
-import { Heading } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 import { EnumCandidateStatus } from '../../types'
 import { getISODateString } from '../../utils/date'
@@ -13,22 +13,14 @@ export default function CandidateStatus({
     return (
         <>
             {status === EnumCandidateStatus.Accepted ? (
-                <div>
-                    <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                        <Heading size='small'>Status:</Heading>
-                        <Heading size='small' className='text-green-600'>{status}</Heading>
-                    </div>
-                    <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                        <Heading size='small'>
-                            {`Samtykket: ${getISODateString(consented!)}`}
-                        </Heading>
-                    </div>
+                <div className='flex flex-col space-y-2'>
+                    <Alert variant='success' size='small'>Samtykke gitt</Alert>
+                    <Alert variant='info' size='small'>
+                        {`Samtykket: ${getISODateString(consented!)}`}
+                    </Alert>
                 </div>
             ) : (
-                <div className='flex flex-row items-center space-x-4 mr-4 my-4'>
-                    <Heading size='small'>Status:</Heading>
-                    <Heading size='small' className='text-red-600'>{status}</Heading>
-                </div>
+                <Alert variant='error' size='small'>Samtykke trukket</Alert>
             )}
         </>
     )

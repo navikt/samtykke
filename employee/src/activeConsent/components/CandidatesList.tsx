@@ -1,11 +1,9 @@
 import { ErrorColored, SuccessColored } from '@navikt/ds-icons'
-import { Accordion, BodyShort, Heading } from '@navikt/ds-react'
+import { Accordion, BodyShort, Heading, Tag } from '@navikt/ds-react'
 import { format, parseISO } from 'date-fns'
 import React, { ReactElement } from 'react'
 import { EnumCandidateStatus, ICandidate } from '../../types'
 import CandidateStatus from './CandidateStatus'
-import ErrorHeader from './ErrorHeader'
-import SuccessHeader from './SuccessHeader'
 
 export default function CandidatesList({ candidates }: { candidates: ICandidate[] }): ReactElement {
 
@@ -28,11 +26,11 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                     <>
                                         <Accordion.Header>{`${candidate.name} - ${formatTrackingNumber(candidate.trackingNumber)}`}</Accordion.Header>
                                         <Accordion.Content className='flex flex-row justify-between'>
-                                            <div className='flex flex-row justify-center'>
+                                            <div className='flex flex-row items-center'>
                                                 {candidate.audioRecording ? (
-                                                    <SuccessHeader text='Lydopptak:' />
+                                                    <Tag variant='success'>Samtykke til lydopptak gitt</Tag>
                                                 ) : (
-                                                    <ErrorHeader text='Lydopptak:' />
+                                                    <Tag variant='error'>Samtykke til lydopptak ikke gitt</Tag>
                                                 )}
                                             </div>
                                             <CandidateStatus status={candidate.status} consented={candidate.consented}/>
@@ -43,8 +41,8 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                         <Accordion.Header className='italic'>
                                             {`Navn trukket - ${formatTrackingNumber(candidate.trackingNumber)}`}
                                         </Accordion.Header>
-                                        <Accordion.Content className='flex flex-row justify-between'>
-                                            <ErrorHeader text='Lydopptak:' />
+                                        <Accordion.Content className='flex flex-row justify-between items-center'>
+                                            <Tag variant='error'>Samtykke til lydopptak ikke gitt</Tag>
                                             <CandidateStatus status={candidate.status} />
                                         </Accordion.Content>
                                     </>
