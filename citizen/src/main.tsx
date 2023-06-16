@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import '@navikt/ds-css'
 import Header from './common/Header'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { createBrowserRouter, HashRouter, Route, RouterProvider, Routes } from 'react-router-dom'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
 import Consent from './consent/Consent'
@@ -11,6 +11,7 @@ import ActiveConsents from './activeConsents/ActiveConsents'
 import Receipt from './receipt/Receipt'
 import Footer from './common/Footer'
 import config from './config'
+import Skeleton from './common/Skeleton'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -20,17 +21,35 @@ if (config.shouldMockAPI === 'ja') {
     })
 }
 
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Skeleton />,
+        children: [
+            {
+                path: '/',
+                element: <Landing />
+            },
+            {
+                path: '/samtykke/:code',
+                element: <Consent />
+            },
+            {
+                path: '/samtykker',
+                element: <ActiveConsents />
+            },
+            {
+                path: 'kvitering',
+                element: <Receipt />
+            }
+        ]
+    }
+], {
+    basename: '/innbygger/'
+})
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <HashRouter>
-            <Header />
-            <Routes>
-                <Route path='/' element={<Landing />} />
-                <Route path='/samtykke/:code' element={<Consent />} />
-                <Route path='/samtykker' element={<ActiveConsents />} />
-                <Route path='/kvitering' element={<Receipt />} />
-            </Routes>
-            <Footer />
-        </HashRouter>
+        <RouterProvider router={router}/>
     </React.StrictMode>
 )
