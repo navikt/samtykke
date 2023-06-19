@@ -23,7 +23,7 @@ export default function Header(): ReactElement {
                 <Button 
                     icon={ <Logout />}
                     onClick={() => {
-                        window.location.replace(`${window.location.pathname}//${window.location.host}/innbygger/oauth2/logout`)
+                        window.location.replace(`${window.location.host}/innbygger/oauth2/logout`)
                     }}
                 >Logg ut</Button>
             </div>
