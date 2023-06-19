@@ -22,7 +22,9 @@ export default function Header(): ReactElement {
                 </Button>
                 <Button 
                     icon={ <Logout />}
-                    onClick={() => window.location.replace('https://oidc-ver2.difi.no/idporten-oidc-provider/endsession')}
+                    onClick={() => {
+                        window.location.replace(`${window.location.pathname}//${window.location.host}/innbygger/oauth2/logout`)
+                    }}
                 >Logg ut</Button>
             </div>
         </div>
