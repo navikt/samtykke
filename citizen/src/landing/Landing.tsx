@@ -46,7 +46,7 @@ export default function Landing(): ReactElement {
             <div className='flex flex-col items-center mt-24'>
                 <div className='w-fit'>
                     <TextField 
-                        label='Samtykke-kode:'
+                        label='Samtykke-kode'
                         description='Skriv inn kode for samtykke, Eksempel: AB1-CD2'
                         value={code || ''}
                         onChange={e => setCode(e.target.value as string)}

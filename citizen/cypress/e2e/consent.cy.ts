@@ -4,32 +4,17 @@ describe('displaying of consent based on candidature should behave as expected',
     })
     
     it('should display give consent if no canditature', () => {
-        cy.get('input').type('12J-0ZA')
+        cy.findByRole('textbox', { name: 'Samtykke-kode' }).type('12J-0ZA')
+        cy.findByRole('button', { name: 'OK' }).click()
 
-        cy.get(
-            '*[class^="navds-button navds-button--primary navds-button--medium"]',
-        )
-            .eq(1)
-            .click()
-
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
-            'have.text',
-            'Gi samtykke',
-        )
+        cy.findByRole('button', { name: 'Gi samtykke' })
     })
 
     it('should display active consent if already candidate', () => {
         cy.get('input').type('X76-2B3')
 
-        cy.get(
-            '*[class^="navds-button navds-button--primary navds-button--medium"]',
-        )
-            .eq(1)
-            .click()
+        cy.findByRole('button', { name: 'OK' }).click()
 
-        cy.get('*[class^="navds-heading navds-heading--xlarge"]').should(
-            'have.text',
-            'Administrer samtykke',
-        )
+        cy.findByRole('button', { name: 'Trekk samtykke' })
     })
 })
