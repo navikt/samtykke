@@ -2,14 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import '@navikt/ds-css'
-import Header from './common/Header'
-import { createBrowserRouter, HashRouter, Route, RouterProvider, Routes } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Landing from './landing/Landing'
 import { worker } from './mocks/browser'
 import Consent from './consent/Consent'
 import ActiveConsents from './activeConsents/ActiveConsents'
 import Receipt from './receipt/Receipt'
-import Footer from './common/Footer'
 import config from './config'
 import Skeleton from './common/Skeleton'
 
@@ -50,6 +48,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <div className='min-h-screen flex flex-col'>
+            <RouterProvider router={router}/>
+        </div>
     </React.StrictMode>
 )
