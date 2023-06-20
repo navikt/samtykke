@@ -27,7 +27,13 @@ export default function Header(): ReactElement {
                 >
                     Min side
                 </Button>
-                <Button variant='primary' icon={ <Logout />}>Logg ut</Button>
+                <Button 
+                    variant='primary' 
+                    icon={ <Logout />}
+                    onClick={() => window.location.replace('/ansatt/oauth2/logout')}
+                >
+                    Logg ut
+                </Button>
             </div>
         </div>
     )

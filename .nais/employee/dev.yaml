@@ -36,6 +36,7 @@ spec:
       enabled: true
       allowAllUsers: true
       tenant: nav.no
+      frontchannelLogoutPath: /ansatt/oauth2/logout
     sidecar:
       enabled: true
       autoLogin: true
