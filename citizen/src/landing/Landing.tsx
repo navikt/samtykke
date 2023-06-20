@@ -5,7 +5,6 @@ import React, { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import config from '../config'
-import { IConsent } from '../types'
 
 export default function Landing(): ReactElement {
 
@@ -38,16 +37,16 @@ export default function Landing(): ReactElement {
     }
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Gi nytt samtykke'
-                icon={<FillForms className='align-middle text-[2rem] absolute -top-[1rem]' />}
+                icon={<FillForms />}
             />
-            <div className='flex flex-col items-center mt-24'>
-                <div className='w-fit'>
+            <div className='flex flex-col items-center mt-10'>
+                <div className='w-5/6 lg:w-2/6'>
                     <TextField 
                         label='Samtykke-kode'
-                        description='Skriv inn kode for samtykke, Eksempel: AB1-CD2'
+                        description='Eksempel: AB1-C3D'
                         value={code || ''}
                         onChange={e => setCode(e.target.value as string)}
                         error={codeErrorMessage}
