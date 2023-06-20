@@ -8,14 +8,14 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
         <>
             {consent ? (
                 <Panel className='space-y-4'>
-                    <Heading size="medium">
+                    <Heading size="medium" level='2'>
                         Samtykke for: {consent.title}
                     </Heading>
                     <BodyLong>
                         Du er invitert i denne undersøkelsen fordi du har vist en interesse for 
                         å dele noen refleksjoner med oss om NAVs tjenester eller ytelser.
                     </BodyLong>
-                    <Heading size="small">Hvem er vi, og hvem er ansvarlig for undersøkelsen?</Heading>
+                    <Heading size="small" level='3'>Hvem er vi, og hvem er ansvarlig for undersøkelsen?</Heading>
                     <BodyLong>
                         Vi er ansatte 
                         i: {consent.responsibleGroup} til 
@@ -35,7 +35,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                         Nav Arbeids- og Velferdsdirektoratet har ansvaret for behandlingen av
                         personopplysningene dine. 
                     </BodyLong>
-                    <Heading size="small">Hva må du gjøre hvis du velger å delta i denne undersøkelsen?</Heading>
+                    <Heading size="small" level='3'>Hva må du gjøre hvis du velger å delta i denne undersøkelsen?</Heading>
                     <BodyLong>
                         Vi ønsker at du deltar i et intervju hvor vi spør deg om dine tanker og
                         eventuelle erfaringer med {consent.theme} hos
@@ -46,14 +46,14 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                         Samtalen gjøres på video, telefon eller fysisk. Intervjuet kan vare i
                         (opptill en time). 
                     </BodyShort>
-                    <Heading size='small'>Må jeg delta i denne undersøkelsen?</Heading>
+                    <Heading size='small' level='3'>Må jeg delta i denne undersøkelsen?</Heading>
                     <BodyLong>
                         Nei det er <b>frivillig</b> å delta. Mottar du tjenester fra NAV vil ikke
                         deltakelsen i denne undersøkelsen påvirke dine rettigheter i NAV. Vi har ikke
                         tilgang til dine saker. Andre i NAV får heller ikke vite hvem som deltar
                         i undersøkelsen, og opplysningene du gir kan ikke kobles til dine saker.
                     </BodyLong>
-                    <Heading size='small'>Hvordan behandler vi personopplysningene dine?</Heading>
+                    <Heading size='small' level='3'>Hvordan behandler vi personopplysningene dine?</Heading>
                     <BodyLong>
                         Med samtykket ditt vil vi midlertidig lagre dine kontaktopplysninger og notere
                         ned de opplysningene som blir sagt under intervjuet. Vi ønsker også å ta opp
@@ -74,7 +74,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                     anonymiseringen er gjennomført og senest innen {consent.expiration ? getISODateString(consent.expiration) : '19.9.1999'}.
                     De anonyme dataen vi brukes til {consent.endResult}
                     </BodyLong>
-                    <Heading size="small">Dine rettigheter</Heading>
+                    <Heading size="small" level='3'>Dine rettigheter</Heading>
                     <ul className='list-disc list-outside pl-6 space-y-1'>
                         <li>
                         Det er frivillig å delta. Du kan når som helst trekke tilbake samtykke underveis 

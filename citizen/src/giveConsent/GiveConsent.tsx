@@ -97,12 +97,12 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
     }
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title="Gi samtykke"
-                icon={<FillForms className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                icon={<FillForms />}
             />
-            <div className='mt-8'>
+            <div className='mt-10'>
                 <ConsentSkeleton consent={consent}/>
                 <Panel className='space-y-4'>
                     <CheckboxGroup
@@ -115,7 +115,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                         </Checkbox>
                     </CheckboxGroup>
                     <TextField 
-                        className='w-1/2'
+                        className='lg:w-1/2'
                         label='Ditt navn'
                         name='name'
                         value={candidate.name || ''}
@@ -123,7 +123,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                         error={nameErrorMessage}
                     />
                     <TextField 
-                        className='w-1/2'
+                        className='lg:w-1/2'
                         label='Din e-post'
                         name='email'
                         value={candidate.email || ''}
