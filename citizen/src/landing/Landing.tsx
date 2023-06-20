@@ -18,9 +18,7 @@ export default function Landing(): ReactElement {
         const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
         if (code === '') {
             setCodeErrorMessage('Du må legge til en samtykke-kode')
-        } else if (!codeRegex.test(code)) {
-            setCodeErrorMessage('Samtykke-kode er på feil format')
-        } else {
+        } else if (codeRegex.test(code)) {
             try {
                 const { status }: { status: number} = await axios.get(`${config.apiPath}/consent/${code}`)
                 if (status === 200) {
@@ -32,6 +30,8 @@ export default function Landing(): ReactElement {
                     else setCodeErrorMessage('Noe gikk galt i hentingen av samtykke...')
                 } 
             }
+        } else {
+            setCodeErrorMessage('Samtykke-kode er på feil format')
         }
 
     }
