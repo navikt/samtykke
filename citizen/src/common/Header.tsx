@@ -22,10 +22,10 @@ export default function Header(): ReactElement {
                 </Button>
                 <Button 
                     icon={ <Logout />}
-                    onClick={() => {
-                        window.location.replace('/innbygger/oauth2/logout')
-                    }}
-                >Logg ut</Button>
+                    onClick={() => window.location.replace('/innbygger/oauth2/logout')}
+                >
+                    Logg ut
+                </Button>
             </div>
         </div>
     )
