@@ -1,3 +1,4 @@
+import React from 'react'
 import { Right } from '@navikt/ds-icons'
 import { Ingress, Button, Heading } from '@navikt/ds-react'
 import { ReactElement } from 'react'
