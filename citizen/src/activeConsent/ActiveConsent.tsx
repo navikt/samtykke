@@ -9,7 +9,7 @@ import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { ICandidate, IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
-import ResponsiveButtonMenu from './components/buttonMenu/ButtonMenu'
+import ButtonMenu from './components/buttonMenu/ButtonMenu'
 
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
@@ -135,7 +135,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                 {apiErrorMessage}
                             </Alert>
                         )}
-                        <ResponsiveButtonMenu 
+                        <ButtonMenu 
                             consent={consent}
                             candidateChanged={candidateChanged}
                             onUpdateCandidate={onUpdateCandidate}
