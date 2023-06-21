@@ -33,16 +33,16 @@ export default function ActiveConsents(): ReactElement {
     }, [])
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title="Mine aktive samtykker"
-                icon={<Findout className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                icon={<Findout />}
             />
             <div className='mt-8'>
                 <Panel className='space-y-4'>
                     {activeConsents.length > 0 ? (
                         <>
-                            <Heading size="large">Aktive samtykker</Heading>
+                            <Heading size="large" level="2">Aktive samtykker</Heading>
                             {activeConsents instanceof Array && activeConsents.map((consent: IConsent, index: number) => {
                                 return (
                                     <LinkPanel 
@@ -55,7 +55,7 @@ export default function ActiveConsents(): ReactElement {
                                 )
                             })}
                         </>
-                    ): <Heading size="medium">{activeConsentsErrorMessage}</Heading>}
+                    ): <Heading size="medium" level="2">{activeConsentsErrorMessage}</Heading>}
                 </Panel>
             </div>
         </div>
