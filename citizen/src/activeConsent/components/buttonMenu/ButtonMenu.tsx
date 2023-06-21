@@ -8,7 +8,6 @@ import DownloadPdfButton from './DownloadPdfButton'
 interface IProps {
     consent: IConsent
     candidateChanged: boolean
-    onUpdateCandidate: () => void
     setOpenWithdrawConsentModal: Dispatch<SetStateAction<boolean>>
     setApiErrorMessage: Dispatch<SetStateAction<string>>
 }
@@ -16,7 +15,6 @@ interface IProps {
 export default function ResponsiveButtonMenu({
     consent,
     candidateChanged,
-    onUpdateCandidate,
     setOpenWithdrawConsentModal,
     setApiErrorMessage
 }: IProps): ReactElement {
@@ -35,7 +33,7 @@ export default function ResponsiveButtonMenu({
                     <Button
                         className='w-1/2'
                         icon={<FloppydiskIcon aria-hidden />}
-                        onClick={onUpdateCandidate}
+                        type="submit"
                     >
                         Oppdater
                     </Button>

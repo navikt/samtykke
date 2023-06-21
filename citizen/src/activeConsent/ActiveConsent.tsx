@@ -10,85 +10,51 @@ import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { ICandidate, IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
 import ButtonMenu from './components/buttonMenu/ButtonMenu'
+import { useForm } from 'react-hook-form'
+
+const validEmailRegex = /^[a-z\wæøåA-Z\wæøå0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
     const navigate = useNavigate()
 
-    const [candidate, setCandidate] = useState<ICandidate>(consent.candidates[0])
-
-    const [nameErrorMessage, setNameErrorMessage] = useState<string>('')
-    const [emailErrorMessage, setEmailErrorMessage] = useState<string>('')
+    const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
+        defaultValues: {
+            name: consent.candidates[0].name,
+            email: consent.candidates[0].email,
+            audioRecording: consent.candidates[0].audioRecording
+        }
+    })
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
-    const [candidateChanged, setCandidateChanged] = useState<boolean>(false)
-
     const [openWithdrawConsentModal, setOpenWithdrawConsentModal] = useState<boolean>(false)
 
-    const handleConsentCheckboxChange = (values: string[]) => {
-        setCandidate(prevState => ({
-            ...prevState,
-            audioRecording: values.includes('audioRecording')
-        }))
-    }
-    
-    const handleConsentTextFieldsChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setCandidate({
-            ...candidate,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const onUpdateCandidate = async () => {
-        let isError = false
-
-        if (candidate.name.length === 0) {
-            setNameErrorMessage('Du må legge inn ditt navn')
-            isError = true
-        } else {
-            setNameErrorMessage('')
-        }
-
-        const validEmailRegex = /^[a-z\wæøåA-Z\wæøå0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        if (candidate.email.length === 0) {
-            setEmailErrorMessage('Du må legge inn din e-post')
-            isError = true
-        } else if (validEmailRegex.test(candidate.email)) {
-            setEmailErrorMessage('')
-        } else {
-            setEmailErrorMessage('E-post er på ugyldig format')
-            isError = true
-        }
-
-        if (!isError) {
-            try {
-                const { status }: { status: number } = await axios.put(
-                    `${config.apiPath}/consent/${consent.code}/canditature/`,
-                    candidate
-                )
-                if (status === 200) navigate('/kvitering', {
-                    state: {
-                        consent,
-                        receiptType: EnumConsentReceipt.Updated
-                    }
-                })
-            } catch (error) {
-                if (error instanceof AxiosError) {
-                    if (error.response?.status === 404) setApiErrorMessage('Fant ikke samtykket du prøver å oppdatere')
-                    else setApiErrorMessage('Noe gikk galt i kontakten med serveren...')
+    const onUpdateCandidate = async (data) => {
+        try {
+            const { status }: { status: number } = await axios.put(
+                `${config.apiPath}/consent/${consent.code}/canditature/`,
+                {
+                    ...consent.candidates[0],
+                    name: data.name,
+                    email: data.email,
+                    audioRecording: data
                 }
-            }}
+            )
+            if (status === 200) navigate('/kvitering', {
+                state: {
+                    consent,
+                    receiptType: EnumConsentReceipt.Updated
+                }
+            })
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (error.response?.status === 404) setApiErrorMessage('Fant ikke samtykket du prøver å oppdatere')
+                else setApiErrorMessage('Noe gikk galt i kontakten med serveren...')
+            }
+        }
     }
 
-    useEffect(() => {
-        // Check if candidate has changed -> tell react to render update button
-        if (Object.keys(consent.candidates[0]).some(key => consent.candidates[0][key] !== candidate[key])) {
-            setCandidateChanged(true)
-        } else {
-            setCandidateChanged(false)
-        }
-    }, [candidate])
 
     return (
         <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
@@ -97,51 +63,60 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                 icon={<FileContent />}
             />
             <div className='mt-8'>
-                {consent && candidate ? (
+                {consent.candidates[0] ? (
                     <>
                         <ConsentSkeleton consent={consent} />
-                        <Panel className='space-y-4'>
-                            <CheckboxGroup
-                                legend='Du takker ja til'
-                                description='Kryss av boksene du føler deg komfertabel med'
-                                onChange={handleConsentCheckboxChange}
-                            >
-                                <Checkbox 
-                                    value='audioRecording' 
-                                    checked={candidate.audioRecording || false}
+                        <form onSubmit={handleSubmit(data => onUpdateCandidate(data))}>
+                            <Panel className='space-y-4'>
+                                <CheckboxGroup
+                                    legend='Du takker ja til'
+                                    description='Kryss av boksene du føler deg komfortabel med'
                                 >
-                                    Ja, dere kan ta lydopptak
-                                </Checkbox>
-                            </CheckboxGroup>
-                            <TextField 
-                                className='lg:w-1/2'
-                                label='Ditt navn'
-                                name='name'
-                                value={candidate.name || ''}
-                                onChange={handleConsentTextFieldsChange}
-                                error={nameErrorMessage}
+                                    <Checkbox
+                                        {...register('audioRecording')} 
+                                    >
+                                        Ja, dere kan ta lydopptak
+                                    </Checkbox>
+                                </CheckboxGroup>
+                                <TextField 
+                                    {...register('name', {
+                                        required: {
+                                            value: true,
+                                            message: 'Du må legge inn ditt navn'
+                                        }
+                                    })}
+                                    className='lg:w-1/2'
+                                    label='Ditt navn'
+                                    error={errors.name?.message}
+                                />
+                                <TextField
+                                    {...register('email', {
+                                        required: {
+                                            value: true,
+                                            message: 'Du må legge inn din e-post'
+                                        },
+                                        pattern: {
+                                            value: validEmailRegex,
+                                            message: 'E-post er på ugyldig format'
+                                        }
+                                    })} 
+                                    className='lg:w-1/2'
+                                    label='Din e-post'
+                                    error={errors.email?.message}
+                                />
+                            </Panel>
+                            {apiErrorMessage && (
+                                <Alert variant='error' className='mt-4'>
+                                    {apiErrorMessage}
+                                </Alert>
+                            )}
+                            <ButtonMenu 
+                                consent={consent}
+                                candidateChanged={isDirty}
+                                setOpenWithdrawConsentModal={setOpenWithdrawConsentModal}
+                                setApiErrorMessage={setApiErrorMessage}
                             />
-                            <TextField 
-                                className='lg:w-1/2'
-                                label='Din e-post'
-                                name='email'
-                                value={candidate.email || ''}
-                                onChange={handleConsentTextFieldsChange}
-                                error={emailErrorMessage}
-                            />
-                        </Panel>
-                        {apiErrorMessage && (
-                            <Alert variant='error' className='mt-4'>
-                                {apiErrorMessage}
-                            </Alert>
-                        )}
-                        <ButtonMenu 
-                            consent={consent}
-                            candidateChanged={candidateChanged}
-                            onUpdateCandidate={onUpdateCandidate}
-                            setOpenWithdrawConsentModal={setOpenWithdrawConsentModal}
-                            setApiErrorMessage={setApiErrorMessage}
-                        />
+                        </form>
                     </>
                 ): <>Noe gikk galt i lastingen av ditt samtykke...</>}
                
