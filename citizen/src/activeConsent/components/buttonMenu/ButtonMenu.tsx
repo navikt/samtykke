@@ -51,6 +51,7 @@ export default function ResponsiveButtonMenu({
                     className='w-1/2'
                     variant='danger'
                     onClick={() => setOpenWithdrawConsentModal(true)}
+                    type="button"
                 >
                     Trekk samtykke
                 </Button>

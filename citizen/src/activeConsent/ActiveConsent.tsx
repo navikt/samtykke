@@ -38,7 +38,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                     ...consent.candidates[0],
                     name: data.name,
                     email: data.email,
-                    audioRecording: data
+                    audioRecording: data.audioRecording
                 }
             )
             if (status === 200) navigate('/kvitering', {
@@ -55,6 +55,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
         }
     }
 
+    // TODO: WithdrawnConsentModal not rendered due to form submit navigating to new page and not modal controlling it
 
     return (
         <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
