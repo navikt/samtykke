@@ -1,5 +1,5 @@
-import { Download, FileContent } from '@navikt/ds-icons'
-import { Alert, Button, Checkbox, CheckboxGroup, Modal, Panel, TextField } from '@navikt/ds-react'
+import { FileContent } from '@navikt/ds-icons'
+import { Alert, Button, Checkbox, CheckboxGroup, Panel, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -9,46 +9,22 @@ import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { ICandidate, IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
+import ResponsiveButtonMenu from './components/buttonMenu/ButtonMenu'
 
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
     const navigate = useNavigate()
 
     const [candidate, setCandidate] = useState<ICandidate>(consent.candidates[0])
-    
-    const [downloadingConsent, setDownloadingConsent] = useState<boolean>(false)
 
     const [nameErrorMessage, setNameErrorMessage] = useState<string>('')
     const [emailErrorMessage, setEmailErrorMessage] = useState<string>('')
-    const [downloadPDFErrorMessage, setDownloadPDFErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     const [candidateChanged, setCandidateChanged] = useState<boolean>(false)
 
     const [openWithdrawConsentModal, setOpenWithdrawConsentModal] = useState<boolean>(false)
-
-    const downloadConsent = async () => {
-        setDownloadingConsent(true)
-
-        try {
-            await axios
-                .get(`${config.apiPath}/consent/${consent.code}/pdf`, { responseType: 'blob' })
-                .then(res => {
-                    const link = document.createElement('a')
-
-                    link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
-                    link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
-                    link.click()
-
-                    link.remove()
-                })
-        } catch (error) {
-            setDownloadPDFErrorMessage('Noe gikk galt i nedlastningen av PDF')
-        }
-
-        setDownloadingConsent(false)
-    }
 
     const handleConsentCheckboxChange = (values: string[]) => {
         setCandidate(prevState => ({
@@ -78,11 +54,11 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
         if (candidate.email.length === 0) {
             setEmailErrorMessage('Du må legge inn din e-post')
             isError = true
-        } else if (!validEmailRegex.test(candidate.email)) {
+        } else if (validEmailRegex.test(candidate.email)) {
+            setEmailErrorMessage('')
+        } else {
             setEmailErrorMessage('E-post er på ugyldig format')
             isError = true
-        } else {
-            setEmailErrorMessage('')
         }
 
         if (!isError) {
@@ -115,10 +91,10 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
     }, [candidate])
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title="Administrer samtykke"
-                icon={<FileContent className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                icon={<FileContent />}
             />
             <div className='mt-8'>
                 {consent && candidate ? (
@@ -138,7 +114,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                 </Checkbox>
                             </CheckboxGroup>
                             <TextField 
-                                className='w-1/2'
+                                className='lg:w-1/2'
                                 label='Ditt navn'
                                 name='name'
                                 value={candidate.name || ''}
@@ -146,7 +122,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                 error={nameErrorMessage}
                             />
                             <TextField 
-                                className='w-1/2'
+                                className='lg:w-1/2'
                                 label='Din e-post'
                                 name='email'
                                 value={candidate.email || ''}
@@ -154,47 +130,20 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                 error={emailErrorMessage}
                             />
                         </Panel>
-                        <div className='flex justify-between my-4 px-2'>
-                            <Button variant="secondary" onClick={() => navigate('/')}>Avbryt</Button>
-                            <div className='space-x-4'>
-                                <div className='flex justify-center space-x-4'>
-                                    {downloadPDFErrorMessage && (
-                                        <Alert variant='error'>
-                                            {downloadPDFErrorMessage}
-                                        </Alert>
-                                    )}
-                                    {candidateChanged ? (
-                                        <Button 
-                                            variant='secondary'
-                                            onClick={onUpdateCandidate}
-                                        >
-                                            Oppdater
-                                        </Button>
-                                    ) : <></>}
-                                    <Button
-                                        variant='secondary'
-                                        icon={<Download />}
-                                        onClick={downloadConsent}
-                                        loading={downloadingConsent}
-                                    >
-                                        Last ned
-                                    </Button>
-                                    <Button 
-                                        variant="danger" 
-                                        onClick={() => setOpenWithdrawConsentModal(true)}
-                                    >
-                                        Trekk samtykke
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
                         {apiErrorMessage && (
-                            <Alert variant="error">
+                            <Alert variant='error' className='mt-4'>
                                 {apiErrorMessage}
                             </Alert>
                         )}
+                        <ResponsiveButtonMenu 
+                            consent={consent}
+                            candidateChanged={candidateChanged}
+                            onUpdateCandidate={onUpdateCandidate}
+                            setOpenWithdrawConsentModal={setOpenWithdrawConsentModal}
+                            setApiErrorMessage={setApiErrorMessage}
+                        />
                     </>
-                ): <>Noe gikk galt...</>}
+                ): <>Noe gikk galt i lastingen av ditt samtykke...</>}
                
             </div>
             <WithdrawConsentModal 

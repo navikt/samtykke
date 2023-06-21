@@ -102,7 +102,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                 title="Gi samtykke"
                 icon={<FillForms />}
             />
-            <div className='mt-10'>
+            <div className='mt-8'>
                 <ConsentSkeleton consent={consent}/>
                 <Panel className='space-y-4'>
                     <CheckboxGroup

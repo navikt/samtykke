@@ -158,5 +158,9 @@ export const handlers = [
         async (req, res, ctx) => {
             return res(ctx.status(200))
         }
-    )
+    ),
+
+    rest.get(`${config.apiPath}/consent/:code/pdf`, (req, res, ctx) => {
+        return res(ctx.status(200))
+    }),
 ]
