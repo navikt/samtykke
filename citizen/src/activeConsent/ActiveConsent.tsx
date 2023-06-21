@@ -1,18 +1,17 @@
 import { FileContent } from '@navikt/ds-icons'
-import { Alert, Button, Checkbox, CheckboxGroup, Panel, TextField } from '@navikt/ds-react'
+import { Alert, Checkbox, CheckboxGroup, Panel, TextField } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import config from '../config'
 import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
-import { ICandidate, IConsent } from '../types'
+import { IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
 import ButtonMenu from './components/buttonMenu/ButtonMenu'
 import { useForm } from 'react-hook-form'
-
-const validEmailRegex = /^[a-z\wæøåA-Z\wæøå0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+import { validEmailRegex } from '../utils/regex'
 
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
