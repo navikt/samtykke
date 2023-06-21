@@ -60,7 +60,7 @@ export default function WithdrawConsentModal(
             aria-label='Vil du trekke samtykket?'
             aria-labelledby='modal-heading'
             onClose={() => setOpen(open => !open)}
-            className='w-1/2'
+            className='lg:w-1/2'
         >
             <Modal.Content>
                 <Heading spacing level='2' size='medium'>
