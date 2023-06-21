@@ -18,14 +18,14 @@ export default function Receipt(): ReactElement {
     } = state || {}
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Kvitering'
-                icon={<ReceiptIcon className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                icon={<ReceiptIcon />}
             />
             {state ? (
                 <div className='flex justify-center'>
-                    <div className='mt-8 w-1/2'>
+                    <div className='mt-8 lg:w-1/2'>
                         {receiptType === EnumConsentReceipt.Accepted && (
                             <AcceptedReceipt 
                                 consentTitle={consent.title}
@@ -39,7 +39,7 @@ export default function Receipt(): ReactElement {
                         )}
                     </div>
                 </div>
-            ) : <Heading size='large'>Ingen kvitering å vise</Heading>}
+            ) : <Heading size='large' level='2'>Ingen kvitering å vise</Heading>}
         </div>
     )
 }
