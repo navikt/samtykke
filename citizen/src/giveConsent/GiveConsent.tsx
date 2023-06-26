@@ -12,13 +12,22 @@ import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { validEmailRegex } from '../utils/regex'
 
+interface IGiveConsentForm {
+    audioRecording: boolean
+    name: string
+    email: string
+    hasConsented: boolean
+}
+
 export default function GiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
     const navigate = useNavigate()
     
+    const { register, handleSubmit, formState: { errors } } = useForm<IGiveConsentForm>()
+
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
-    const onGiveConsent = async (data) => {
+    const onGiveConsent = async (data: IGiveConsentForm) => {
         try {
             const { status } = await axios.post(`${config.apiPath}/consent/${consent.code}/canditature/`, {
                 name: data.name,
@@ -40,15 +49,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
             }
         }
     }
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            name: '',
-            email: '',
-            audioRecording: false,
-            hasConsented: false
-        }
-    })
 
     return (
         <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>

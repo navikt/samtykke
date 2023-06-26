@@ -13,11 +13,17 @@ import ButtonMenu from './components/buttonMenu/ButtonMenu'
 import { useForm } from 'react-hook-form'
 import { validEmailRegex } from '../utils/regex'
 
+interface IActiveConsentForm {
+    audioRecording: boolean
+    name: string
+    email: string
+}
+
 export default function ActiveConsent({ consent }: { consent: IConsent}): ReactElement {
     
     const navigate = useNavigate()
 
-    const { register, handleSubmit, formState: { errors, isDirty } } = useForm({
+    const { register, handleSubmit, formState: { errors, isDirty } } = useForm<IActiveConsentForm>({
         defaultValues: {
             name: consent.candidates[0].name,
             email: consent.candidates[0].email,
@@ -29,7 +35,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
 
     const [openWithdrawConsentModal, setOpenWithdrawConsentModal] = useState<boolean>(false)
 
-    const onUpdateCandidate = async (data) => {
+    const onUpdateCandidate = async (data: IActiveConsentForm) => {
         try {
             const { status }: { status: number } = await axios.put(
                 `${config.apiPath}/consent/${consent.code}/canditature/`,
@@ -70,9 +76,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                                     legend='Du takker ja til'
                                     description='Kryss av boksene du føler deg komfortabel med'
                                 >
-                                    <Checkbox
-                                        {...register('audioRecording')} 
-                                    >
+                                    <Checkbox {...register('audioRecording')}>
                                         Ja, dere kan ta lydopptak
                                     </Checkbox>
                                 </CheckboxGroup>
