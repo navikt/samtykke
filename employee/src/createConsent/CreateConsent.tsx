@@ -1,5 +1,5 @@
-import { Alert, Button, Panel, Textarea, TextField, DatePicker, useDatepicker, RangeValidationT, DateValidationT } from '@navikt/ds-react'
-import React, { ChangeEvent, ReactElement, useState } from 'react'
+import { Button, Panel, Textarea, TextField, DatePicker, useDatepicker, RangeValidationT, DateValidationT } from '@navikt/ds-react'
+import React, { ReactElement, useState } from 'react'
 import { Edit } from '@navikt/ds-icons'
 import PageHeader from '../common/PageHeader'
 import ConsentPreview from './components/ConsentPreview'
@@ -10,21 +10,18 @@ import PurposeReadMore from './components/PurposeReadMore'
 import SlackChannelModal from './components/SlackChannelModal'
 import { useController, useForm, useFormContext } from 'react-hook-form'
 
-interface ICreateConsentForm {
-    title: string
-    responsibleGroup: string
-    theme: string
-    purpose: string
-    totalInvolved: number
-    endResult: string
-    expiration: Date | undefined
-}
-
 export default function CreateConsent(): ReactElement {
 
     const navigate = useNavigate()
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm<ICreateConsentForm>({
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { errors }, 
+        control, 
+        getValues, 
+        watch 
+    } = useForm<IConsentBase>({
         defaultValues: {
             totalInvolved: 1
         }
@@ -46,7 +43,7 @@ export default function CreateConsent(): ReactElement {
         defaultValue: undefined
     })
 
-    const { datepickerProps, inputProps, selectedDay } = useDatepicker({
+    const { datepickerProps, inputProps } = useDatepicker({
         disabled: [
             { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
             { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
@@ -54,27 +51,8 @@ export default function CreateConsent(): ReactElement {
         onDateChange: (value) => { value && expirationField.onChange(value) },
         onValidate: setDateError
     })
-
-    const [consent, setConsent] = useState<IConsentBase>({
-        title: '',
-        responsibleGroup: '',
-        theme: '',
-        purpose: '',
-        expiration: undefined,
-        totalInvolved: 1,
-        endResult: '',
-        slackChannelId: ''
-    })
     
     const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
-
-    const onNext = (data) => {
-        // setConsent({
-        //     ...consent,
-        //     expiration: convertToJavaLocalDate(selectedDay!)
-        // })
-        setOpenSlackChannelModal(true)
-    }
     
     return (
         <div className='mx-32 my-12 flex space-x-6'>
@@ -83,7 +61,7 @@ export default function CreateConsent(): ReactElement {
                     title="Nytt samtykke"
                     icon={<Edit className='align-middle text-[2rem] absolute -top-[1rem]'/>}
                 />
-                <form onSubmit={handleSubmit(data => onNext(data))}>
+                <form onSubmit={handleSubmit(() => setOpenSlackChannelModal(true))}>
                     <Panel className='mt-8 space-y-4'>
                         <TextField
                             {...register('title', {
@@ -169,12 +147,12 @@ export default function CreateConsent(): ReactElement {
                 </form>
             </div>
             <div className='w-1/2'>
-                <ConsentPreview consent={consent} expiration={selectedDay}/>
+                <ConsentPreview consent={ {...watch() }} />
             </div>
             <SlackChannelModal 
                 open={openSlackChannelModal}
                 setOpen={setOpenSlackChannelModal}
-                consent={consent}
+                consent={ {...getValues() } }
             />
         </div>
     )

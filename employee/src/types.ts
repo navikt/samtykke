@@ -12,9 +12,8 @@ export interface IConsentBase {
     theme: string
     purpose: string
     totalInvolved: number
-    expiration: Date | string | undefined
+    expiration: Date | undefined
     endResult: string
-    slackChannelId: string
 }
 
 export interface IConsent extends IConsentBase {

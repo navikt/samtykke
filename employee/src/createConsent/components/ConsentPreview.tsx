@@ -5,11 +5,9 @@ import config from '../../config'
 import { IConsent, IConsentBase, IEmployee } from '../../types'
 import { getDSISODateString } from '../../utils/date'
 export default function ConsentPreview({ 
-    consent,
-    expiration 
+    consent
 }: { 
     consent: IConsentBase,
-    expiration: Date | undefined
 }): ReactElement {
     
     const [employee, setEmployee] = useState<IEmployee>()
@@ -132,7 +130,7 @@ export default function ConsentPreview({
                     anonymiseringen er gjennomført og senest innen 
                     &nbsp;
                     <span className='bg-blue-50'>
-                        {expiration ? getDSISODateString(expiration) : '<utløper>'}
+                        {consent.expiration ? getDSISODateString(consent.expiration) : '<utløper>'}
                     </span>. De anonyme dataene vil brukes til 
                     &nbsp;
                     <span className='bg-blue-50'>
