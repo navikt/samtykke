@@ -30,11 +30,11 @@ export default function CreateConsent(): ReactElement {
     const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
     
     return (
-        <div className='mx-32 my-12 flex space-x-6'>
-            <div className='w-1/2'>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+            <div className='lg:w-1/2'>
                 <PageHeader 
                     title="Nytt samtykke"
-                    icon={<Edit className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                    icon={<Edit />}
                 />
                 <form onSubmit={handleSubmit(() => setOpenSlackChannelModal(true))}>
                     <Panel className='mt-8 space-y-4'>
@@ -114,7 +114,7 @@ export default function CreateConsent(): ReactElement {
                     </div>
                 </form>
             </div>
-            <div className='w-1/2'>
+            <div className='lg:w-1/2'>
                 <ConsentPreview consent={{ ...watch() }} />
             </div>
             <SlackChannelModal 
