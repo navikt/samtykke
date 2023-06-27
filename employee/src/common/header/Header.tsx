@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Heading } from '@navikt/ds-react'
-import DropdownMenu from './components/DropdownMenu'
+import { useNavigate } from 'react-router-dom'
 import ButtonMenu from './components/ButtonMenu'
+import DropdownMenu from './components/DropdownMenu'
 
 export default function Header(): ReactElement {
 
