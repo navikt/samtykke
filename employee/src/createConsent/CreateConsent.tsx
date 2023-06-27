@@ -147,12 +147,12 @@ export default function CreateConsent(): ReactElement {
                 </form>
             </div>
             <div className='w-1/2'>
-                <ConsentPreview consent={ {...watch() }} />
+                <ConsentPreview consent={{ ...watch() }} />
             </div>
             <SlackChannelModal 
                 open={openSlackChannelModal}
                 setOpen={setOpenSlackChannelModal}
-                consent={ {...getValues() } }
+                consent={{ ...getValues() }}
             />
         </div>
     )
