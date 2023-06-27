@@ -1,9 +1,8 @@
 import { People } from '@navikt/ds-icons'
-import { Accordion, BodyShort, Button, Heading } from '@navikt/ds-react'
+import { Accordion, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ContentPanel from '../common/ContentPanel'
 import { IConsent, IEmployee } from '../types'
 import ConsentPreviews from './components/ConsentPreviews'
 import config from '../config'
@@ -44,12 +43,12 @@ export default function Landing(): ReactElement {
     }, [])
 
     return (
-        <div>
+        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <div className='grid place-items-center my-12'>
                 <People width="8rem" height="8rem" />
                 <p className='text-2xl mt-2'>{employeeName}</p>
             </div>
-            <ContentPanel>
+            <Panel className='p-2 space-y-12'>
                 <Heading level="2" size="large">Aktive samtykker</Heading>
                 {activeConsents && activeConsents!.length > 0 ? (
                     <ConsentPreviews consents={activeConsents} />
@@ -59,7 +58,7 @@ export default function Landing(): ReactElement {
                 <div className='flex flex-row justify-end'>
                     <Button variant='primary' onClick={() => navigate('/samtykke/ny')}>Nytt samtykke</Button>
                 </div>
-            </ContentPanel>
+            </Panel>
         </div>
     )
 }

@@ -7,7 +7,7 @@ export default function ContentPanel({
     children: ReactElement | ReactElement[]
 }): ReactElement {
     return(
-        <Panel className='mx-32'>
+        <Panel>
             <div className='p-2 space-y-12'>
                 {children}
             </div>
