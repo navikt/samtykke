@@ -5,6 +5,7 @@ import { IConsentBase } from '../../types'
 import { CheckmarkIcon } from '@navikt/aksel-icons'
 import config from '../../config'
 import { useNavigate } from 'react-router-dom'
+import { convertToJavaLocalDate } from '../../utils/date'
 
 export default function SlackChannelModal({
     open,
@@ -69,6 +70,7 @@ export default function SlackChannelModal({
         try {
             const { status } = await axios.post(`${config.apiPath}/consent`, {
                 ...consent,
+                expiration: convertToJavaLocalDate(consent.expiration!),
                 slackChannelId
             })
             if (status === 200) navigate('/')
