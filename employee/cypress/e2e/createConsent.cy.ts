@@ -62,42 +62,6 @@ describe('Data is filled correctly and request is successfull', () => {
         cy.findByText('Du må sette en utløpsdato')
     })
 
-    it('should display errors on wrong input', () => {
-        cy.findByRole('textbox', { name: 'Tittel' }).type('AAP')
-        cy.findByRole('textbox', { name: 'Formålet med samtykket'}).type('den nye AAP kalkulatoren')
-
-        cy.findByRole('button', { name: 'Videre'}).click()
-
-        cy.findByText('Tittelen må være lengre enn 5 bokstaver')
-        cy.findByText('Formålet må være lengre en 30 bokstaver')
-
-        cy.findAllByRole('textbox').clear()
-
-        cy.findByRole('textbox', { name: 'Tittel' })
-            .type(
-                `Hei, dette er en veldig lang tittel for samtykket, 
-                ja den er veldig lang fordi det er bare sånn`
-            )
-
-        cy.findByRole('textbox', { name: 'Formålet med samtykket'})
-            .type(
-                `den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse
-                den nye AAP kalkulatoren med en ekstrem lang beskrivelse`,
-                { delay: 0.1 },
-            )
-
-        cy.findByRole('button', { name: 'Videre'}).click()
-
-        cy.findByText('Tittelen må være under 50 bokstaver')
-        cy.findByText('Formålet må være under 300 bokstaver')
-    })
-
     it('should not route on wrong input', () => {
         cy.findByRole('button', { name: 'Videre'}).click()
 

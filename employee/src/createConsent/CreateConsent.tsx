@@ -37,21 +37,16 @@ export default function CreateConsent(): ReactElement {
         control,
         rules: {
             validate: (expirationValue) => {
-                if (dateError?.isInvalid) {
-                    return 'Utløpsdato må være på formatet DD.MM.YYYY'
-                }
                 if (!expirationValue) {
                     return 'Du må sette en utløpsdato'
-                }
+                } 
                 return undefined
             }
         },
-        shouldUnregister: true,
         defaultValue: undefined
     })
 
     const { datepickerProps, inputProps, selectedDay } = useDatepicker({
-        fromDate: new Date('Aug 23 2022'),
         disabled: [
             { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
             { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
@@ -161,7 +156,6 @@ export default function CreateConsent(): ReactElement {
                                 <DatePicker.Input
                                     {...inputProps} 
                                     id={expirationField.name}
-                                    ref={expirationField.ref}
                                     label="Utløpsdato"
                                     error={expirationFieldState.error?.message}
                                 />
