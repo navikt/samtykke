@@ -18,7 +18,8 @@ export interface IConsentBase {
 
 export interface IConsent extends IConsentBase {
     code: string
-    candidates: ICandidate[]
+    candidates: ICandidate[],
+    slackChannelId: string
 }
 
 export enum EnumCandidateStatus {
