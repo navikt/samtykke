@@ -1,14 +1,14 @@
-import { Button, Panel, Textarea, TextField, DatePicker, useDatepicker, RangeValidationT, DateValidationT } from '@navikt/ds-react'
+import { Button, Panel, Textarea, TextField } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import { Edit } from '@navikt/ds-icons'
 import PageHeader from '../common/PageHeader'
 import ConsentPreview from './components/ConsentPreview'
 import { useNavigate } from 'react-router-dom'
 import { IConsentBase } from '../types'
-import { getYesterdayDate, getExpirationLimitDate, convertToJavaLocalDate } from '../utils/date'
 import PurposeReadMore from './components/PurposeReadMore'
 import SlackChannelModal from './components/SlackChannelModal'
-import { useController, useForm, useFormContext } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import ExpirationDatePicker from './components/ExpirationDatePicker'
 
 export default function CreateConsent(): ReactElement {
 
@@ -25,31 +25,6 @@ export default function CreateConsent(): ReactElement {
         defaultValues: {
             totalInvolved: 1
         }
-    })
-
-    const [dateError, setDateError] = useState<DateValidationT | null>(null)
-
-    const { field: expirationField, fieldState: expirationFieldState } = useController({
-        name: 'expiration',
-        control,
-        rules: {
-            validate: (expirationValue) => {
-                if (!expirationValue) {
-                    return 'Du må sette en utløpsdato'
-                } 
-                return undefined
-            }
-        },
-        defaultValue: undefined
-    })
-
-    const { datepickerProps, inputProps } = useDatepicker({
-        disabled: [
-            { from: new Date('Jan 1 1964'), to: getYesterdayDate() },
-            { from: getExpirationLimitDate(), to: new Date('Jan 1 2088')}
-        ],
-        onDateChange: (value) => { value && expirationField.onChange(value) },
-        onValidate: setDateError
     })
     
     const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
@@ -130,14 +105,7 @@ export default function CreateConsent(): ReactElement {
                                     error={errors.totalInvolved?.message}
                                 />
                             </div>
-                            <DatePicker {...datepickerProps}>
-                                <DatePicker.Input
-                                    {...inputProps} 
-                                    id={expirationField.name}
-                                    label="Utløpsdato"
-                                    error={expirationFieldState.error?.message}
-                                />
-                            </DatePicker>
+                            <ExpirationDatePicker control={control} />
                         </div>
                     </Panel>
                     <div className='flex justify-between my-4 px-2'>
