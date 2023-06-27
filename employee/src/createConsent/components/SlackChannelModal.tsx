@@ -21,14 +21,12 @@ export default function SlackChannelModal({
 
     const [slackChannel, setSlackChannel] = useState<string>('')
     const [slackChannelId, setSlackChannelId] = useState<string>('')
+    const [validSlackChannel, setValidSlackChannel] = useState<boolean>(false)
+    const [slackChannelErrorMessage, setSlackChannelErrorMessage] = useState<string>('')
 
     const [loading, setLoading] = useState<boolean>(false)
-    const [disableCreateConsent, setDisableCreateConsent] = useState<boolean>(true)
-    const [showCheckmark, setShowCheckmark] = useState<boolean>(false)
 
     const [showSizeWarning, setShowSizeWarning] = useState<boolean>(false)
-
-    const [slackChannelErrorMessage, setSlackChannelErrorMessage] = useState<string>('')
 
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
@@ -41,13 +39,13 @@ export default function SlackChannelModal({
 
         if (slackChannel.length === 0) {
             setSlackChannelErrorMessage('Du må skrive inn en slack kanal')
-            setShowCheckmark(false)
+            setValidSlackChannel(false)
+            setShowSizeWarning(false)
         } else {
             try {
                 const { data } = await axios.get(`/ansatt/slack/validChannel/${slackChannel}`)
                 setSlackChannelId(data.slackChannelId)
-                setDisableCreateConsent(false)
-                setShowCheckmark(true)
+                setValidSlackChannel(true)
                 setSlackChannelErrorMessage('')
                 setShowSizeWarning(data.sizeWarning)
             } catch (error) {
@@ -57,8 +55,7 @@ export default function SlackChannelModal({
                     } else {
                         setSlackChannelErrorMessage('Noe gikk galt i søket etter slack kanal')
                     }
-                    setDisableCreateConsent(true)
-                    setShowCheckmark(false)
+                    setValidSlackChannel(false)
                 }
             }
         }
@@ -134,10 +131,10 @@ export default function SlackChannelModal({
                         >
                             Finn kanal
                         </Button>
-                        {showCheckmark ? <CheckmarkIcon fontSize="2.5rem" /> : <></>}
+                        {validSlackChannel ? <CheckmarkIcon fontSize="2.5rem" /> : <></>}
                     </div>
                     <Button
-                        disabled={disableCreateConsent}
+                        disabled={!validSlackChannel}
                         onClick={onCreateConsent}
                     >
                         Opprett samtykke

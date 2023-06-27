@@ -1,4 +1,4 @@
-import { format, parse, parseISO, toDate } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 export const getYesterdayDate = (): Date => {
     const yesterday: Date = new Date()
