@@ -31,13 +31,13 @@ export default function Messages(): ReactElement {
     }, [])
 
     return(
-        <div className='mx-32 my-12'>
+        <div className='flex flex-col lg:flex-row mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Mine meldinger'
-                icon={<Email className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                icon={<Email />}
             />
             {messages ? (
-                <Panel className='my-12'>
+                <Panel className='mt-8'>
                     <Accordion>
                         {messages.map((message: IMessage, index: number) => {
                             return (
