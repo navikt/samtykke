@@ -110,13 +110,13 @@ export default function CreateConsent(): ReactElement {
                     <div className='hidden lg:grid'>
                         <ButtonMenu />
                     </div>
+                    <div className='mt-8 lg:w-1/2 lg:mt-0'>
+                        <ConsentPreview consent={{ ...watch() }} />
+                    </div>
+                    <div className='lg:hidden'>
+                        <ButtonMenu />
+                    </div>
                 </form>
-            </div>
-            <div className='mt-8 lg:w-1/2 lg:mt-0'>
-                <ConsentPreview consent={{ ...watch() }} />
-            </div>
-            <div className='lg:hidden'>
-                <ButtonMenu />
             </div>
             <SlackChannelModal 
                 open={openSlackChannelModal}
