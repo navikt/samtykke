@@ -1,7 +1,7 @@
 import { Alert, Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
-import { EnumCandidateStatus } from '../../types'
-import { getISODateString } from '../../utils/date'
+import { EnumCandidateStatus } from '../../../types'
+import { getISODateString } from '../../../utils/date'
 
 export default function CandidateStatus({
     status,

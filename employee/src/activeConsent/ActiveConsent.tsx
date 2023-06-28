@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { ICandidate, IConsent } from '../types'
 import { getISODateString } from '../utils/date'
-import CandidatesList from './components/CandidatesList'
+import CandidatesList from './candidatesList/CandidatesList'
 import config from '../config'
 
 export default function ActiveConsent(): ReactElement {
