@@ -31,7 +31,7 @@ export default function Messages(): ReactElement {
     }, [])
 
     return(
-        <div className='flex flex-col lg:flex-row mt-10 px-4 lg:mt-10 lg:px-12'>
+        <div className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Mine meldinger'
                 icon={<Email />}
