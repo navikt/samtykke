@@ -8,7 +8,7 @@ describe('Messages is loaded as expected', () => {
         cy.findByText('Samtykke trukket til: Brukertest av NAV.no')
         cy.findByText('Samtykke: Dagpengeløsning 2.0, slettet')
 
-        cy.findAllByText('Ikke lest').should('have.length', 2)
+        cy.findAllByText('Ulest').should('have.length', 2)
     })
 
     it('routes to correct active consent', () => {
@@ -26,6 +26,6 @@ describe('Messages is loaded as expected', () => {
         cy.findByRole('button', { name: /Samtykke gitt til: Brukertest av NAV.no/ }).click()
         cy.findByRole('button', { name: /Samtykke trukket til: Brukertest av NAV.no/ }).click()
 
-        cy.findByText('Ikke lest').should('not.exist')
+        cy.findByText('Ulest').should('not.exist')
     })
 })
