@@ -9,10 +9,9 @@ import PurposeReadMore from './components/PurposeReadMore'
 import SlackChannelModal from './components/SlackChannelModal'
 import { useForm } from 'react-hook-form'
 import ExpirationDatePicker from './components/ExpirationDatePicker'
+import ButtonMenu from './components/ButtonMenu'
 
 export default function CreateConsent(): ReactElement {
-
-    const navigate = useNavigate()
 
     const { 
         register, 
@@ -30,7 +29,7 @@ export default function CreateConsent(): ReactElement {
     const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
     
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <div className='flex flex-col lg:flex-row mt-10 px-4 lg:mt-10 lg:px-12 lg:space-x-4'>
             <div className='lg:w-1/2'>
                 <PageHeader 
                     title="Nytt samtykke"
@@ -108,14 +107,16 @@ export default function CreateConsent(): ReactElement {
                             <ExpirationDatePicker control={control} />
                         </div>
                     </Panel>
-                    <div className='flex justify-between my-4 px-2'>
-                        <Button variant='secondary' onClick={() => navigate('/')}>Avbryt</Button>
-                        <Button>Videre</Button>
+                    <div className='hidden lg:grid'>
+                        <ButtonMenu />
                     </div>
                 </form>
             </div>
-            <div className='lg:w-1/2'>
+            <div className='mt-8 lg:w-1/2 lg:mt-0'>
                 <ConsentPreview consent={{ ...watch() }} />
+            </div>
+            <div className='lg:hidden'>
+                <ButtonMenu />
             </div>
             <SlackChannelModal 
                 open={openSlackChannelModal}
