@@ -60,14 +60,14 @@ export default function ActiveConsent(): ReactElement {
     }
 
     return (
-        <div className='mx-32 my-12'>
+        <div className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
             {consent ? (
                 <>
                     <PageHeader 
                         title={consent.title}
-                        icon={<FileContent className='align-middle text-[2rem] absolute -top-[1rem]'/>}
+                        icon={<FileContent />}
                     >
-                        <div className='flex flex-row justify-evenly py-4'>
+                        <div className='flex flex-col lg:flex-row place-items-center lg:justify-evenly space-y-4'>
                             <Heading size="medium">Kode: {consent.code}</Heading>
                             <Heading size="medium">
                                 Utløper: {getISODateString(consent.expiration)}

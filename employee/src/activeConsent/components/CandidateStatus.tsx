@@ -13,10 +13,10 @@ export default function CandidateStatus({
     return (
         <>
             {status === EnumCandidateStatus.Accepted ? (
-                <div className='flex flex-col space-y-2'>
+                <div className='flex flex-col grow-0 space-y-2'>
                     <Alert variant='success' size='small'>Samtykke gitt</Alert>
                     <Alert variant='info' size='small'>
-                        {`Samtykket: ${getISODateString(consented!)}`}
+                        {`Samtykket ${getISODateString(consented!)}`}
                     </Alert>
                 </div>
             ) : (

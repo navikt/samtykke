@@ -25,8 +25,8 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                 {candidate.status as EnumCandidateStatus === EnumCandidateStatus.Accepted ? (
                                     <>
                                         <Accordion.Header>{`${candidate.name} - ${formatTrackingNumber(candidate.trackingNumber)}`}</Accordion.Header>
-                                        <Accordion.Content className='flex flex-row justify-between'>
-                                            <div className='flex flex-row items-center'>
+                                        <Accordion.Content className='flex flex-col lg:flex-row place-items-center lg:justify-between space-y-2'>
+                                            <div className='flex lg:flex-row lg:items-center mt-2'>
                                                 {candidate.audioRecording ? (
                                                     <Tag variant='success'>Samtykke til lydopptak gitt</Tag>
                                                 ) : (
@@ -41,9 +41,11 @@ export default function CandidatesList({ candidates }: { candidates: ICandidate[
                                         <Accordion.Header className='italic'>
                                             {`Navn trukket - ${formatTrackingNumber(candidate.trackingNumber)}`}
                                         </Accordion.Header>
-                                        <Accordion.Content className='flex flex-row justify-between items-center'>
-                                            <Tag variant='error'>Samtykke til lydopptak ikke gitt</Tag>
-                                            <CandidateStatus status={candidate.status} />
+                                        <Accordion.Content>
+                                            <div className='flex flex-col lg:flex-row place-items-center lg:justify-between space-y-2 mt-2'>
+                                                <Tag variant='error'>Samtykke til lydopptak ikke gitt</Tag>
+                                                <CandidateStatus status={candidate.status} />
+                                            </div>
                                         </Accordion.Content>
                                     </>
                                 )}
