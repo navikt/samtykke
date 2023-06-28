@@ -29,7 +29,7 @@ const consentsMock: IConsent[] = [
                 email: 'lars.pølse@gmail.com',
                 status: EnumCandidateStatus.Accepted,
                 consented: new Date(),
-                trackingNumber: uuidv4(),
+                trackingNumber: uuidv4().split('-')[0],
                 audioRecording: true,
             },
             {
@@ -38,7 +38,7 @@ const consentsMock: IConsent[] = [
                 email: 'ole.bolle.brus@outlook.no',
                 status: EnumCandidateStatus.Accepted,
                 consented: new Date(),
-                trackingNumber: uuidv4(),
+                trackingNumber: uuidv4().split('-')[0],
                 audioRecording: false,
             },
             {
@@ -47,7 +47,7 @@ const consentsMock: IConsent[] = [
                 email: 'pelle.politi@politiet.no',
                 status: EnumCandidateStatus.Withdrawn,
                 consented: undefined,
-                trackingNumber: uuidv4(),
+                trackingNumber: uuidv4().split('-')[0],
                 audioRecording: true,
             },
             {
@@ -56,7 +56,7 @@ const consentsMock: IConsent[] = [
                 email: 'nasse.noeff@svenske.se',
                 status: EnumCandidateStatus.Withdrawn,
                 consented: undefined,
-                trackingNumber: uuidv4(),
+                trackingNumber: uuidv4().split('-')[0],
                 audioRecording: false,
             },
         ],

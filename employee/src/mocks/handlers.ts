@@ -26,7 +26,7 @@ const employeeMock: IEmployee = {
                     email: 'lars.pølse@gmail.com',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
-                    trackingNumber: uuidv4(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: true,
                 },
                 {
@@ -35,7 +35,7 @@ const employeeMock: IEmployee = {
                     email: 'ole.bolle.brus@outlook.no',
                     status: EnumCandidateStatus.Accepted,
                     consented: new Date(),
-                    trackingNumber: uuidv4(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: false,
                 },
                 {
@@ -44,7 +44,7 @@ const employeeMock: IEmployee = {
                     email: 'pelle.politi@politiet.no',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
-                    trackingNumber: uuidv4(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: true,
                 },
                 {
@@ -53,7 +53,7 @@ const employeeMock: IEmployee = {
                     email: 'nasse.noeff@svenske.se',
                     status: EnumCandidateStatus.Withdrawn,
                     consented: undefined,
-                    trackingNumber: uuidv4(),
+                    trackingNumber: uuidv4().split('-')[0],
                     audioRecording: false,
                 },
             ],

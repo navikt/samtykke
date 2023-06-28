@@ -65,7 +65,7 @@ export default function ConsentPreview({
                     deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen,
                     &nbsp; 
                     <span className='bg-blue-50'>
-                        {` ${employee?.firstname} ${employee?.lastname}`}    
+                        {`${employee?.firstname} ${employee?.lastname}`}    
                     </span>
                     &nbsp;
                     på e-post: 
