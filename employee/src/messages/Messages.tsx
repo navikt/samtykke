@@ -31,7 +31,7 @@ export default function Messages(): ReactElement {
     }, [])
 
     return(
-        <div className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Mine meldinger'
                 icon={<Email />}
@@ -49,8 +49,8 @@ export default function Messages(): ReactElement {
                         })}
                     </Accordion>
                 </Panel>
-            ) : <Heading size='medium'>{messagesErrorMessage}</Heading>
+            ) : <Heading size='medium' as="span">{messagesErrorMessage}</Heading>
             }
-        </div>
+        </main>
     )
 }

@@ -1,6 +1,9 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('Messages is loaded as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}meldinger`)
+        testAccesibility()
     })
 
     it('displays all messages correctly', () => {

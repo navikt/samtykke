@@ -1,6 +1,10 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('Landing page is loaded propperly', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}`)
+
+        testAccesibility()
     })
 
     it('should load employee name', () => {
