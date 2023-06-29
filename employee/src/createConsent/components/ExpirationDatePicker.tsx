@@ -38,7 +38,7 @@ export default function ExpirationDatePicker({
     return (
         <DatePicker {...datepickerProps}>
             <DatePicker.Input 
-                {...inputProps} 
+                {...inputProps}
                 id={expirationField.name}
                 label="Utløpsdato"
                 error={expirationFieldState.error?.message}

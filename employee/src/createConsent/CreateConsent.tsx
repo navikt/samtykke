@@ -29,7 +29,7 @@ export default function CreateConsent(): ReactElement {
     const [openSlackChannelModal, setOpenSlackChannelModal] = useState<boolean>(false)
     
     return (
-        <div className='flex flex-col lg:flex-row mt-10 px-4 lg:mt-10 lg:px-12 lg:space-x-4'>
+        <main className='flex flex-col lg:flex-row mt-10 px-4 lg:mt-10 lg:px-12 lg:space-x-4'>
             <div className='lg:w-1/2'>
                 <PageHeader 
                     title="Nytt samtykke"
@@ -126,6 +126,6 @@ export default function CreateConsent(): ReactElement {
                 setOpen={setOpenSlackChannelModal}
                 consent={{ ...getValues() }}
             />
-        </div>
+        </main>
     )
 }

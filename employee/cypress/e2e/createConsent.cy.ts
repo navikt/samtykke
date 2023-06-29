@@ -1,4 +1,5 @@
 import { format, parseISO } from 'date-fns'
+import { testAccesibility } from '../support/accesibility'
 
 const fillConsentInputs = () => {
     cy.findByRole('textbox', { name: 'Tittel' }).type('Brukertest for AAP')
@@ -15,6 +16,10 @@ const fillConsentInputs = () => {
 describe('Data is filled correctly and request is successfull', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}samtykke/ny`)
+        // This rule is disabled while a bug is being fixed in Aksel
+        testAccesibility('main', { rules: { 
+            'aria-valid-attr-value': { enabled: false }
+        }})
     })
 
     it('should redirect on correct data', () => {

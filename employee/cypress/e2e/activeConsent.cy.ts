@@ -1,9 +1,5 @@
 import path from 'path'
-
-const testAccesibility = () => {
-    cy.injectAxe()
-    cy.checkA11y()
-}
+import { testAccesibility } from '../support/accesibility'
 
 describe('Active consent is loaded as expected', () => {
     it('loads expected active consent with correct data', () => {
