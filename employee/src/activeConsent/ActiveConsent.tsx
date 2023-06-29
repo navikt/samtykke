@@ -16,7 +16,6 @@ export default function ActiveConsent(): ReactElement {
     
     const [consent, setConsent] = useState<IConsent>()
 
-    const [consentErrorMessage, setConsentErrorMessage] = useState<string>('')
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     const getConsent = async () => {
@@ -26,8 +25,8 @@ export default function ActiveConsent(): ReactElement {
         } catch (error) {
             if (error instanceof AxiosError) {
                 if (error.response?.status === 404) {
-                    setConsentErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
-                } else setConsentErrorMessage('Noe gikk galt i hentingen av samtykke...')
+                    setApiErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
+                } else setApiErrorMessage('Noe gikk galt i hentingen av samtykke...')
             }
         }
     }
@@ -68,7 +67,7 @@ export default function ActiveConsent(): ReactElement {
                         />
                     </div>
                 </>
-            ) : <Heading size='medium'>{consentErrorMessage}</Heading> 
+            ) : <Heading size='medium'>{apiErrorMessage}</Heading> 
             } 
         </div>
     )
