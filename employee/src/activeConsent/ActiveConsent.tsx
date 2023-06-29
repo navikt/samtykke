@@ -36,7 +36,7 @@ export default function ActiveConsent(): ReactElement {
     }, [])
 
     return (
-        <div className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
             {consent ? (
                 <>
                     <PageHeader 
@@ -51,7 +51,7 @@ export default function ActiveConsent(): ReactElement {
                         </div>
                     </PageHeader>
                     <Panel className='mt-8'>
-                        <Heading size="large" className='p-4'>Kandidater</Heading>
+                        <Heading size="large" className='p-4' level="2">Kandidater</Heading>
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
                     <div className='flex justify-end my-4 px-2 space-x-4'>
@@ -69,6 +69,6 @@ export default function ActiveConsent(): ReactElement {
                 </>
             ) : <Heading size='medium'>{apiErrorMessage}</Heading> 
             } 
-        </div>
+        </main>
     )
 }

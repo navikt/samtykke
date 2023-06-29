@@ -43,9 +43,9 @@ export default function Landing(): ReactElement {
     }, [])
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <div className='grid place-items-center my-12'>
-                <People width="8rem" height="8rem" />
+                <People width="8rem" height="8rem" aria-hidden />
                 <p className='text-2xl mt-2'>{employeeName}</p>
             </div>
             <Panel className='p-2 space-y-12'>
@@ -59,6 +59,6 @@ export default function Landing(): ReactElement {
                     <Button variant='primary' onClick={() => navigate('/samtykke/ny')}>Nytt samtykke</Button>
                 </div>
             </Panel>
-        </div>
+        </main>
     )
 }

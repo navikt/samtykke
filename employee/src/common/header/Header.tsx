@@ -9,9 +9,9 @@ export default function Header(): ReactElement {
     const navigate = useNavigate()
 
     return (
-        <div className='flex flex-row items-center gap-4 justify-between bg-[#fefefe] p-4 lg:p-12 w-full'>
+        <header className='flex flex-row items-center gap-4 justify-between bg-[#fefefe] p-4 lg:p-12 w-full'>
             <button onClick={() => navigate('/')}>
-                <Heading as="span" size='xlarge' className='text-black'>Samtykke</Heading>
+                <Heading size='xlarge' className='text-black' level="1">Samtykke</Heading>
             </button>
             <div className='hidden lg:flex'>
                 <ButtonMenu />
@@ -19,6 +19,6 @@ export default function Header(): ReactElement {
             <div className='lg:hidden'>
                 <DropdownMenu />
             </div>
-        </div>
+        </header>
     )
 }

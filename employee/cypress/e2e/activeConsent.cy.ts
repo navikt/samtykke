@@ -3,7 +3,10 @@ import path from 'path'
 describe('Active consent is loaded as expected', () => {
     it('loads expected active consent with correct data', () => {
         cy.visit(`${Cypress.env('HOST')}`)
-        
+
+        cy.injectAxe()
+        cy.checkA11y()
+
         cy.findByRole('button', { name: 'Brukertest av NAV.no'}).click()
         cy.findByRole('button', { name: 'Til samtykke'}).click()
 
@@ -20,6 +23,7 @@ describe('Active consent is loaded as expected', () => {
         cy.findAllByText('Samtykke til lydopptak ikke gitt').should('have.length', 3)
         cy.findAllByText('Samtykke gitt').should('have.length', 2)
         cy.findAllByText('Samtykke trukket').should('have.length', 2)
+        
     })
 
     it('is able to download consent as pdf', () => {
