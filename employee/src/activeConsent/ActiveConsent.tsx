@@ -1,24 +1,23 @@
-import { Download, ErrorColored, FileContent, SuccessColored } from '@navikt/ds-icons'
-import { Accordion, Alert, BodyShort, Button, Heading, Panel } from '@navikt/ds-react'
+import { FileContent } from '@navikt/ds-icons'
+import { Alert, Heading, Panel } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
-import { ICandidate, IConsent } from '../types'
+import { IConsent } from '../types'
 import { getISODateString } from '../utils/date'
 import CandidatesList from './candidatesList/CandidatesList'
 import config from '../config'
+import DownloadPdfButton from './components/DownloadPdfButton'
 
 export default function ActiveConsent(): ReactElement {
     
-    const [consent, setConsent] = useState<IConsent>()
-
     const { code } = useParams()
     
-    const [downloadingConsent, setDownloadingConsent] = useState<boolean>(false)
+    const [consent, setConsent] = useState<IConsent>()
 
     const [consentErrorMessage, setConsentErrorMessage] = useState<string>('')
-    const [downloadPDFErrorMessage, setDownloadPDFErrorMessage] = useState<string>('')
+    const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     const getConsent = async () => {
         try {
@@ -36,28 +35,6 @@ export default function ActiveConsent(): ReactElement {
     useEffect(() => {
         getConsent()
     }, [])
-
-    const dowloadConsent = async () => {
-        setDownloadingConsent(true)
-
-        try {
-            await axios
-                .get(`${config.apiPath}/consent/${code}/pdf`, { responseType: 'blob' })
-                .then(res => {
-                    const link = document.createElement('a')
-
-                    link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
-                    link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
-                    link.click()
-
-                    link.remove()
-                })
-        } catch (error) {
-            setDownloadPDFErrorMessage('Noe gikk galt i nedlastningen av PDF')
-        }
-
-        setDownloadingConsent(false)
-    }
 
     return (
         <div className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
@@ -79,19 +56,16 @@ export default function ActiveConsent(): ReactElement {
                         <CandidatesList candidates={consent.candidates}/>
                     </Panel>
                     <div className='flex justify-end my-4 px-2 space-x-4'>
-                        {downloadPDFErrorMessage && (
+                        {apiErrorMessage && (
                             <Alert variant='error'>
-                                {downloadPDFErrorMessage}
+                                {apiErrorMessage}
                             </Alert>
                         )}
-                        <Button 
-                            variant="secondary" 
-                            icon={<Download />} 
-                            onClick={dowloadConsent}
-                            loading={downloadingConsent}
-                        >
-                            Last ned
-                        </Button>
+                        <DownloadPdfButton 
+                            setApiErrorMessage={setApiErrorMessage}
+                            consentCode={code!}
+                            consentTitle={consent.title}
+                        />
                     </div>
                 </>
             ) : <Heading size='medium'>{consentErrorMessage}</Heading> 
