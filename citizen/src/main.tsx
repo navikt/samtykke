@@ -10,6 +10,7 @@ import ActiveConsents from './activeConsents/ActiveConsents'
 import Receipt from './receipt/Receipt'
 import config from './config'
 import Skeleton from './common/Skeleton'
+import PrivacyStatement from './privacyStatement/PrivacyStatement'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -37,8 +38,12 @@ const router = createBrowserRouter([
                 element: <ActiveConsents />
             },
             {
-                path: 'kvitering',
+                path: '/kvitering',
                 element: <Receipt />
+            },
+            {
+                path: '/personvernerklæring',
+                element: <PrivacyStatement />
             }
         ]
     }
