@@ -60,7 +60,7 @@ export default function AcceptedReceipt({
             <div className='flex justify-between my-4 px-2'>
                 <Button
                     variant='secondary'
-                    icon={<Download />}
+                    icon={<Download aria-hidden />}
                     onClick={downloadConsent}
                     loading={downloadingConsent}
                 >

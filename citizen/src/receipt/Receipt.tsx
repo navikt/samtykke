@@ -18,7 +18,7 @@ export default function Receipt(): ReactElement {
     } = state || {}
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Kvitering'
                 icon={<ReceiptIcon />}
@@ -39,7 +39,7 @@ export default function Receipt(): ReactElement {
                         )}
                     </div>
                 </div>
-            ) : <Heading size='large' level='2'>Ingen kvitering å vise</Heading>}
-        </div>
+            ) : <Heading size='large' as="span">Ingen kvitering å vise</Heading>}
+        </main>
     )
 }

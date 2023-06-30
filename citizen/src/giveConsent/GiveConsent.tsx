@@ -51,7 +51,7 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
     }
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title="Gi samtykke"
                 icon={<FillForms />}
@@ -122,6 +122,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                     </div>
                 </form>
             </div>
-        </div>
+        </main>
     )
 }

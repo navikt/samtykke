@@ -1,6 +1,9 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('landing page behaves as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}`)
+        testAccesibility()
     })
 
     it('should handle empty consent code as expected', () => {
