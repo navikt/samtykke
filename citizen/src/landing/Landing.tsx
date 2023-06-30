@@ -37,7 +37,7 @@ export default function Landing(): ReactElement {
     }
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title='Gi nytt samtykke'
                 icon={<FillForms />}
@@ -56,6 +56,6 @@ export default function Landing(): ReactElement {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     )
 }

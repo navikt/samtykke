@@ -33,7 +33,7 @@ export default function ActiveConsents(): ReactElement {
     }, [])
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
                 title="Mine aktive samtykker"
                 icon={<Findout />}
@@ -55,9 +55,9 @@ export default function ActiveConsents(): ReactElement {
                                 )
                             })}
                         </>
-                    ): <Heading size="medium" level="2">{activeConsentsErrorMessage}</Heading>}
+                    ): <Heading size="medium" as="span">{activeConsentsErrorMessage}</Heading>}
                 </Panel>
             </div>
-        </div>
+        </main>
     )
 }

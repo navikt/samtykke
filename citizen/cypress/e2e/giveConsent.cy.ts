@@ -1,6 +1,9 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('give consent form behaves as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}samtykke/L90-12N`)
+        testAccesibility()
     })
 
     it('should redirect on correct data', () => {

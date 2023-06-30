@@ -1,6 +1,9 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('displaying of consent based on candidature should behave as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}`)
+        testAccesibility()
     })
     
     it('should display give consent if no canditature', () => {
