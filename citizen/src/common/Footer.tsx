@@ -10,7 +10,7 @@ export default function Footer(): ReactElement {
                 <HandsHeart height={'2rem'} width={'2rem'} aria-hidden />
             </div>
             <button>
-                <Heading size='medium' className='hover:underline'>Personvernsavklaring</Heading>
+                <Heading size='medium' className='hover:underline' as="span">Personvernerklæring</Heading>
             </button>
         </footer>
     )
