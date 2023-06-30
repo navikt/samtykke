@@ -1,6 +1,9 @@
+import { testAccesibility } from '../support/accesibility'
+
 describe('active consent behaves as expected', () => {
     beforeEach(() => {
         cy.visit(`${Cypress.env('HOST')}samtykke/X76-2B3`)
+        testAccesibility()
     })
 
     it('should be able to update information in consent', () => {

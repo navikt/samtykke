@@ -96,7 +96,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                                 href='https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/'
                                 target='_blank'
                             >
-                            sende klage til Datatilsynet
+                                sende klage til Datatilsynet
                             </Link> 
                             {' om behandlingen av dine personopplysninger.'}
                         </li>
@@ -108,7 +108,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                                 href='https://www.nav.no/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten'
                                 target='_blank'
                             >
-                        NAVs personvernerklæring
+                                NAVs personvernerklæring
                             </Link>
                         </BodyShort>
                         <BodyShort>
@@ -116,7 +116,7 @@ export default function ConsentSkeleton({ consent }: { consent: IConsent}): Reac
                                 href='https://www.nav.no/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten/personvernombudet-i-nav'
                                 target='_blank'
                             >
-                        Kontakt personvernombudet
+                                Kontakt personvernombudet
                             </Link>
                         </BodyShort>
                     </div>

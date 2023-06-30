@@ -12,7 +12,8 @@ export default function DropdownMenu(): ReactElement {
             <Button 
                 variant="secondary" 
                 as={Dropdown.Toggle} 
-                icon={<Hamburger aria-hidden />} 
+                icon={<Hamburger aria-hidden />}
+                aria-label='Meny knapp' 
             />
             <Dropdown.Menu>
                 <Dropdown.Menu.List>

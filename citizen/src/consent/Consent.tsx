@@ -33,12 +33,12 @@ export default function Consent(): ReactElement {
     }, [])
 
     return (
-        <div>
+        <main>
             {consent ? (
                 consent.candidates && consent.candidates.length === 1 ? 
                     <ActiveConsent consent={consent}/> 
                     : <GiveConsent consent={consent}/>
-            ) : <Heading size='medium'>{consentErrorMessage}</Heading>}
-        </div>
+            ) : <Heading size='medium' as="span">{consentErrorMessage}</Heading>}
+        </main>
     )
 }
