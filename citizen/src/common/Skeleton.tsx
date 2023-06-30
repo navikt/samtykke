@@ -8,7 +8,7 @@ export default function Skeleton(): ReactElement {
         <>
             <Header />
             <Outlet />
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

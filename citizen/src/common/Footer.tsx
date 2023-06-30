@@ -4,14 +4,14 @@ import React, { ReactElement } from 'react'
 
 export default function Footer(): ReactElement {
     return (
-        <div className='flex flex-row justify-between m-0 p-12 bg-[#e0d8e9] bottom-0 w-full'>
+        <footer className='flex flex-row items-center gap-4 justify-between bg-[#e0d8e9] p-4 lg:p-12 w-full'>
             <div className='flex flex-row items-center space-x-2'>
                 <Heading size="medium">Laget av #ResearchOps med kjærleik</Heading>
-                <HandsHeart className='text-[2rem]' />
+                <HandsHeart height={'2rem'} width={'2rem'} aria-hidden />
             </div>
             <button>
                 <Heading size='medium' className='hover:underline'>Personvernsavklaring</Heading>
             </button>
-        </div>
+        </footer>
     )
 }
