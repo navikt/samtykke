@@ -11,7 +11,8 @@ import Receipt from './receipt/Receipt'
 import config from './config'
 import Skeleton from './common/Skeleton'
 import PrivacyStatement from './privacyStatement/PrivacyStatement'
-import ErrorFallback from './common/ErrorFallback'
+import ErrorFallback from './common/fallbacks/ErrorFallback'
+import RouteNotFoundFallback from './common/fallbacks/RouteNotFoundFallback'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
                 path: '/personvernerklæring',
                 element: <PrivacyStatement />
             },
+            {
+                path: '*',
+                element: <RouteNotFoundFallback />
+            }
         ]
     }
 ], {

@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import PageHeader from './PageHeader'
+import PageHeader from '../PageHeader'
 import { Alert, Link } from '@navikt/ds-react'
 import { XMarkOctagonIcon } from '@navikt/aksel-icons'
-import Header from './header/Header'
-import Footer from './Footer'
+import Header from '../header/Header'
+import Footer from '../Footer'
 
 export default function ErrorFallback(): ReactElement {
     return (
@@ -16,7 +16,7 @@ export default function ErrorFallback(): ReactElement {
                 />
                 <Alert variant='error' className='mt-10'>
                     Noe har feilet i samtykke-løsningen,
-                    &nbsp;
+                    {' '}
                     <Link 
                         href='https://www.nav.no/person/kontakt-oss/nb/tilbakemeldinger/feil-og-mangler'
                         target='_blank'
