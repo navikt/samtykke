@@ -10,6 +10,7 @@ import ActiveConsent from './activeConsent/ActiveConsent'
 import Messages from './messages/Messages'
 import config from './config'
 import Skeleton from './common/Skeleton'
+import ErrorFallback from './common/ErrorFallback'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Skeleton />,
+        errorElement: <ErrorFallback />,
         children: [
             {
                 path: '/',
