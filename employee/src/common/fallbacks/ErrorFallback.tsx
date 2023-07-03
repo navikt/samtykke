@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import Header from './header/Header'
-import PageHeader from './PageHeader'
+import Header from '../header/Header'
+import PageHeader from '../PageHeader'
 import { XMarkOctagonIcon } from '@navikt/aksel-icons'
 import { Alert } from '@navikt/ds-react'
 

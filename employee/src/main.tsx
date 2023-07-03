@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, createRoutesFromElements, HashRouter, Outlet, Route, RouterProvider, Routes } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import '@navikt/ds-css'
 import Landing from './landing/Landing'
@@ -10,7 +10,8 @@ import ActiveConsent from './activeConsent/ActiveConsent'
 import Messages from './messages/Messages'
 import config from './config'
 import Skeleton from './common/Skeleton'
-import ErrorFallback from './common/ErrorFallback'
+import ErrorFallback from './common/fallbacks/ErrorFallback'
+import RouteNotFoundFallback from './common/fallbacks/RouteNotFoundFallback'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/meldinger',
                 element: <Messages />
+            },
+            {
+                path: '*',
+                element: <RouteNotFoundFallback />
             }
         ],
     }
