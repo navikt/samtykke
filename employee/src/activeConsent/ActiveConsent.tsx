@@ -22,7 +22,7 @@ export default function ActiveConsent(): ReactElement {
 
     return (
         <main className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
-            {isLoading ? <Skeleton variant='rectangle' width='100%' height={700} /> : 
+            {isLoading ? <Skeleton variant='rectangle' width='100%' height={500} /> : 
                 <>
                     {consent ? (
                         <>
