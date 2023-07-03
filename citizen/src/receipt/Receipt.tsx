@@ -17,6 +17,24 @@ export default function Receipt(): ReactElement {
         receiptType: EnumConsentReceipt
     } = state || {}
 
+    const renderReceiptBasedOnType = (
+        receiptType: EnumConsentReceipt, 
+        consent: IConsent
+    ): ReactElement => {
+        switch(receiptType) {
+            case EnumConsentReceipt.Accepted:
+                return <AcceptedReceipt 
+                    consentTitle={consent.title}
+                    consentExpiration={consent.expiration}
+                    consentCode={consent.code}
+                />
+            case EnumConsentReceipt.Updated:
+                return <UpdatedReceipt consentTitle={consent.title} />
+            case EnumConsentReceipt.Withdrawn:
+                return <WithdrawnReceipt consentTitle={consent.title}/>
+        }
+    }
+
     return (
         <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
             <PageHeader 
@@ -26,17 +44,7 @@ export default function Receipt(): ReactElement {
             {state ? (
                 <div className='flex justify-center'>
                     <div className='mt-8 lg:w-1/2'>
-                        {receiptType === EnumConsentReceipt.Accepted && (
-                            <AcceptedReceipt 
-                                consentTitle={consent.title}
-                                consentExpiration={consent.expiration}
-                                consentCode={consent.code}
-                            />
-                        ) || receiptType === EnumConsentReceipt.Updated && (
-                            <UpdatedReceipt consentTitle={consent.title} />
-                        ) || receiptType === EnumConsentReceipt.Withdrawn && (
-                            <WithdrawnReceipt consentTitle={consent.title}/>
-                        )}
+                        {renderReceiptBasedOnType(receiptType, consent)}
                     </div>
                 </div>
             ) : <Heading size='large' as="span">Ingen kvitering å vise</Heading>}
