@@ -9,31 +9,16 @@ import { getISODateString } from '../utils/date'
 import CandidatesList from './candidatesList/CandidatesList'
 import config from '../config'
 import DownloadPdfButton from './components/DownloadPdfButton'
+import useSWR from 'swr'
+import { fetcher } from '../utils/fetcher'
 
 export default function ActiveConsent(): ReactElement {
     
     const { code } = useParams()
     
-    const [consent, setConsent] = useState<IConsent>()
-
+    const { data: consent } = useSWR(`${config.apiPath}/consent/${code}`, fetcher<IConsent>)
+    
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
-
-    const getConsent = async () => {
-        try {
-            const { data }: { data: IConsent } = await axios.get(`${config.apiPath}/consent/${code}`)
-            setConsent(data)
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                if (error.response?.status === 404) {
-                    setApiErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
-                } else setApiErrorMessage('Noe gikk galt i hentingen av samtykke...')
-            }
-        }
-    }
-
-    useEffect(() => {
-        getConsent()
-    }, [])
 
     return (
         <main className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
@@ -67,7 +52,7 @@ export default function ActiveConsent(): ReactElement {
                         />
                     </div>
                 </>
-            ) : <Heading size='medium' as="span">{apiErrorMessage}</Heading> 
+            ) : <Heading size='medium' as="span">Fant ikke et samtykke med kode: {code}</Heading> 
             } 
         </main>
     )
