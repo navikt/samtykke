@@ -11,6 +11,7 @@ import Receipt from './receipt/Receipt'
 import config from './config'
 import Skeleton from './common/Skeleton'
 import PrivacyStatement from './privacyStatement/PrivacyStatement'
+import ErrorFallback from './common/ErrorFallback'
 
 if (config.shouldMockAPI === 'ja') {
     worker.start({
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Skeleton />,
+        errorElement: <ErrorFallback />,
         children: [
             {
                 path: '/',
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path: '/personvernerklæring',
                 element: <PrivacyStatement />
-            }
+            },
         ]
     }
 ], {
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <div className='min-h-screen flex flex-col'>
+        <div className='min-h-screen flex flex-col bg-gray-100'>
             <RouterProvider router={router}/>
         </div>
     </React.StrictMode>
