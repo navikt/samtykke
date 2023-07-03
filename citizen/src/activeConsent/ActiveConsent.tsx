@@ -9,7 +9,7 @@ import ConsentSkeleton from '../consent/ConsentSkeleton'
 import { EnumConsentReceipt } from '../receipt/EnumConsentReceipt'
 import { IConsent } from '../types'
 import WithdrawConsentModal from './components/WithdrawConsentModal'
-import ButtonMenu from './components/buttonMenu/ButtonMenu'
+import ButtonMenu from './components/ButtonMenu'
 import { useForm } from 'react-hook-form'
 import { validEmailRegex } from '../utils/regex'
 

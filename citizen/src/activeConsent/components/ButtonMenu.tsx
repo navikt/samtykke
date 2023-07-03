@@ -2,8 +2,8 @@ import { FloppydiskIcon } from '@navikt/aksel-icons'
 import { Alert, Button } from '@navikt/ds-react'
 import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { IConsent } from '../../../types'
-import DownloadPdfButton from './DownloadPdfButton'
+import { IConsent } from '../../types'
+import DownloadPdfButton from '../../common/DownloadPdfButton'
 
 interface IProps {
     consent: IConsent
@@ -26,7 +26,8 @@ export default function ResponsiveButtonMenu({
             <div className='flex flex-row space-x-4'>
                 <DownloadPdfButton 
                     setApiErrorMessage={setApiErrorMessage}
-                    consent={consent}
+                    consentCode={consent.code}
+                    consentTitle={consent.title}
                     className='w-1/2 grow'
                 />
                 {candidateChanged ? (

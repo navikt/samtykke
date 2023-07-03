@@ -2,10 +2,10 @@ import { Alert, BodyLong, Button } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import ReceiptTemplate from './ReceiptTemplate'
 import { getISODateString } from '../../utils/date'
-import { Download } from '@navikt/ds-icons'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import config from '../../config'
+import DownloadPdfButton from '../../common/DownloadPdfButton'
 
 export default function AcceptedReceipt({
     consentTitle,
@@ -19,31 +19,7 @@ export default function AcceptedReceipt({
 
     const navigate = useNavigate()
 
-    const [downloadPDFErrorMessage, setDownloadPDFErrorMessage] = useState<string>('')
-
-    const [downloadingConsent, setDownloadingConsent] = useState<boolean>(false)
-
-    const downloadConsent = async () => {
-        setDownloadingConsent(true)
-
-        try {
-            await axios
-                .get(`${config.apiPath}/consent/${consentCode}/pdf`, { responseType: 'blob' })
-                .then(res => {
-                    const link = document.createElement('a')
-
-                    link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
-                    link.setAttribute('download', `Samtykke-${consentTitle}.pdf`)
-                    link.click()
-
-                    link.remove()
-                })
-        } catch (error) {
-            setDownloadPDFErrorMessage('Noe gikk galt i nedlastningen av PDF')
-        }
-
-        setDownloadingConsent(false)
-    }
+    const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     return (
         <div>
@@ -58,19 +34,16 @@ export default function AcceptedReceipt({
                 </BodyLong>
             </ReceiptTemplate>
             <div className='flex justify-between my-4 px-2'>
-                <Button
-                    variant='secondary'
-                    icon={<Download aria-hidden />}
-                    onClick={downloadConsent}
-                    loading={downloadingConsent}
-                >
-                    Last ned
-                </Button>
+                <DownloadPdfButton 
+                    setApiErrorMessage={setApiErrorMessage}
+                    consentCode={consentCode}
+                    consentTitle={consentTitle}
+                />
                 <Button onClick={() => navigate('/')}>Lukk</Button>
             </div>
-            {downloadPDFErrorMessage && (
+            {apiErrorMessage && (
                 <Alert variant='error'>
-                    {downloadPDFErrorMessage}
+                    {apiErrorMessage}
                 </Alert>
             )}
         </div>

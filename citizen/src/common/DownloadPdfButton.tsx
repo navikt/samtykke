@@ -2,18 +2,20 @@ import { DownloadIcon } from '@navikt/aksel-icons'
 import { Button } from '@navikt/ds-react'
 import axios from 'axios'
 import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react'
-import config from '../../../config'
-import { IConsent } from '../../../types'
+import config from '../config'
+import { IConsent } from '../types'
 
 interface IProps {
     setApiErrorMessage: Dispatch<SetStateAction<string>>
-    consent: IConsent
+    consentCode: string
+    consentTitle: string
     className?: string
 }
 
 export default function DownloadPdfButton({
     setApiErrorMessage,
-    consent,
+    consentCode,
+    consentTitle,
     className
 }: IProps): ReactElement {
 
@@ -24,12 +26,12 @@ export default function DownloadPdfButton({
 
         try {
             await axios
-                .get(`${config.apiPath}/consent/${consent.code}/pdf`, { responseType: 'blob' })
+                .get(`${config.apiPath}/consent/${consentCode}/pdf`, { responseType: 'blob' })
                 .then(res => {
                     const link = document.createElement('a')
 
                     link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/pdf'}))
-                    link.setAttribute('download', `Samtykke-${consent?.title}.pdf`)
+                    link.setAttribute('download', `Samtykke-${consentTitle}.pdf`)
                     link.click()
 
                     link.remove()
