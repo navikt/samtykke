@@ -1,6 +1,5 @@
 import { FileContent } from '@navikt/ds-icons'
 import { Alert, Heading, Panel, Skeleton } from '@navikt/ds-react'
-import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
@@ -20,7 +19,7 @@ export default function ActiveConsent(): ReactElement {
         data: consent, 
         isLoading,
         error 
-    }: SWRResponse<IConsent, boolean, boolean> = useSWR(`${config.apiPath}/consent/${code}`, fetcher<IConsent>)
+    }: SWRResponse<IConsent, boolean, boolean> = useSWR(`${config.apiPath}/consent/${code}`, fetcher)
     
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 

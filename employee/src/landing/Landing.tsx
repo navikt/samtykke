@@ -16,13 +16,13 @@ export default function Landing(): ReactElement {
         data: employee,
         isLoading: employeeIsLoading,
         error: employeeError
-    }: SWRResponse<IEmployee, boolean, boolean> = useSWR(`${config.apiPath}/currentEmployee`, fetcher<IEmployee>)
+    }: SWRResponse<IEmployee, boolean, boolean> = useSWR(`${config.apiPath}/currentEmployee`, fetcher)
 
     const {
         data: consents,
         isLoading: consentsIsLoading,
         error: consentsError
-    }: SWRResponse<Array<IConsent>, boolean, boolean> = useSWR(`${config.apiPath}/consent/active`, fetcher<Array<IConsent>>)
+    }: SWRResponse<Array<IConsent>, boolean, boolean> = useSWR(`${config.apiPath}/consent/active`, fetcher)
 
     return (
         <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
