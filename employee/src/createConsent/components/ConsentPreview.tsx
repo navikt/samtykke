@@ -4,32 +4,18 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import config from '../../config'
 import { IConsent, IConsentBase, IEmployee } from '../../types'
 import { getDSISODateString } from '../../utils/date'
+import useSWR, { SWRResponse } from 'swr'
+import { fetcher } from '../../utils/fetcher'
 export default function ConsentPreview({ 
     consent
 }: { 
     consent: IConsentBase,
 }): ReactElement {
     
-    const [employee, setEmployee] = useState<IEmployee>()
-
-    const getCurrentEmployee = async () => {
-        try {
-            const { data }: { data: IEmployee } = await axios.get(`${config.apiPath}/currentEmployee`)
-            setEmployee(data)
-        } catch (error) {
-            if (error instanceof AxiosError) setEmployee({
-                firstname: 'Navn',
-                lastname: 'Navnesen',
-                email: 'navn.navnesen@nav.no',
-                consents: [],
-                messages: []
-            })
-        }
-    }
-
-    useEffect(() => {
-        getCurrentEmployee()
-    }, [])
+    const {
+        data: employee,
+        error: employeeError
+    }: SWRResponse<IEmployee, boolean> = useSWR(`${config.apiPath}/currentEmployee`, fetcher)
 
     return (
         <div>
@@ -65,13 +51,16 @@ export default function ConsentPreview({
                     deg av <u>dine rettigheter</u> kan du kontakte ansvarlig for undersøkelsen,
                     &nbsp; 
                     <span className='bg-blue-50'>
-                        {`${employee?.firstname} ${employee?.lastname}`}    
+                        {employee && !employeeError ? 
+                            `${employee.firstname} ${employee.lastname}`
+                            : 'Navn Navnesen'
+                        }    
                     </span>
                     &nbsp;
                     på e-post: 
                     &nbsp;
                     <span className='bg-blue-50'>
-                        {employee?.email}
+                        {employee && !employeeError ? employee.email : 'navn.navnesen@nav.no'}
                     </span>.
                 </BodyLong>
                 <BodyLong>

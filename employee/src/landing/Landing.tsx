@@ -32,7 +32,7 @@ export default function Landing(): ReactElement {
                         <People width="8rem" height="8rem" aria-hidden />
                         <p className='text-2xl mt-2'> 
                             {employee && !employeeError ? 
-                                `${employee?.firstname} ${employee?.lastname}` 
+                                `${employee.firstname} ${employee.lastname}` 
                                 : 'Navn Navnesen'
                             }
                         </p>
