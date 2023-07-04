@@ -1,36 +1,23 @@
 import { Findout } from '@navikt/ds-icons'
-import { Heading, LinkPanel, Panel } from '@navikt/ds-react'
+import { Heading, LinkPanel, Panel, Skeleton } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import { IConsent } from '../types'
 import config from '../config'
+import useSWR, { SWRResponse } from 'swr'
+import { fetcher } from '../utils/fetcher'
 
 export default function ActiveConsents(): ReactElement {
 
     const navigate = useNavigate()
 
-    const [activeConsents, setActiveConsents] = useState<IConsent[]>([])
-
-    const [activeConsentsErrorMessage, setActiveConsentsErrorMessage] = useState<string>('')
-
-    const getActiveConsents = async () => {
-        try {
-            const { data }: { data: IConsent[] } = await axios.get(`${config.apiPath}/consent/active/`)
-            setActiveConsents(data)
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                if (error.response?.status === 404) {
-                    setActiveConsentsErrorMessage('Fant ingen aktive samtykker')
-                } else setActiveConsentsErrorMessage('Noe gikk galt i hentingen av aktive samtykker...')
-            }
-        }
-    }
-
-    useEffect(() => {
-        getActiveConsents()
-    }, [])
+    const {
+        data: consents,
+        isLoading: consentsIsLoading,
+        error: consentsError
+    }: SWRResponse<Array<IConsent>, boolean, boolean> = useSWR(`${config.apiPath}/consent/active`, fetcher)
 
     return (
         <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
@@ -39,24 +26,26 @@ export default function ActiveConsents(): ReactElement {
                 icon={<Findout />}
             />
             <div className='mt-8'>
-                <Panel className='space-y-4'>
-                    {activeConsents.length > 0 ? (
-                        <>
-                            <Heading size="large" level="2">Aktive samtykker</Heading>
-                            {activeConsents instanceof Array && activeConsents.map((consent: IConsent, index: number) => {
-                                return (
-                                    <LinkPanel 
-                                        key={index}
-                                        className='cursor-pointer'
-                                        onClick={() => navigate(`/samtykke/${consent.code}`)}
-                                    >
-                                        <LinkPanel.Title>{consent.title}</LinkPanel.Title>
-                                    </LinkPanel>
-                                )
-                            })}
-                        </>
-                    ): <Heading size="medium" as="span">{activeConsentsErrorMessage}</Heading>}
-                </Panel>
+                {consentsIsLoading ? <Skeleton variant='rectangle' width='100%' height={250} /> : 
+                    <Panel className='space-y-4'>
+                        {consents &&  consents.length > 0 && !consentsError ? (
+                            <>
+                                <Heading size="large" level="2">Aktive samtykker</Heading>
+                                {consents instanceof Array && consents.map((consent: IConsent, index: number) => {
+                                    return (
+                                        <LinkPanel 
+                                            key={index}
+                                            className='cursor-pointer'
+                                            onClick={() => navigate(`/samtykke/${consent.code}`)}
+                                        >
+                                            <LinkPanel.Title>{consent.title}</LinkPanel.Title>
+                                        </LinkPanel>
+                                    )
+                                })}
+                            </>
+                        ): <Heading size="medium" as="span">Fant ingen aktive samtykker</Heading>}
+                    </Panel>
+                }
             </div>
         </main>
     )
