@@ -17,7 +17,8 @@ export default function ErrorFallback(): ReactElement {
                 <Alert variant='error' className='mt-10'>
                     Noe har feilet i samtykke-løsningen,
                     {' '}
-                    <Link 
+                    <Link
+                        // This link is not verified for use yet, is simply a placeholder
                         href='https://www.nav.no/person/kontakt-oss/nb/tilbakemeldinger/feil-og-mangler'
                         target='_blank'
                     >

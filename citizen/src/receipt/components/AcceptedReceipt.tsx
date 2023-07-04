@@ -25,12 +25,12 @@ export default function AcceptedReceipt({
         <div>
             <ReceiptTemplate title='Takk!'>
                 <BodyLong>
-                Du har gitt samtykke til: {consentTitle}. Vi setter pris på
-                at du vil hjelpe med å gjøre NAV bedre.
+                    Du har gitt samtykke til: {consentTitle}. Vi setter pris på
+                    at du vil hjelpe med å gjøre NAV bedre.
                 </BodyLong>
                 <BodyLong>
-                Etter {getISODateString(consentExpiration!)} vil samtykket bli slettet
-                og du må dermed laste det ned selv for å beholde det etter {getISODateString(consentExpiration!)}
+                    Etter {getISODateString(consentExpiration!)} vil samtykket bli slettet
+                    og du må dermed laste det ned selv for å beholde det etter {getISODateString(consentExpiration!)}
                 </BodyLong>
             </ReceiptTemplate>
             <div className='flex justify-between my-4 px-2'>
