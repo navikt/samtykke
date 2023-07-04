@@ -9,7 +9,7 @@ import CreateConsent from './createConsent/CreateConsent'
 import ActiveConsent from './activeConsent/ActiveConsent'
 import Messages from './messages/Messages'
 import config from './config'
-import Skeleton from './common/Skeleton'
+import AppOutlet from './common/AppOutlet'
 import ErrorFallback from './common/fallbacks/ErrorFallback'
 import RouteNotFoundFallback from './common/fallbacks/RouteNotFoundFallback'
 
@@ -24,7 +24,7 @@ if (config.shouldMockAPI === 'ja') {
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Skeleton />,
+        element: <AppOutlet />,
         errorElement: <ErrorFallback />,
         children: [
             {

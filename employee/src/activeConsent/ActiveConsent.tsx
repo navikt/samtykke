@@ -9,14 +9,18 @@ import { getISODateString } from '../utils/date'
 import CandidatesList from './candidatesList/CandidatesList'
 import config from '../config'
 import DownloadPdfButton from './components/DownloadPdfButton'
-import useSWR from 'swr'
+import useSWR, { SWRResponse } from 'swr'
 import { fetcher } from '../utils/fetcher'
 
 export default function ActiveConsent(): ReactElement {
     
     const { code } = useParams()
     
-    const { data: consent, isLoading } = useSWR(`${config.apiPath}/consent/${code}`, fetcher<IConsent>)
+    const { 
+        data: consent, 
+        isLoading,
+        error 
+    }: SWRResponse<IConsent, boolean, boolean> = useSWR(`${config.apiPath}/consent/${code}`, fetcher<IConsent>)
     
     const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
@@ -24,7 +28,7 @@ export default function ActiveConsent(): ReactElement {
         <main className='flex flex-col mt-10 px-4 lg:mt-10 lg:px-12'>
             {isLoading ? <Skeleton variant='rectangle' width='100%' height={500} /> : 
                 <>
-                    {consent ? (
+                    {consent && !error ? (
                         <>
                             <PageHeader 
                                 title={consent.title}
