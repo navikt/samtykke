@@ -1,11 +1,11 @@
 import { BodyLong, BodyShort, Checkbox, CheckboxGroup, ConfirmationPanel, Heading, Link, Panel, TextField } from '@navikt/ds-react'
-import axios, { AxiosError } from 'axios'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import config from '../../config'
-import { IConsent, IConsentBase, IEmployee } from '../../types'
+import { IConsentBase, IEmployee } from '../../types'
 import { getDSISODateString } from '../../utils/date'
 import useSWR, { SWRResponse } from 'swr'
 import { fetcher } from '../../utils/fetcher'
+
 export default function ConsentPreview({ 
     consent
 }: { 
