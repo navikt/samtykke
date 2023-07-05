@@ -32,7 +32,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
             const { status } = await axios.post(`${config.apiPath}/consent/${consent.code}/canditature/`, {
                 name: data.name,
                 email: data.email,
-                status: EnumCandidateStatus.Accepted,
                 audioRecording: data.audioRecording,
             })
             if (status === 200) navigate('/kvitering', { 
