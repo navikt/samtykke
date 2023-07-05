@@ -6,39 +6,26 @@ import ActiveConsent from '../activeConsent/ActiveConsent'
 import config from '../config'
 import GiveConsent from '../giveConsent/GiveConsent'
 import { ICandidate, IConsent, IConsentBase } from '../types'
+import useSWR, { SWRResponse } from 'swr'
+import { fetcher } from '../utils/fetcher'
 
 export default function Consent(): ReactElement {
 
-    const [consent, setConsent] = useState<IConsent>()
-
     const { code } = useParams()
-    
-    const [consentErrorMessage, setConsentErrorMessage] = useState<string>('')
 
-    const getConsent = async () => {
-        try {
-            const { data }: { data: IConsent } = await axios.get(`${config.apiPath}/consent/${code}/canditature/`)
-            setConsent(data)
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                if (error.response?.status === 404) {
-                    setConsentErrorMessage(`Fant ikke et samtykke med kode: ${code}`)
-                } else setConsentErrorMessage('Noe gikk galt i hentingen av samtykke...')
-            }
-        }
-    }
-
-    useEffect(() => {
-        getConsent()
-    }, [])
+    const {
+        data: consent,
+        isLoading: consentIsLoading,
+        error: consentError
+    }: SWRResponse<IConsent, boolean, boolean> = useSWR(`${config.apiPath}/consent/${code}/canditature`, fetcher)
 
     return (
         <main>
-            {consent ? (
+            {consent && !consentError ? (
                 consent.candidates && consent.candidates.length === 1 ? 
                     <ActiveConsent consent={consent}/> 
                     : <GiveConsent consent={consent}/>
-            ) : <Heading size='medium' as="span">{consentErrorMessage}</Heading>}
+            ) : <Heading size='medium' as="span">{`Fant ikke et samtykke med kode: ${code}`}</Heading>}
         </main>
     )
 }

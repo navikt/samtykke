@@ -92,7 +92,7 @@ export const handlers = [
     rest.get(`${config.apiPath}/consent/active`, (req, res, ctx) => {
         return res(
             ctx.status(200),
-            ctx.json([consentsMock[0], consentsMock[1]]),
+            ctx.json([consentsMock[0]]),
         )
     }),
 
@@ -109,7 +109,7 @@ export const handlers = [
     }),
 
     rest.get(
-        `${config.apiPath}/consent/:code/canditature/`,
+        `${config.apiPath}/consent/:code/canditature`,
         (req, res, ctx) => {
             const { code } = req.params
 
