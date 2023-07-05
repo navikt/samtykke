@@ -18,7 +18,6 @@ const employeeMock: IEmployee = {
             code: 'X76-2B3',
             expiration: new Date(),
             endResult: 'visuell mapping',
-            slackChannelId: 'dd',
             candidates: [
                 {
                     id: '21097oifdsh',
@@ -67,7 +66,6 @@ const employeeMock: IEmployee = {
             code: 'L90-12N',
             expiration: new Date(),
             endResult: 'rapport',
-            slackChannelId: 'dd',
             candidates: [],
         },
         {
@@ -79,7 +77,6 @@ const employeeMock: IEmployee = {
             code: '12J-0ZA',
             expiration: new Date(),
             endResult: 'rapport',
-            slackChannelId: 'dd',
             candidates: [],
         },
     ],
