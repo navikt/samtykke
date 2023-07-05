@@ -61,7 +61,7 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
     }
 
     return (
-        <div className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
+        <>
             <PageHeader 
                 title="Administrer samtykke"
                 icon={<FileContent />}
@@ -128,6 +128,6 @@ export default function ActiveConsent({ consent }: { consent: IConsent}): ReactE
                 setOpen={setOpenWithdrawConsentModal}
                 consent={consent}
             />
-        </div>
+        </>
     )
 }

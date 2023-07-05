@@ -33,7 +33,6 @@ export default function Landing(): ReactElement {
         } else {
             setCodeErrorMessage('Samtykke-kode er på feil format')
         }
-
     }
 
     return (
