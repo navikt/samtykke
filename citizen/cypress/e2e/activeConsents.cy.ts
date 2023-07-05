@@ -6,6 +6,7 @@ describe('active consents behaves as expected', () => {
         testAccesibility()
 
         cy.findByText('Brukertest av NAV.no').click()
+        cy.findByText('Administrer samtykke')
         cy.findByText('Samtykke for: Brukertest av NAV.no')
     })
 })
