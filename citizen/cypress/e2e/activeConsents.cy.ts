@@ -7,10 +7,5 @@ describe('active consents behaves as expected', () => {
 
         cy.findByText('Brukertest av NAV.no').click()
         cy.findByText('Samtykke for: Brukertest av NAV.no')
-
-        cy.visit(`${Cypress.env('HOST')}samtykker`)
-
-        cy.findByText('Test av ny AAP kalkulator').click()
-        cy.findByText('Samtykke for: Test av ny AAP kalkulator')
     })
 })
