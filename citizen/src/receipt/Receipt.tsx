@@ -15,7 +15,7 @@ export default function Receipt(): ReactElement {
     const { consent, receiptType }: { 
         consent: IConsent
         receiptType: EnumConsentReceipt
-    } = state || {}
+    } = state ?? {}
 
     const renderReceiptBasedOnType = (
         receiptType: EnumConsentReceipt, 

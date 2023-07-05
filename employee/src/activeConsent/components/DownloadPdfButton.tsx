@@ -44,7 +44,7 @@ export default function DownloadPdfButton({
 
     return (
         <Button
-            className={className || ''}
+            className={className ?? ''}
             variant='secondary'
             icon={<DownloadIcon aria-hidden />}
             onClick={downloadConsent}

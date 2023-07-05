@@ -46,7 +46,7 @@ export default function Landing(): ReactElement {
                     <TextField 
                         label='Samtykke-kode'
                         description='Eksempel: AB1-C3D'
-                        value={code || ''}
+                        value={code ?? ''}
                         onChange={e => setCode(e.target.value as string)}
                         error={codeErrorMessage}
                     />

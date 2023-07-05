@@ -39,7 +39,7 @@ export interface ICandidate {
     email: string
     status: EnumCandidateStatus
     consented: Date | undefined
-    trackingNumber?: string
+    trackingNumber: string
     audioRecording: boolean
 }
 
