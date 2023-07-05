@@ -5,20 +5,20 @@ import React, { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageHeader from '../common/PageHeader'
 import config from '../config'
+import { validConsentCodeRegex } from '../utils/regex'
 
 export default function Landing(): ReactElement {
+
+    const navigate = useNavigate()
 
     const [code, setCode] = useState<string>('')
 
     const [codeErrorMessage, setCodeErrorMessage] = useState<string>('')
 
-    const navigate = useNavigate()
-
     const onLoadConsent = async () => {
-        const codeRegex = /^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$/
         if (code === '') {
             setCodeErrorMessage('Du må legge til en samtykke-kode')
-        } else if (codeRegex.test(code)) {
+        } else if (validConsentCodeRegex.test(code)) {
             try {
                 const { status }: { status: number} = await axios.get(`${config.apiPath}/consent/${code}`)
                 if (status === 200) {

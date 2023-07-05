@@ -39,7 +39,7 @@ export default function Landing(): ReactElement {
                     </>
                 }
             </div>
-            {consentsIsLoading ? <Skeleton variant='rectangle' width='100%' height={300}/> :
+            {consentsIsLoading ? <Skeleton variant='rectangle' width='100%' height={300} /> :
                 <Panel className='p-2 space-y-12'>
                     <Heading level="2" size="large">Aktive samtykker</Heading>
                     {consents && consents.length > 0 && !consentsError ? (
