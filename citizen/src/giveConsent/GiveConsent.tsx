@@ -33,7 +33,6 @@ export default function GiveConsent({ consent }: { consent: IConsent}): ReactEle
                 name: data.name,
                 email: data.email,
                 status: EnumCandidateStatus.Accepted,
-                consented: format(new Date(), 'yyyy-MM-dd'),
                 audioRecording: data.audioRecording,
             })
             if (status === 200) navigate('/kvitering', { 
