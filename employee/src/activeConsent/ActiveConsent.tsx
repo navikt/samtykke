@@ -36,7 +36,7 @@ export default function ActiveConsent(): ReactElement {
                                 <div className='flex flex-col lg:flex-row place-items-center lg:justify-evenly space-y-4'>
                                     <Heading size="medium" as="span">Kode: {consent.code}</Heading>
                                     <Heading size="medium" as="span">
-                                    Utløper: {getISODateString(consent.expiration)}
+                                        Utløper: {getISODateString(consent.expiration)}
                                     </Heading> 
                                 </div>
                             </PageHeader>
