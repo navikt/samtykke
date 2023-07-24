@@ -1,4 +1,34 @@
 # employee
+React app for ansatt siden i NAV's digitale samtykkeløsning for brukertester og avhenger av [Aksel](https://aksel.nav.no/), NAV's designsystem for gjenbruk av komponenter.
 
-## Mocking av data
-hvordan mocking skjer og hvordan skru det av og på
+## Kom i gang med utvikling
+
+### Forutsetninger
+- Node v18+
+- Yarn v1.22+
+
+### Kjør appen lokalt
+Last ned avhengigheter \
+`yarn install`
+
+Kjør uten mock data \
+`yarn dev`
+
+Kjør med mock data \
+`yarn dev:mock` 
+
+Åpne appen med følgende URL: [http://localhost:5173/ansatt/]() i en nettleser.
+
+### Kjør testing
+Ende-til-ende tester kjøres med cypress, som krever at appen kjøres lokalt først.
+
+Kjør tester via cypress konsollen \
+`yarn e2e:open`
+
+Kjør tester direkte i terminal \
+`yarn e2e:run`
+
+### Testmiljø på NAIS
+Appen's testmiljø kjører i `dev-gcp` clusteret på NAIS, og skal i utgangspunkten bli nådd fra [https://samtykke.ekstern.dev.nav.no/ansatt/]().
+
+For å inspisere appen i `dev-gcp` må [naisdevice](https://doc.nais.io/device/) være aktivert og du må være medlem av team-reasearchops. Kontakt i `#researchops` eller `#samtykke-løsning` for å få tilgang.
