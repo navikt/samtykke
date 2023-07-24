@@ -38,7 +38,7 @@ flowchart LR
 
     employee <--> samtykke-slackbot
 
-    subgraph frontend["Frontend"]
+    subgraph frontend["Samtykke frontend"]
         landing
         employee
         citizen
