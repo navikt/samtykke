@@ -8,6 +8,8 @@ React app for ansatt siden i NAV's digitale samtykkeløsning for brukertester og
 - Yarn v1.22+
 
 ### Kjør appen lokalt
+Appen kan kjøres lokalt både uten eller med mock data, for å kjøre uten mock data må [samtykke-api](https://github.com/navikt/samtykke-api) kjøres lokalt for å oppnå forventet adferd fra appen.
+
 Last ned avhengigheter \
 `yarn install`
 
