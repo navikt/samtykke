@@ -36,6 +36,8 @@ flowchart LR
     employee:::app <--> samtykke-api
     citizen:::app <--> samtykke-api
 
+    employee <--> samtykke-slackbot
+
     subgraph frontend["Frontend"]
         landing
         employee
@@ -44,7 +46,9 @@ flowchart LR
 
     samtykke-cronjob:::app -- Kjøres hver midnatt kl: 00:00 --> samtykke-api    
 
-    samtykke-api <--> samtykke-db[(samtykke-db)]:::db
+    samtykke-api:::app <--> samtykke-pdfgen
+    samtykke-api:::app <--> samtykke-db[(samtykke-db)]:::db
+    samtykke-api:::app --> samtykke-slackbot
 ```
 
 ## For NAV-ansatte
