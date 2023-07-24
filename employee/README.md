@@ -1,5 +1,5 @@
 # employee
-React app for ansatt siden i NAV's digitale samtykkeløsning for brukertester og avhenger av [Aksel](https://aksel.nav.no/), NAV's designsystem for gjenbruk av komponenter.
+React app for ansatt siden i NAV's digitale samtykkeløsning for brukertester. Appen avhenger av [Aksel](https://aksel.nav.no/), NAV's designsystem for gjenbruk av komponenter.
 
 ## Kom i gang med utvikling
 
@@ -30,7 +30,7 @@ Kjør tester via cypress konsollen \
 Kjør tester direkte i terminal \
 `yarn e2e:run`
 
-### Testmiljø på NAIS
+### Kjøremiljø på NAIS
 Appen's testmiljø kjører i `dev-gcp` clusteret på NAIS, og skal i utgangspunkten bli nådd fra [https://samtykke.ekstern.dev.nav.no/ansatt/]().
 
-For å inspisere appen i `dev-gcp` må [naisdevice](https://doc.nais.io/device/) være aktivert og du må være medlem av team-reasearchops. Kontakt i `#researchops` eller `#samtykke-løsning` for å få tilgang.
+For å inspisere appen i `dev-gcp` må [naisdevice](https://doc.nais.io/device/) være aktivert og du må være medlem av team-reasearchops. Kontakt i `#researchops` eller `#samtykke-løsning` på Slack for å få tilgang.
