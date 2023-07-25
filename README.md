@@ -52,4 +52,4 @@ flowchart LR
 ```
 
 ## For NAV-ansatte
-Interne hendveldenser kan sendes på Slack via kanalene `#researchops` eller `#samtykke-løsning`.
+Interne henvendelser kan sendes på Slack via kanalene `#researchops` eller `#samtykke-løsning`.
