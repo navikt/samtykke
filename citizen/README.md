@@ -30,7 +30,7 @@ Kjør tester via cypress konsollen \
 Kjør tester direkte i terminal \
 `yarn e2e:run`
 
-### Kjøremiljø på NAIS
+### Testmiljø på NAIS
 Appen's testmiljø kjører i `dev-gcp` clusteret på NAIS, og skal i utgangspunkten bli nådd fra [https://samtykke.ekstern.dev.nav.no/innbygger/]().
 
 For å inspisere appen i `dev-gcp` må [naisdevice](https://doc.nais.io/device/) være aktivert og du må være medlem av team-reasearchops. Kontakt i `#researchops` eller `#samtykke-løsning` på Slack for å få tilgang.
