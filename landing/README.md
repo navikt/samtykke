@@ -10,10 +10,14 @@ React app for landings-siden i NAV's digitale samtykkeløsning for brukertester.
 ### Kjør appen lokalt
 
 Last ned avhengigheter \
-`yarn install`
+````bash
+yarn install
+````
 
 Kjør appen \
-`yarn dev`
+````bash
+yarn dev
+````
 
 Åpne appen med følgende URL: [http://localhost:5173]() i en nettleser.
 
