@@ -26,8 +26,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <div className="min-h-screen flex flex-col">
-            <RouterProvider router={router}/>
-        </div>
+        <RouterProvider router={router}/>
     </React.StrictMode>,
 )

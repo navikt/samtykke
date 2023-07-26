@@ -17,7 +17,7 @@ export default function Landing(): ReactElement {
     const navigate = useNavigate()
 
     return (
-        <div className="bg-[#75c4c5] px-4 py-12 flex-1">
+        <main className="bg-[#75c4c5] px-4 py-12 flex-1">
             <div className="max-w-screen-xl mx-auto">
                 <div className="max-w-prose mx-auto text-center grid gap-4 justify-items-center">
                     <Heading level="1" size="xlarge">
@@ -58,6 +58,6 @@ export default function Landing(): ReactElement {
                     />
                 </picture>
             </div>
-        </div>
+        </main>
     )
 }

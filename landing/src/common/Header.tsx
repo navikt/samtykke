@@ -7,7 +7,7 @@ export default function Header(): ReactElement {
     const navigate = useNavigate()
 
     return (
-        <div className="flex flex-wrap items-center gap-4 justify-between bg-[#fefefe] p-4 lg:p-12 w-full">
+        <header className="flex flex-wrap items-center gap-4 justify-between bg-[#fefefe] p-4 lg:p-12 w-full">
             <button onClick={() => navigate('/')}>
                 <Heading as="span" size="xlarge" className="text-black">
                     Samtykke
@@ -22,6 +22,6 @@ export default function Header(): ReactElement {
                     Logg inn
                 </Button>
             </div>
-        </div>
+        </header>
     )
 }

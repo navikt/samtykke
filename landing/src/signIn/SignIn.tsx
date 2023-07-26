@@ -1,9 +1,10 @@
-import { BodyShort, Button, Link, Panel } from '@navikt/ds-react'
+import { BodyShort, Button, Heading, Link, Panel } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 
 export default function SignIn(): ReactElement {
     return (
-        <div className="flex-1 mt-4 lg:mt-10 px-4">
+        <main className="flex-1 mt-4 lg:mt-10 px-4">
+            <Heading size='xlarge' level='1' className='text-center py-4'>Logg inn</Heading>
             <Panel className="max-w-prose mx-auto flex flex-col items-center gap-16">
                 <Link href="/innbygger" className="pt-5">
                     <Button>Innlogging for innbyggere</Button>
@@ -18,6 +19,6 @@ export default function SignIn(): ReactElement {
                     <Button variant="secondary">Innlogging for ansatte</Button>
                 </Link>
             </Panel>
-        </div>
+        </main>
     )
 }
