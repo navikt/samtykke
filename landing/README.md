@@ -9,12 +9,12 @@ React app for landings-siden i NAV's digitale samtykkeløsning for brukertester.
 
 ### Kjør appen lokalt
 
-Last ned avhengigheter \
+Last ned avhengigheter
 ````bash
 yarn install
 ````
 
-Kjør appen \
+Kjør appen
 ````bash
 yarn dev
 ````
