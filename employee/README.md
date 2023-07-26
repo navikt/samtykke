@@ -35,7 +35,7 @@ Kjør tester via cypress konsollen
 yarn e2e:open
 ````
 
-Kjør tester direkte i terminal \
+Kjør tester direkte i terminal
 ````bash
 yarn e2e:run
 ````
