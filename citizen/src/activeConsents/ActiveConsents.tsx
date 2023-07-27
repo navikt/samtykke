@@ -1,5 +1,5 @@
 import { Findout } from '@navikt/ds-icons'
-import { Heading, LinkPanel, Panel, Skeleton } from '@navikt/ds-react'
+import { Alert, Button, Heading, LinkPanel, Panel, Skeleton } from '@navikt/ds-react'
 import axios, { AxiosError } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { IConsent } from '../types'
 import config from '../config'
 import useSWR, { SWRResponse } from 'swr'
 import { fetcher } from '../utils/fetcher'
+import DownloadJsonButton from '../common/DownloadJsonButton'
 
 export default function ActiveConsents(): ReactElement {
 
@@ -18,6 +19,8 @@ export default function ActiveConsents(): ReactElement {
         isLoading: consentsIsLoading,
         error: consentsError
     }: SWRResponse<Array<IConsent>, boolean, boolean> = useSWR(`${config.apiPath}/consent/active`, fetcher)
+
+    const [apiErrorMessage, setApiErrorMessage] = useState<string>('')
 
     return (
         <main className='flex-1 mt-10 px-4 lg:mt-10 lg:px-12'>
@@ -46,6 +49,13 @@ export default function ActiveConsents(): ReactElement {
                         ): <Heading size="medium" as="span">Fant ingen aktive samtykker</Heading>}
                     </Panel>
                 }
+                {apiErrorMessage ?? <Alert variant='error'>{apiErrorMessage}</Alert>}
+                <div className='flex justify-end w-full mt-4'>
+                    <DownloadJsonButton 
+                        setApiErrorMessage={setApiErrorMessage}
+                        consents={consents}
+                    />
+                </div>
             </div>
         </main>
     )

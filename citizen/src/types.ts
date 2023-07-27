@@ -24,7 +24,7 @@ export interface IConsentBase {
 
 export interface IConsent extends IConsentBase {
     code: string
-    employee: IEmployee
+    employee: IEmployee | null
     candidates: ICandidate[]
 }
 

@@ -3,7 +3,6 @@ import { Button } from '@navikt/ds-react'
 import axios from 'axios'
 import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react'
 import config from '../config'
-import { IConsent } from '../types'
 
 interface IProps {
     setApiErrorMessage: Dispatch<SetStateAction<string>>
