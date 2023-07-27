@@ -18,7 +18,7 @@ export default function DownloadJsonButton({
 
     const [downloadingJson, setDownloadingJson] = useState<boolean>(false)
 
-    const donwloadAsFile = async (consents: Array<IConsent>) => {
+    const donwloadAsFile = (consents: Array<IConsent>) => {
         const link = document.createElement('a')
     
         link.href = window.URL.createObjectURL(new Blob([JSON.stringify(consents)], { type: 'application/json' }))
@@ -31,27 +31,19 @@ export default function DownloadJsonButton({
     const downloadJson = async () => {
         setDownloadingJson(true)
 
-        try {
-            if (consents && consents.length > 0) {
-                const consentsWithCandidates: Array<IConsent> = []
-
-                for (const consent of consents) {
-                    await axios
-                        .get(`${config.apiPath}/consent/${consent.code}/canditature`)
-                        .then(res => {
-                            const dataCopy = {...res.data, employee: null}
-                            consentsWithCandidates.push(dataCopy)
-                        })
-                }
-
-                await donwloadAsFile(consentsWithCandidates)
-            } else {
-                setApiErrorMessage('Ingen samtykker å lase ned som JSON')
+        if (consents && consents.length > 0) {
+            Promise.all(consents.map(consent => {
+                return axios
+                    .get(`${config.apiPath}/consent/${consent.code}/canditature`)
+                    .then(res => ({ ...res.data, employee: null }))
             }
-        } catch (error) {
-            setApiErrorMessage('Noe gikk galt i nedlastningen av JSON')
+            ))
+                .then(donwloadAsFile)
+                .catch(() => setApiErrorMessage('Noe gikk galt i nedlastningen av JSON'))
+        } else {
+            setApiErrorMessage('Ingen samtykker å lase ned som JSON')
         }
-
+        
         setDownloadingJson(false)
     }
 
